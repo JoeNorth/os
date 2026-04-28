@@ -1,0 +1,20 @@
+Disable elm --optimize during the Vite build to reduce peak memory.
+
+The elm compiler's --optimize pass (whole-program inlining + dead-code
+elimination) blows up peak memory during `make ui-elm` and the build
+gets SIGKILLed during `transforming...` even with memory: 256Gi.
+Passing { optimize: false } to vite-plugin-elm drops the flag; the
+resulting bundle is larger but functionally identical.
+
+diff --git a/ui/app/vite.config.mjs b/ui/app/vite.config.mjs
+--- a/ui/app/vite.config.mjs
++++ b/ui/app/vite.config.mjs
+@@ -5,7 +5,7 @@ import { compression, defineAlgorithm } from "vite-plugin-compression2";
+ export default defineConfig({
+   base: "./",  // ensure that `--web.route.prefix` works correctly.
+   plugins: [
+-    elm(),
++    elm({ optimize: false }),
+     compression({
+       include: [/\.(eot|ttf|ico|js|mjs|json|css|html|svg)$/],
+       threshold: 0,

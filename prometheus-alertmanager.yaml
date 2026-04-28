@@ -44,6 +44,10 @@ pipeline:
       sed -i '/_ "net\/http\/pprof"/d' ui/web.go
       git diff
 
+  - uses: patch
+    with:
+      patches: no-elm-optimize.patch
+
   - runs: |
       make build
 
