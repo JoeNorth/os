@@ -1,6 +1,6 @@
 package:
   name: electric
-  version: "1.6.3"
+  version: "1.6.4"
   epoch: 0 # add set -euo pipefail to test block
   description: General-purpose programming language and runtime environment
   copyright:
@@ -33,7 +33,7 @@ environment:
 pipeline:
   - uses: git-checkout
     with:
-      expected-commit: e6dec54fba7de845e7935c04d3b162cf414842d6
+      expected-commit: b02c21d0a1e65c9c5b43fa1a97687ac587fc33c1
       repository: https://github.com/electric-sql/electric
       tag: "@core/sync-service@${{package.version}}"
 

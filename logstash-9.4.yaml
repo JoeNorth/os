@@ -9,9 +9,9 @@
 # CVE patches for default plugin dependencies are applied via Gemfile.template
 # edits before installDefaultGems runs.
 package:
-  name: logstash-9.3
-  version: "9.3.4"
-  epoch: 2 # Cleanup to match logstash-fips-9.3
+  name: logstash-9.4
+  version: "9.4.1"
+  epoch: 0
   description: Logstash - transport and process your logs, events, or other data
   copyright:
     - license: Apache-2.0
@@ -32,8 +32,9 @@ package:
 vars:
   kafka-integration-version: "12.1.1"
   java-version: "21"
-  jruby-version: "9.4"
+  jruby-version: "10.1"
   opensearch-output-version: "2.1.1"
+  ruby-version: "4.0"
 
 var-transforms:
   - from: ${{package.version}}
@@ -59,6 +60,7 @@ environment:
       - net-tools
       - openjdk-${{vars.java-version}}-default-jdk
       - posix-libc-utils
+      - ruby-${{vars.ruby-version}}
       - sed
       - yq
   environment:
@@ -81,7 +83,7 @@ pipeline:
     with:
       repository: https://github.com/elastic/logstash
       tag: v${{package.version}}
-      expected-commit: d084cc4937d87d6a41b05ceca1d8643dda10bc1b
+      expected-commit: b248f6c74ddbb2e955714521065575070d905af5
 
   # Patches:
   #
@@ -107,8 +109,15 @@ pipeline:
     with:
       patches: |
         create_archive_pack.patch
-        fix-cves.patch
         gradle-skip-macwin.patch
+        fix-cves.patch
+
+  - uses: maven/configure-mirror
+
+  - name: Install rake and bundler.
+    runs: |
+      gem install rake
+      gem install bundler
 
   - name: Install all the default plugins
     runs: |
@@ -383,7 +392,10 @@ test:
     - uses: test/tw/ver-check
       with:
         bins: ruby
-        version: ${{vars.jruby-version}}
+        match-type: regex
+        # TODO: Should be ^jruby ${{vars.jruby-version}} once we get it to
+        # use our JRuby instead of vendoring.
+        version: "^jruby 10.0"
     - uses: test/tw/help-check
       with:
         bins: pqcheck ruby system-install
@@ -408,4 +420,4 @@ update:
     identifier: elastic/logstash
     strip-prefix: v
     use-tag: true
-    tag-filter: v9.3.
+    tag-filter: v9.4.

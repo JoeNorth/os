@@ -3,7 +3,7 @@
 package:
   name: dash
   version: "0.5.13.4"
-  epoch: 0 # add ldd-check test
+  epoch: 1 # go/wolfi-rsc/dash
   description: Small and fast POSIX-compliant shell
   copyright:
     - license: BSD-3-Clause AND GPL-2.0-or-later
@@ -12,8 +12,11 @@ package:
       - merged-bin
       - wolfi-baselayout
   resources:
-    cpu: "2"
-    memory: 4Gi
+    cpu: "1"
+    memory: 1Gi
+  test-resources:
+    cpu: "1"
+    memory: 1Gi
 
 environment:
   contents:

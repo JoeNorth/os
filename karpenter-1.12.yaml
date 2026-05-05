@@ -1,7 +1,7 @@
 package:
   name: karpenter-1.12
-  version: "1.12.0"
-  epoch: 2 # go/wolfi-rsc/karpenter-1.12
+  version: "1.12.1"
+  epoch: 0 # CVE-2026-33814
   description: Karpenter is a Kubernetes Node Autoscaler built for flexibility, performance, and simplicity.
   copyright:
     - license: Apache-2.0
@@ -11,7 +11,7 @@ package:
       - karpenter-provider-aws=${{package.full-version}}
   resources:
     cpu: "2"
-    memory: 5Gi
+    memory: 8Gi
   test-resources:
     cpu: "1"
     memory: 1Gi
@@ -21,7 +21,12 @@ pipeline:
     with:
       repository: https://github.com/aws/karpenter-provider-aws
       tag: v${{package.version}}
-      expected-commit: 7ff7943a971ba3df0ff755677fd76c13b11afef0
+      expected-commit: 15781e312b8e01d4c2caecd9a4f5c7a70d84a6a0
+
+  - uses: bump
+    with:
+      deps: |-
+        golang.org/x/net@v0.53.0
 
   - uses: go/build
     with:
