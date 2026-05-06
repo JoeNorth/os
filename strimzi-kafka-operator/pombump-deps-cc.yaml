@@ -4,7 +4,7 @@ patches:
     version: 1.11.0
   - groupId: org.apache.kafka
     artifactId: kafka-clients
-    version: 3.9.1
+    version: 3.9.2
   - groupId: org.apache.kafka
     artifactId: kafka_2.13
     version: 3.9.1
