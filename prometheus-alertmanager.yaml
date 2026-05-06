@@ -6,8 +6,8 @@ package:
   copyright:
     - license: Apache-2.0
   resources:
-    cpu: "16"
-    memory: 256Gi
+    cpu: "3"
+    memory: 9Gi
 
 environment:
   contents:
@@ -18,8 +18,6 @@ environment:
       - ca-certificates-bundle
       - curl
       - go-1.25
-      - nodejs<21
-      - npm
 
 var-transforms:
   - from: ${{package.version}}
@@ -44,9 +42,86 @@ pipeline:
       sed -i '/_ "net\/http\/pprof"/d' ui/web.go
       git diff
 
-  - uses: patch
-    with:
-      patches: no-elm-optimize.patch
+  # alertmanager 0.32.0 introduced a vite/elm UI build that hangs
+  # indefinitely in melange's QEMU runner: vite-plugin-elm spawns
+  # `elm make` and never returns output, exhausting the 3h CI timeout
+  # regardless of memory size or vite version. The same source builds
+  # in ~22s outside melange (verified with chainguard wolfi-base + npm
+  # locally). Until that's fixed, recover the dist files from upstream's
+  # released binary, which embeds the compiled UI via go:embed: run
+  # the binary briefly as an HTTP server and crawl the routes
+  # registered in ui/web.go. UI dist is byte-identical across arches.
+  - name: Recover prebuilt UI dist from upstream binary
+    runs: |
+      set -eu
+      case "$(uname -m)" in
+        x86_64)  ARCH=amd64; SHA=be72f50f6124ec53d944c0f100f8ec8108d969bade02fcc9f06a3068ff6c726f ;;
+        aarch64) ARCH=arm64; SHA=7812e12699694974f57ecc0b0400913c6c0d90190630d4332a7994a44982b1ed ;;
+        *) echo "unsupported arch: $(uname -m)"; exit 1 ;;
+      esac
+      cd /tmp
+      TGZ="alertmanager-${{package.version}}.linux-${ARCH}.tar.gz"
+      curl -fsSL -o "${TGZ}" "https://github.com/prometheus/alertmanager/releases/download/v${{package.version}}/${TGZ}"
+      echo "${SHA}  ${TGZ}" | sha256sum -c -
+      tar -xzf "${TGZ}"
+      AM="/tmp/alertmanager-${{package.version}}.linux-${ARCH}/alertmanager"
+
+      cat > /tmp/am.yml <<'YAML'
+      route: { receiver: devnull }
+      receivers: [{ name: devnull }]
+      YAML
+      mkdir -p /tmp/am-data
+      "${AM}" --config.file=/tmp/am.yml --storage.path=/tmp/am-data \
+              --web.listen-address=127.0.0.1:9094 --cluster.listen-address="" \
+              > /tmp/am.log 2>&1 &
+      AMPID=$!
+      trap 'kill "${AMPID}" 2>/dev/null || true' EXIT
+      for _ in $(seq 1 30); do
+        curl -sf http://127.0.0.1:9094/-/ready >/dev/null 2>&1 && break
+        sleep 1
+      done
+
+      cd /home/build
+      DIST=ui/app/dist
+      mkdir -p "${DIST}/assets"
+
+      # Discover asset URLs from the served index.html (and CSS for fonts).
+      curl -sf http://127.0.0.1:9094/ -o /tmp/index.plain
+      URLS="/ /favicon.ico"
+      for u in $(grep -oE '/?assets/[A-Za-z0-9._-]+' /tmp/index.plain | sed 's,^/\?,/,' | sort -u); do
+        URLS="${URLS} ${u}"
+      done
+      for u in ${URLS}; do
+        case "${u}" in
+          *.css)
+            curl -sf "http://127.0.0.1:9094${u}" -o /tmp/style.css
+            for f in $(grep -oE 'url\(\./[A-Za-z0-9._-]+\.(woff2?|ttf|eot|svg)' /tmp/style.css | sed -E 's,url\(\./,,' | sort -u); do
+              URLS="${URLS} /assets/${f}"
+            done
+            ;;
+        esac
+      done
+
+      # ui/web.go varies encoding for css/eot/html/ico/js/svg/ttf (returns
+      # .gz/.br files directly) and serves woff/woff2 plain.
+      for u in $(echo "${URLS}" | tr ' ' '\n' | sort -u); do
+        [ -n "${u}" ] || continue
+        if [ "${u}" = "/" ]; then out="${DIST}/index.html"; else out="${DIST}${u}"; fi
+        mkdir -p "$(dirname "${out}")"
+        case "${out##*.}" in
+          woff|woff2)
+            curl -sf -H 'Accept-Encoding: identity' "http://127.0.0.1:9094${u}" -o "${out}"
+            ;;
+          *)
+            curl -sf -H 'Accept-Encoding: gzip' "http://127.0.0.1:9094${u}" -o "${out}.gz"
+            curl -sf -H 'Accept-Encoding: br'   "http://127.0.0.1:9094${u}" -o "${out}.br"
+            ;;
+        esac
+      done
+
+      # ui-elm is no longer needed since dist is in place; drop the
+      # dependency from the build target so make doesn't rerun it.
+      sed -i 's/^build: ui-elm common-build/build: common-build/' Makefile
 
   - runs: |
       make build
