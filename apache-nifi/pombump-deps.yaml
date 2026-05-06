@@ -11,3 +11,6 @@ patches:
   - groupId: org.bouncycastle
     artifactId: bcprov-jdk18on
     version: "1.84"
+  - groupId: org.apache.mina
+    artifactId: mina-core
+    version: 2.2.6
