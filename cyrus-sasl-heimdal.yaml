@@ -1,20 +1,41 @@
+# VIRTUAL PACKAGES
+# Both cyrus-sasl-heimdal and cyrus-sasl-mit provide virtual packages for
+# cyrus-sasl-libs, cyrus-sasl-dev and cyrus-sasl-doc. We need to allow them
+# to be interchangeable within the same upstream version so that the
+# heimdal vs. mit decision can be made by the end user. Normally, we'd version
+# these provides with ${{package.full-version}}, but that would arbitrarily
+# prefer whichever config has the greater epoch at the time. Instead, we
+# version them with only ${{package.version}}.
+#
+# We give the cyrus-sasl-heimdal virtual packages a higher priority for
+# backwards compatibility since -heimdal predated -mit.
 package:
-  name: cyrus-sasl
+  name: cyrus-sasl-heimdal
   version: 2.1.28
-  epoch: 50
-  description: "Cyrus Simple Authentication Service Layer (SASL)"
+  epoch: 51
+  description: "Cyrus Simple Authentication Service Layer (SASL) compiled for heimdal"
   copyright:
     - license: BSD-3-Clause
+  dependencies:
+    provides:
+      # See "VIRTUAL PACKAGES" comment
+      - cyrus-sasl=${{package.version}}
+    provider-priority: 5
   resources:
     cpu: "1"
     memory: 2Gi
+
+var-transforms:
+  - from: ${{package.name}}
+    match: '.*-(.*)'
+    replace: '$1'
+    to: gss_impl
 
 environment:
   contents:
     packages:
       - autoconf
       - automake
-      - ca-certificates-bundle
       - gcc-14-default
       - gdbm-dev
       - heimdal-dev
@@ -36,8 +57,6 @@ pipeline:
   - uses: autoconf/configure
     with:
       opts: |
-        --build=$CBUILD \
-        --host=$CHOST \
         --prefix=/usr \
         --sysconfdir=/etc \
         --localstatedir=/var \
@@ -48,7 +67,7 @@ pipeline:
         --with-configdir=/etc/sasl2 \
         --with-dbpath=/etc/sasl2/sasldb2 \
         --disable-krb4 \
-        --with-gss_impl=heimdal \
+        --with-gss_impl=${{vars.gss_impl}} \
         --enable-gssapi \
         --with-rc4 \
         --with-dblib=gdbm \
@@ -79,8 +98,13 @@ pipeline:
   - uses: strip
 
 subpackages:
-  - name: "cyrus-sasl-libs"
-    description: "Shared libraries for cyrus-sasl"
+  - name: "${{package.name}}-libs"
+    description: "Shared libraries for ${{package.name}}"
+    dependencies:
+      provides:
+        # See "VIRTUAL PACKAGES" comment
+        - cyrus-sasl-libs=${{package.version}}
+      provider-priority: 5
     pipeline:
       - uses: split/lib
         with:
@@ -114,21 +138,30 @@ subpackages:
             name: "*.so.3.0.0"
             type: f
 
-  - name: "cyrus-sasl-dev"
-    description: "headers for cyrus-sasl"
+  - name: "${{package.name}}-dev"
+    description: "headers for ${{package.name}}"
     pipeline:
       - uses: split/dev
     dependencies:
       runtime:
-        - cyrus-sasl-libs
+        - ${{package.name}}-libs=${{package.full-version}}
+      provides:
+        # See "VIRTUAL PACKAGES" comment
+        - cyrus-sasl-dev=${{package.version}}
+      provider-priority: 5
     test:
       pipeline:
         - uses: test/tw/devpackage
         - uses: test/pkgconf
         - uses: test/tw/ldd-check
 
-  - name: "cyrus-sasl-doc"
-    description: "cyrus-sasl manpages"
+  - name: "${{package.name}}-doc"
+    description: "${{package.name}} manpages"
+    dependencies:
+      provides:
+        # See "VIRTUAL PACKAGES" comment
+        - cyrus-sasl-doc=${{package.version}}
+      provider-priority: 5
     pipeline:
       - uses: split/manpages
       # this happens because we are missing a build dep 'Pod::POM::View::Restructured'
@@ -148,6 +181,14 @@ update:
     tag-filter: cyrus-sasl-
 
 test:
+  environment:
+    contents:
+      packages:
+        # This is a hack to make sure that cyrus-sasl-heimdal and
+        # cyrus-sasl-mit get updated together. Otherwise, we risk
+        # one becoming the only variant providing a virtual package for
+        # that upstream version, nullifying our provider-priority.
+        - cyrus-sasl-mit-doc~=${{package.version}}
   pipeline:
     - name: Test saslpasswd2 and sasldblistusers2 functionality
       runs: |
