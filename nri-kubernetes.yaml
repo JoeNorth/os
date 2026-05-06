@@ -1,6 +1,6 @@
 package:
   name: nri-kubernetes
-  version: "4.0.1"
+  version: "4.1.0"
   epoch: 0 # go/wolfi-rsc/nri-kubernetes
   description: New Relic integration for Kubernetes
   copyright:
@@ -21,7 +21,7 @@ pipeline:
     with:
       repository: https://github.com/newrelic/nri-kubernetes
       tag: v${{package.version}}
-      expected-commit: 8e046f96a0a9274dcb344f27846844760debece4
+      expected-commit: 48c403f31dc0100354e827eb03d6f6020552afe8
 
   - uses: go/build
     with:
