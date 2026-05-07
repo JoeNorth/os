@@ -1,7 +1,7 @@
 package:
   name: newrelic-infra-operator
   version: "0.27.2"
-  epoch: 0 # use absolute path in daemon test start
+  epoch: 1 # use absolute path in daemon test start
   description: Newrelic kubernetes operator of infrastructure
   copyright:
     - license: Apache-2.0
