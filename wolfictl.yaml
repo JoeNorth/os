@@ -1,12 +1,12 @@
 package:
   name: wolfictl
   version: "0.39.14"
-  epoch: 0 # GHSA-3xc5-wrhm-f963
+  epoch: 1 # go/wolfi-rsc/wolfictl
   description: Helper CLI for managing Wolfi
   copyright:
     - license: Apache-2.0
   resources:
-    cpu: "5"
+    cpu: "3"
     memory: 12Gi
   test-resources:
     cpu: "1"
