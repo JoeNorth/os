@@ -11,3 +11,6 @@ patches:
   - groupId: org.apache.kafka
     artifactId: kafka-clients
     version: 3.9.2
+  - groupId: org.postgresql
+    artifactId: postgresql
+    version: 42.7.11
