@@ -1,7 +1,7 @@
 # Generated from https://git.alpinelinux.org/aports/plain/main/fish/APKBUILD
 package:
   name: fish
-  version: "4.7.0"
+  version: "4.7.1"
   epoch: 0 # GHSA-cq8v-f236-94qc
   description: Modern interactive commandline shell
   copyright:
@@ -30,7 +30,7 @@ pipeline:
     with:
       repository: https://github.com/fish-shell/fish-shell
       tag: ${{package.version}}
-      expected-commit: e071de3b68b48203a80530b6a4cd286f8811ca4a
+      expected-commit: efb0223da10367031b7c887a3e40eccdf9bf7b06
 
   - uses: rust/cargobump
 
