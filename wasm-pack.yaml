@@ -1,13 +1,16 @@
 package:
   name: wasm-pack
   version: "0.14.0"
-  epoch: 8 # GHSA-82j2-j2ch-gfr8
+  epoch: 9 # go/wolfi-rsc/wasm-pack
   description: rust to wasm build tool
   copyright:
     - license: Apache-2.0
   resources:
-    cpu: "3"
+    cpu: "2"
     memory: 7Gi
+  test-resources:
+    cpu: "1"
+    memory: 1Gi
 
 vars:
   rust-version: "1.94"
