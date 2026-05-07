@@ -1,6 +1,6 @@
 package:
   name: openjph
-  version: "0.27.0"
+  version: "0.27.1"
   epoch: 0 # go/wolfi-rsc/openjph
   description: Open source implementation of High-throughput JPEG2000 (HTJ2K)
   copyright:
@@ -25,7 +25,7 @@ pipeline:
   - uses: git-checkout
     with:
       repository: https://github.com/aous72/OpenJPH.git
-      expected-commit: c3a6d8eb28b04393260c8778fc88bac653e449a0
+      expected-commit: 871c6adf18c4875c498bafa32afb842e6b145755
       tag: ${{package.version}}
 
   - name: Configure shared build
