@@ -1,7 +1,7 @@
 package:
   name: xfsprogs
-  version: "6.19.0"
-  epoch: 8 # go/wolfi-rsc/xfsprogs
+  version: "7.0.0"
+  epoch: 0 # go/wolfi-rsc/xfsprogs
   description: XFS filesystem utilities
   copyright:
     - license: LGPL-2.1-or-later
@@ -55,7 +55,7 @@ pipeline:
     with:
       repository: https://kernel.googlesource.com/pub/scm/fs/xfs/xfsprogs-dev
       tag: v${{package.version}}
-      expected-commit: 2dd2852fd91b48217f91f8205788f09586e95f46
+      expected-commit: 640999ac318eb8550b86a178ad592c7d9ab58c48
 
   - uses: autoconf/configure
     with:
