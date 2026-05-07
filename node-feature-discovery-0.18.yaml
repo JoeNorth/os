@@ -1,7 +1,7 @@
 package:
   name: node-feature-discovery-0.18
   version: "0.18.3"
-  epoch: 12 # GHSA-hfvc-g4fc-pqhx
+  epoch: 13 # GHSA-hfvc-g4fc-pqhx
   description: Node feature discovery for Kubernetes
   copyright:
     - license: Apache-2.0
