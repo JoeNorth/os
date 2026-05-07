@@ -2,7 +2,7 @@
 package:
   name: docker-library-php
   version: "0_git20260507"
-  epoch: 0 # go/wolfi-rsc/docker-library-php
+  epoch: 1 # go/wolfi-rsc/docker-library-php
   description: "Docker Official Image packaging for PHP"
   copyright:
     - license: MIT
@@ -28,7 +28,7 @@ pipeline:
     with:
       repository: https://github.com/docker-library/php
       branch: master
-      expected-commit: f4e930a76363da0b3b2f034d8ffc0532b1f8e61a
+      expected-commit: 12b0add14b1227eb156f145fc4ad6310e81459d8
 
   - name: Install scripts
     runs: |
