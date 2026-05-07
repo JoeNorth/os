@@ -11,7 +11,7 @@
 package:
   name: logstash-9.3
   version: "9.3.4"
-  epoch: 0
+  epoch: 1 # GHSA-vcgp-9326-pqcp
   description: Logstash - transport and process your logs, events, or other data
   copyright:
     - license: Apache-2.0
@@ -96,6 +96,8 @@ pipeline:
       echo "gem 'rack-session', '>= 2.1.2'" >> Gemfile.template
       # Fix GHSA-h27x-rffw-24p4
       echo "gem 'addressable', '>= 2.9.0'" >> Gemfile.template
+      # Fix GHSA-vcgp-9326-pqcp, GHSA-75xq-5h9v-w6px, GHSA-87pf-fpwv-p7m7, GHSA-q2mw-fvj9-vvcw, GHSA-hm49-wcqc-g2xg
+      echo "gem 'net-imap', '0.5.14'" >> Gemfile.template
       # Fix GHSA-2m67-wjpj-xhg9
       echo "gem 'logstash-filter-elastic_integration', '9.4.0'" >> Gemfile.template
 
