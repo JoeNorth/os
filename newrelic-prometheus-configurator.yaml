@@ -1,7 +1,7 @@
 package:
   name: newrelic-prometheus-configurator
   version: "2.9.2"
-  epoch: 0 # go/wolfi-rsc/newrelic-prometheus-configurator
+  epoch: 1 # go/wolfi-rsc/newrelic-prometheus-configurator
   description: New Relic Prometheus Configurator
   copyright:
     - license: Apache-2.0
