@@ -1,6 +1,6 @@
 package:
   name: chezmoi
-  version: "2.70.2"
+  version: "2.70.3"
   epoch: 0 # CVE-2026-32280
   description: Manage your dotfiles across multiple diverse machines, securely.
   copyright:
@@ -23,7 +23,7 @@ pipeline:
     with:
       repository: https://github.com/twpayne/chezmoi
       tag: v${{package.version}}
-      expected-commit: b1aacd726df533ffd1f2fec7ded8e2ecfdb26e0e
+      expected-commit: ff6317e356645f92976ac8695424735cadbd5a3b
 
   - uses: go/build
     with:
