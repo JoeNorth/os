@@ -1,7 +1,7 @@
 package:
   name: pvc-autoresizer
-  version: "0.20.0"
-  epoch: 3 # CVE-2026-27140
+  version: "0.21.0"
+  epoch: 0 # CVE-2026-27140
   description: Auto-resize PersistentVolumeClaim objects based on Prometheus metrics
   copyright:
     - license: Apache-2.0
@@ -12,7 +12,7 @@ package:
 pipeline:
   - uses: git-checkout
     with:
-      expected-commit: 5968e5df269035df54af36742a07f5a0cc731377
+      expected-commit: 77d7cb216adaa82c760efe4df64e86433e321502
       repository: https://github.com/topolvm/pvc-autoresizer
       tag: v${{package.version}}
 
