@@ -2,7 +2,7 @@ package:
   name: buildkitd
   version: "0.29.0"
   description: "concurrent, cache-efficient, and Dockerfile-agnostic builder toolkit"
-  epoch: 7 # go/wolfi-rsc/buildkitd
+  epoch: 8 # go/wolfi-rsc/buildkitd
   copyright:
     - license: Apache-2.0
   dependencies:
@@ -34,7 +34,7 @@ pipeline:
       tag: v${{package.version}}
       expected-commit: 8543ce4428265d547cb009e5ad62348284497a88
 
-  - uses: go/bump
+  - uses: bump
     with:
       deps: |-
         github.com/aws/aws-sdk-go-v2/service/s3@v1.97.3
