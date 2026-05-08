@@ -1,8 +1,8 @@
 #nolint:valid-pipeline-git-checkout-tag
 package:
   name: gn
-  version: "0.0_git20260507"
-  epoch: 1
+  version: "0.0_git20260508"
+  epoch: 0
   description: "Meta-build system that generates build files for Ninja"
   copyright:
     - license: BSD-3-Clause
@@ -26,7 +26,7 @@ pipeline:
     with:
       repository: https://gn.googlesource.com/gn.git
       branch: main
-      expected-commit: 8dc9a7962b016e02df152e53a231876fcc515259
+      expected-commit: 87f790534c4a6d38e4ad53b21adddd702e98d50d
 
   - runs: |
       python${{vars.python-version}} build/gen.py
