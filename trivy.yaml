@@ -1,7 +1,7 @@
 package:
   name: trivy
   version: "0.69.3"
-  epoch: 12 # GHSA-92mm-2pjq-r785
+  epoch: 13 # GHSA-92mm-2pjq-r785
   description: Simple and comprehensive vulnerability scanner for containers
   copyright:
     - license: Apache-2.0
