@@ -1,7 +1,7 @@
 package:
   name: gitaly-18.8
   version: "18.8.9"
-  epoch: 2
+  epoch: 3
   description:
   copyright:
     - license: MIT
@@ -45,7 +45,7 @@ pipeline:
       tag: v${{package.version}}
       expected-commit: e5c1a0b1356d1664bc66ef79c0865235c9db793b
 
-  - uses: go/bump
+  - uses: bump
     with:
       deps: |-
         github.com/cloudflare/circl@v1.6.3
