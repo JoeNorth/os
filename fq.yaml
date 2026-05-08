@@ -16,7 +16,7 @@ pipeline:
       tag: v${{package.version}}
       expected-commit: 9cab49bbcadf527c5f0cb2c98bfe047451804241
 
-  - uses: go/bump
+  - uses: bump
     with:
       deps: |-
         github.com/gomarkdown/markdown@v0.0.0-20260411013819-759bbc3e3207
