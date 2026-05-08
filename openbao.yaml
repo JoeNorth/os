@@ -1,7 +1,7 @@
 package:
   name: openbao
   version: "2.5.3"
-  epoch: 1 # GHSA-pjcq-xvwq-hhpj
+  epoch: 2 # go/wolfi-rsc/openbao
   description: OpenBao exists to provide a software solution to manage, store, and distribute sensitive data including secrets, certificates, and keys.
   copyright:
     - license: MPL-2.0
@@ -12,6 +12,9 @@ package:
     runtime:
       - merged-bin
       - wolfi-baselayout
+  test-resources:
+    cpu: "1"
+    memory: 1Gi
 
 vars:
   # Node 25 removed util.isRegExp which clean-css needs for ember build
