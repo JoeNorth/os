@@ -1,7 +1,7 @@
 package:
   name: spicedb-operator
-  version: "1.24.0"
-  epoch: 1 # CVE-2026-32280
+  version: "1.25.0"
+  epoch: 0 # CVE-2026-32280
   description: Kubernetes operator for managing SpiceDB clusters
   copyright:
     - license: Apache-2.0
@@ -14,7 +14,7 @@ pipeline:
     with:
       repository: https://github.com/authzed/spicedb-operator
       tag: v${{package.version}}
-      expected-commit: 923143190139b441e6b47edf975d4dfb58120978
+      expected-commit: 9bb3af9317b0c7b0ee0e7af53c094458da2fc4f3
 
   - uses: go/bump
     with:
