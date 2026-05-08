@@ -1,7 +1,7 @@
 package:
   name: blobfuse2
   version: 2.4.2
-  epoch: 14 # go/wolfi-rsc/blobfuse2
+  epoch: 15 # go/wolfi-rsc/blobfuse2
   description: A virtual file system adapter for Azure Blob storage
   copyright:
     - license: MIT
@@ -26,7 +26,7 @@ pipeline:
       repository: https://github.com/Azure/azure-storage-fuse
       tag: ${{package.name}}-${{package.version}}
 
-  - uses: go/bump
+  - uses: bump
     with:
       deps: |-
         golang.org/x/crypto@v0.45.0
