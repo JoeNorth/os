@@ -1,13 +1,16 @@
 package:
   name: ruff
   version: "0.15.12"
-  epoch: 0 # GHSA-xphw-cqx3-667j
+  epoch: 1 # go/wolfi-rsc/ruff
   description: An extremely fast Python linter, written in Rust.
   copyright:
     - license: MIT
   resources:
-    cpu: "19"
+    cpu: "13"
     memory: 24Gi
+  test-resources:
+    cpu: "1"
+    memory: 1Gi
 
 environment:
   contents:
