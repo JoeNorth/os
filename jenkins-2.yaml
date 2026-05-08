@@ -1,6 +1,6 @@
 package:
   name: jenkins-2
-  version: "2.562"
+  version: "2.563"
   epoch: 0 # GHSA-8297-v2rf-2p32
   description: Open-source CI/CD application.
   copyright:
@@ -30,7 +30,7 @@ pipeline:
     with:
       repository: https://github.com/jenkinsci/jenkins
       tag: jenkins-${{package.version}}
-      expected-commit: 1a702e01923634a9e3d5a8c6456d2f04ecd49bac
+      expected-commit: d8b428cc7675c7769f7b98cf830c8cd8035b3866
 
   - uses: maven/pombump
 
