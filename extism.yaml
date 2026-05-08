@@ -1,13 +1,16 @@
 package:
   name: extism
   version: "1.6.3"
-  epoch: 13 # go/wolfi-rsc/extism
+  epoch: 14 # go/wolfi-rsc/extism
   description: The extism CLI is used to manage Extism installations
   copyright:
     - license: BSD-3-Clause
   resources:
-    cpu: "2"
+    cpu: "1"
     memory: 4Gi
+  test-resources:
+    cpu: "1"
+    memory: 3Gi
 
 pipeline:
   - uses: git-checkout
