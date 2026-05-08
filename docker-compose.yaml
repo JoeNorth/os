@@ -1,7 +1,7 @@
 package:
   name: docker-compose
   version: "5.1.3"
-  epoch: 1 # GHSA-w8rr-5gcm-pp58
+  epoch: 2 # GHSA-w8rr-5gcm-pp58
   description: Define and run multi-container applications with Docker
   copyright:
     - license: Apache-2.0
@@ -29,7 +29,7 @@ pipeline:
       tag: v${{package.version}}
       expected-commit: 977a4310f9f6d89d4b176fee01a5b7c109c1816a
 
-  - uses: go/bump
+  - uses: bump
     with:
       deps: |-
         go.opentelemetry.io/otel/sdk@v1.43.0
