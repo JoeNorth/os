@@ -31,7 +31,7 @@ pipeline:
       repository: https://github.com/fluxcd/flux2
       tag: v${{package.version}}
 
-  - uses: go/bump
+  - uses: bump
     with:
       deps: |-
         github.com/docker/cli@v29.2.0
@@ -42,7 +42,7 @@ pipeline:
       modroot: tests/integration
       tidy: false
 
-  - uses: go/bump
+  - uses: bump
     with:
       deps: |-
         google.golang.org/grpc@v1.79.3
