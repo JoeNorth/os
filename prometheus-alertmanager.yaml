@@ -1,6 +1,6 @@
 package:
   name: prometheus-alertmanager
-  version: "0.32.0"
+  version: "0.32.1"
   epoch: 0 # GHSA-w8rr-5gcm-pp58
   description: Prometheus Alertmanager
   copyright:
@@ -30,7 +30,7 @@ pipeline:
     with:
       repository: https://github.com/prometheus/alertmanager
       tag: v${{package.version}}
-      expected-commit: 685a2a1c6bb01b2c17bc1bfae995cb3416c1115e
+      expected-commit: 8768aa6f65f1a888b5aa5fbf877cf20ad45d1f61
 
   - uses: go/bump
     with:
@@ -61,8 +61,8 @@ pipeline:
     runs: |
       set -eu
       case "$(uname -m)" in
-        x86_64)  ARCH=amd64; SHA=be72f50f6124ec53d944c0f100f8ec8108d969bade02fcc9f06a3068ff6c726f ;;
-        aarch64) ARCH=arm64; SHA=7812e12699694974f57ecc0b0400913c6c0d90190630d4332a7994a44982b1ed ;;
+        x86_64)  ARCH=amd64; SHA=e3ba4a543111dd4bbf436838385cbf88108f0b128a723e61fe97d3569294ad4d ;;
+        aarch64) ARCH=arm64; SHA=fff322eae493eabdec5c16dfdfb26b37508aaf3ca3238ab1ed1e5bebf3ff4cd9 ;;
         *) echo "unsupported arch: $(uname -m)"; exit 1 ;;
       esac
       cd /tmp
