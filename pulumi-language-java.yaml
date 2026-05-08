@@ -1,6 +1,6 @@
 package:
   name: pulumi-language-java
-  version: "1.26.0"
+  version: "1.26.1"
   epoch: 0 # GHSA-3xc5-wrhm-f963
   description: Pulumi Language SDK for Java
   copyright:
@@ -19,7 +19,7 @@ environment:
 pipeline:
   - uses: git-checkout
     with:
-      expected-commit: b571d942ca9f102c71cb46f382af1bee4d0636ff
+      expected-commit: d14cc3b471b8219e0d61f7b237163ce2b85c67c5
       repository: https://github.com/pulumi/pulumi-java.git
       tag: v${{package.version}}
 
