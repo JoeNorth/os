@@ -2,8 +2,8 @@
 #nolint:documentation
 package:
   name: aws-cli-2
-  version: "2.34.44"
-  epoch: 1 # go/wolfi-rsc/aws-cli-2
+  version: "2.34.45"
+  epoch: 0 # go/wolfi-rsc/aws-cli-2
   description: "Universal Command Line Interface for Amazon Web Services (v2)"
   copyright:
     - license: Apache-2.0
@@ -38,7 +38,7 @@ pipeline:
   - uses: git-checkout
     with:
       repository: https://github.com/aws/aws-cli
-      expected-commit: c293d91fb6812da8ca7bf38aae0d84bde2637bfb
+      expected-commit: f3bfa35d88a77418ad05e54c7330006c01d249ae
       tag: ${{package.version}}
 
   - uses: auth/uv
