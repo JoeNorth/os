@@ -1,13 +1,16 @@
 package:
   name: crossplane-provider-sql
   version: "0.14.0"
-  epoch: 8 # drop curl|sh from cli.upbound.io; install `up` via apk
+  epoch: 9 # go/wolfi-rsc/crossplane-provider-sql
   description: Official SQL Provider for Crossplane by Upbound
   copyright:
     - license: Apache-2.0
   resources:
     cpu: "2"
     memory: 6Gi
+  test-resources:
+    cpu: "1"
+    memory: 5Gi
 
 environment:
   contents:
