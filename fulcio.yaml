@@ -1,13 +1,16 @@
 package:
   name: fulcio
   version: "1.8.5"
-  epoch: 13 # GHSA-hfvc-g4fc-pqhx
+  epoch: 14 # go/wolfi-rsc/fulcio
   description: Sigstore OIDC PKI
   copyright:
     - license: Apache-2.0
   resources:
-    cpu: "1"
+    cpu: "2"
     memory: 6Gi
+  test-resources:
+    cpu: "1"
+    memory: 3Gi
 
 environment:
   environment:
