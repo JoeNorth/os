@@ -1,6 +1,6 @@
 package:
   name: kubescape
-  version: "4.0.6"
+  version: "4.0.7"
   epoch: 0 # GHSA-gj49-89wh-h4gj
   description: Kubescape is an open-source Kubernetes security platform for your IDE, CI/CD pipelines, and clusters. It includes risk analysis, security, compliance, and misconfiguration scanning, saving Kubernetes users and administrators precious time, effort, and resources.
   copyright:
@@ -12,7 +12,7 @@ package:
 pipeline:
   - uses: git-checkout
     with:
-      expected-commit: c36463cdcb4fbe2646e8ebc819059ef48eb752c1
+      expected-commit: 3b9a22164e5165768d472b1761b061b3aa77f787
       recurse-submodules: "true"
       repository: https://github.com/kubescape/kubescape
       tag: v${{package.version}}
