@@ -17,3 +17,6 @@ patches:
   - groupId: io.netty
     artifactId: netty-codec-http
     version: 4.1.133.Final
+  - groupId: org.springframework.security
+    artifactId: spring-security-oauth2-jose
+    version: 6.5.10
