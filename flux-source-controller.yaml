@@ -1,7 +1,7 @@
 package:
   name: flux-source-controller
   version: "1.8.2"
-  epoch: 6 # GHSA-pjcq-xvwq-hhpj
+  epoch: 7 # GHSA-pjcq-xvwq-hhpj
   description: The GitOps Toolkit source management component
   copyright:
     - license: Apache-2.0
