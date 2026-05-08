@@ -1,6 +1,6 @@
 package:
   name: pulumi
-  version: "3.236.0"
+  version: "3.237.0"
   epoch: 0
   description: Infrastructure as Code in any programming language
   copyright:
@@ -33,7 +33,7 @@ pipeline:
   - uses: git-checkout
     with:
       destination: ${{package.name}}
-      expected-commit: 7db07780c11de25e756f7142c93204d73dd0036a
+      expected-commit: dc35aff8263f8fcd61bf93e48937a14eda6aecc7
       repository: https://github.com/pulumi/pulumi.git
       tag: v${{package.version}}
 
