@@ -22,7 +22,7 @@ pipeline:
   - runs: |
       CGO_ENABLED=0 GO111MODULE=on GOOS=$(go env GOOS) GOARCH=$(go env GOARCH)
 
-  - uses: go/bump
+  - uses: bump
     with:
       deps: |-
         golang.org/x/oauth2@v0.27.0
