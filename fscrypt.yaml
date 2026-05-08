@@ -1,13 +1,13 @@
 package:
   name: fscrypt
   version: "0.3.6"
-  epoch: 7 # CVE-2026-32280
+  epoch: 8 # go/wolfi-rsc/fscrypt
   description: Go tool for managing Linux filesystem encryption
   copyright:
     - license: Apache-2.0
   resources:
     cpu: "2"
-    memory: 6Gi
+    memory: 2Gi
 
 environment:
   environment:
