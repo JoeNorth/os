@@ -34,7 +34,7 @@ pipeline:
       cherry-picks: |
         master/c85baa59c810: align kas semconv with otel SDK v1.43.0 (avoids "conflicting Schema URL" abort)
 
-  - uses: go/bump
+  - uses: bump
     with:
       deps: |-
         google.golang.org/grpc@v1.79.3
