@@ -1,7 +1,7 @@
 package:
   name: prism
-  version: "5.15.9"
-  epoch: 1 # GHSA-pmwg-cvhr-8vh7
+  version: "5.15.10"
+  epoch: 0 # GHSA-pmwg-cvhr-8vh7
   description: "A set of packages for API mocking and contract testing with OpenAPI v2 and OpenAPI v3.x"
   url: https://github.com/stoplightio/prism
   copyright:
@@ -27,7 +27,7 @@ environment:
 pipeline:
   - uses: git-checkout
     with:
-      expected-commit: e1ee14d3ac07fa3678a2d61bf635923df37d8d86
+      expected-commit: cd599a52d1725f622f464e0c7325de8664e8bc88
       repository: https://github.com/stoplightio/prism
       tag: v${{package.version}}
 
