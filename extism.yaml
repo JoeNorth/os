@@ -16,7 +16,7 @@ pipeline:
       tag: v${{package.version}}
       expected-commit: ad81e44233f11f1adcd3ff35d5747802490e97b0
 
-  - uses: go/bump
+  - uses: bump
     with:
       deps: |-
         golang.org/x/crypto@v0.45.0
