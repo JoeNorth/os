@@ -1,6 +1,6 @@
 package:
   name: py3-propcache
-  version: "0.5.1"
+  version: "0.5.2"
   epoch: 0
   description: Fast property caching
   copyright:
@@ -34,7 +34,7 @@ environment:
 pipeline:
   - uses: git-checkout
     with:
-      expected-commit: 9c374aa535fc054676ed84b4e709b8a29cb9a60c
+      expected-commit: 041f7afe0dff07f3baa77ff444dd735433290940
       repository: https://github.com/aio-libs/propcache
       tag: v${{package.version}}
 
