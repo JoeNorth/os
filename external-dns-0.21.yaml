@@ -37,7 +37,7 @@ pipeline:
       repository: https://github.com/kubernetes-sigs/external-dns
       tag: v${{package.version}}
 
-  - uses: go/bump
+  - uses: bump
     with:
       deps: |-
         google.golang.org/grpc@v1.79.3
