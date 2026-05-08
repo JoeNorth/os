@@ -13,4 +13,4 @@ patches:
     version: "1.84"
   - groupId: org.apache.mina
     artifactId: mina-core
-    version: 2.2.6
+    version: 2.2.7
