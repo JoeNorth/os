@@ -1,7 +1,7 @@
 package:
   name: gomplate-5
   version: "5.1.0"
-  epoch: 1 # GHSA-3xc5-wrhm-f963
+  epoch: 2 # CVE-2026-33814
   description: A go templating utility.
   copyright:
     - license: MIT
@@ -37,6 +37,10 @@ pipeline:
       expected-commit: 0f4c15bc8521939478426bf6ffca4718837b9cb4
       repository: https://github.com/hairyhenderson/gomplate
       tag: v${{package.version}}
+
+  - uses: bump
+    with:
+      deps: golang.org/x/net@v0.53.0
 
   - runs: |
       mkdir -p ${{targets.destdir}}/usr/bin
