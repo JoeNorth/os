@@ -1,7 +1,7 @@
 package:
   name: terraform-provider-azapi
   version: "2.9.0"
-  epoch: 2 # CVE-2026-32280
+  epoch: 3 # CVE-2026-33814
   description: Terraform Azure API provider
   copyright:
     - license: MPL-2.0
@@ -19,16 +19,18 @@ pipeline:
       tag: v${{package.version}}
       expected-commit: 8fe62baebe4b4aa6d514dc3edd14c97b8d929fc3
 
-  - uses: go/bump
+  - uses: bump
     with:
       deps: |-
         golang.org/x/crypto@v0.45.0
         google.golang.org/grpc@v1.79.3
+        golang.org/x/net@v0.53.0
 
   - uses: go/build
     with:
       packages: .
       output: terraform-provider-azapi
+      go-package: go-1.26
 
   - runs: |
       GOARCH=$(go env GOARCH)
@@ -52,4 +54,4 @@ test:
 environment:
   contents:
     packages:
-      - go-1.25
+      - go-1.26
