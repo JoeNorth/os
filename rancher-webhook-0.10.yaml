@@ -1,7 +1,7 @@
 package:
   name: rancher-webhook-0.10
   version: "0.10.4"
-  epoch: 1 # GHSA-mh2q-q3fh-2475
+  epoch: 2 # CVE-2026-33814
   description: Rancher webhook for Kubernetes
   copyright:
     - license: Apache-2.0
@@ -14,7 +14,7 @@ environment:
     packages:
       - busybox
       - ca-certificates-bundle
-      - go-1.25
+      - go-1.26
   environment:
     CGO_ENABLED: "0"
 
@@ -25,17 +25,19 @@ pipeline:
       repository: https://github.com/rancher/webhook
       tag: v${{package.version}}
 
-  - uses: go/bump
+  - uses: bump
     with:
       deps: |-
         github.com/Azure/go-ntlmssp@v0.1.1
-      modroot: .
+        golang.org/x/net@v0.53.0
+        golang.org/x/text@v0.36.0
 
   - uses: go/build
     with:
       modroot: .
       output: webhook
       packages: .
+      go-package: go-1.26
 
 update:
   enabled: true
