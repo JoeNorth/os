@@ -1,7 +1,7 @@
 package:
   name: neuvector-scanner
-  version: "4.155"
-  epoch: 1 # GHSA-mh2q-q3fh-2475
+  version: "4.159"
+  epoch: 0 # GHSA-mh2q-q3fh-2475
   description: NeuVector vulnerability scanner for the SUSE NeuVector Container Security Platform
   copyright:
     - license: Apache-2.0
@@ -30,7 +30,7 @@ pipeline:
     with:
       repository: https://github.com/neuvector/scanner
       tag: v${{package.version}}
-      expected-commit: df94acda9f0dec6576825845c6c7224e2f8b54cf
+      expected-commit: ea6d5f2691cbaf2dd040a2a6e3a1c2cd0876a53d
 
   - uses: go/build
     with:
