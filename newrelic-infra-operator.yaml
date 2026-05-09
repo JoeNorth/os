@@ -1,7 +1,7 @@
 package:
   name: newrelic-infra-operator
   version: "0.27.2"
-  epoch: 1 # use absolute path in daemon test start
+  epoch: 2 # CVE-2026-33814
   description: Newrelic kubernetes operator of infrastructure
   copyright:
     - license: Apache-2.0
@@ -20,6 +20,10 @@ pipeline:
       repository: https://github.com/newrelic/newrelic-infra-operator
       tag: v${{package.version}}
       expected-commit: 26a179c767127b4aa1cde1e149b45f08222112f3
+
+  - uses: bump
+    with:
+      deps: golang.org/x/net@v0.53.0
 
   - runs: |
       make build
