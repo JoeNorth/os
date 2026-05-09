@@ -1,7 +1,7 @@
 package:
   name: k8ssandra-operator
   version: "1.32.0"
-  epoch: 1 # CVE-2026-32280
+  epoch: 2 # CVE-2026-33814
   description: The Kubernetes operator for K8ssandra
   copyright:
     - license: Apache-2.0
@@ -12,6 +12,10 @@ pipeline:
       repository: https://github.com/k8ssandra/k8ssandra-operator
       tag: v${{package.version}}
       expected-commit: d3c1224a9b875083a9a0237aac0e68671960bedb
+
+  - uses: bump
+    with:
+      deps: golang.org/x/net@v0.53.0
 
   - uses: go/build
     with:
