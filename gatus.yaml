@@ -1,7 +1,7 @@
 package:
   name: gatus
   version: "5.35.0"
-  epoch: 11 # go/wolfi-rsc/gatus
+  epoch: 12 # CVE-2026-33811
   description: Automated developer-oriented status page
   copyright:
     - license: Apache-2.0
@@ -29,7 +29,7 @@ pipeline:
     with:
       packages: .
       output: gatus
-      go-package: go-1.25
+      go-package: go-1.26
 
   - runs: |
       mkdir -p ${{targets.contextdir}}/config
@@ -67,4 +67,4 @@ test:
 environment:
   contents:
     packages:
-      - go-1.25
+      - go-1.26
