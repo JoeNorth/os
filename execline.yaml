@@ -1,6 +1,6 @@
 package:
   name: execline
-  version: "2.9.9.0"
+  version: "2.9.9.1"
   epoch: 0
   description: "a small scripting language intended to be an alternative to shell scripting"
   copyright:
@@ -26,7 +26,7 @@ pipeline:
     with:
       repository: git://git.skarnet.org/execline
       tag: v${{package.version}}
-      expected-commit: ab1db58a33aa10d04cc556a24ad612cec6e3802c
+      expected-commit: 052be74f98489c711ac4f8a5421db39304e39a3f
 
   - name: Configure
     runs: |
