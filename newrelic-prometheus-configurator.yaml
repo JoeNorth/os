@@ -1,13 +1,16 @@
 package:
   name: newrelic-prometheus-configurator
   version: "2.9.2"
-  epoch: 1 # go/wolfi-rsc/newrelic-prometheus-configurator
+  epoch: 2 # go/wolfi-rsc/newrelic-prometheus-configurator
   description: New Relic Prometheus Configurator
   copyright:
     - license: Apache-2.0
   resources:
     cpu: "1"
-    memory: 1Gi
+    memory: 4Gi
+  test-resources:
+    cpu: "1"
+    memory: 8Gi
 
 environment:
   contents:
