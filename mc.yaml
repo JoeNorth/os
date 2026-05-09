@@ -1,7 +1,7 @@
 package:
   name: mc
   version: "0.20250813.083541"
-  epoch: 11 # GHSA-8rm2-7qqf-34qm
+  epoch: 12 # CVE-2026-33811
   description: Multi-Cloud Object Storage
   copyright:
     - license: AGPL-3.0-or-later
@@ -20,7 +20,7 @@ environment:
       - busybox
       - ca-certificates-bundle
       - curl
-      - go
+      - go-1.26
       - perl
 
 var-transforms:
@@ -52,6 +52,7 @@ pipeline:
       packages: .
       output: mc
       ldflags: -X github.com/minio/mc/cmd.Version=${{package.version}}
+      go-package: go-1.26
 
   - uses: strip
 
