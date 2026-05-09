@@ -1,6 +1,6 @@
 package:
   name: open-webui
-  version: "0.9.2"
+  version: "0.9.4"
   epoch: 0
   description: User-friendly AI Interface (Supports Ollama, OpenAI API, ...)
   copyright:
@@ -62,7 +62,7 @@ environment:
 pipeline:
   - uses: git-checkout
     with:
-      expected-commit: 8dae237a0bfdac4b7f55b463b3e2769ea4b94a0b
+      expected-commit: f51d2b026f1b0e7283b15f093412be8b67d24770
       repository: https://github.com/open-webui/open-webui
       tag: v${{package.version}}
 
