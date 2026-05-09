@@ -2,15 +2,18 @@
 package:
   name: py3-pycparser
   version: "3.00"
-  epoch: 5 # go/wolfi-rsc/py3-pycparser
+  epoch: 6 # go/wolfi-rsc/py3-pycparser
   description: C parser in Python
   copyright:
     - license: BSD-3-Clause
   dependencies:
     provider-priority: 0
   resources:
-    cpu: "4"
-    memory: 3Gi
+    cpu: "1"
+    memory: 5Gi
+  test-resources:
+    cpu: "1"
+    memory: 1Gi
 
 environment:
   contents:
