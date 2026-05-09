@@ -1,7 +1,7 @@
 package:
   name: crossplane-provider-keycloak
   version: "2.19.0"
-  epoch: 3 # go/wolfi-rsc/crossplane-provider-keycloak
+  epoch: 4 # CVE-2026-33814
   description: Official Keycloak Provider for Crossplane by Upbound
   copyright:
     - license: Apache-2.0
@@ -25,7 +25,7 @@ environment:
       # terraform-provider-keycloak it bundles into the xpkg artifact.
       # The FIPS variant carries curl for the same reason.
       - curl
-      - go-1.25
+      - go-1.26
       - goimports
       - gzip
       - terraform
@@ -46,6 +46,7 @@ pipeline:
       deps: |-
         google.golang.org/grpc@v1.79.3
         github.com/antchfx/xpath@v1.3.6
+        golang.org/x/net@v0.53.0
 
   - name: Code Generation
     runs: |
@@ -58,7 +59,7 @@ pipeline:
     with:
       output: crossplane-keycloak-provider
       packages: ./cmd/provider
-      go-package: go-1.25
+      go-package: go-1.26
       ldflags: |
         -X github.com/crossplane-contrib/provider-keycloak/internal/version.Version=v${{package.version}}
 
