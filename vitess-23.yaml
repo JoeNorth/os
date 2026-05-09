@@ -1,7 +1,7 @@
 package:
   name: vitess-23
   version: "23.0.4"
-  epoch: 0 # GHSA-xq3m-2v4x-88gg
+  epoch: 1 # CVE-2026-33811
   description: Autoscaling components for Kubernetes
   copyright:
     - license: Apache-2.0
@@ -43,7 +43,7 @@ environment:
       - build-base
       - busybox
       - ca-certificates-bundle
-      - go-1.25
+      - go-1.26
       - jq
       - nodejs
       - npm
@@ -79,6 +79,7 @@ pipeline:
         -X 'vitess.io/vitess/go/vt/servenv.buildGitRev=$(git rev-parse --short HEAD)'
         -X 'vitess.io/vitess/go/vt/servenv.buildGitBranch=$(git rev-parse --abbrev-ref HEAD)'
         -X 'vitess.io/vitess/go/vt/servenv.buildTime=$(date -d@${SOURCE_DATE_EPOCH} +"%a %b %d %T %Z %Y")'
+      go-package: go-1.26
 
   # Add a step to enforce secure versions of dependencies via overrides
   - name: Add dependency overrides
