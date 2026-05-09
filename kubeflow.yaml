@@ -5,7 +5,7 @@
 package:
   name: kubeflow
   version: "1.10.0"
-  epoch: 20 # CVE-2026-32280
+  epoch: 21 # CVE-2026-33811
   description: Kubeflow Go Components
   copyright:
     - license: Apache-2.0
@@ -192,4 +192,4 @@ test:
 environment:
   contents:
     packages:
-      - go-1.25
+      - go-1.26
