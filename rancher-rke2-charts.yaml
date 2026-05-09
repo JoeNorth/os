@@ -2,7 +2,7 @@
 package:
   name: rancher-rke2-charts
   version: "0_git20260509"
-  epoch: 0
+  epoch: 1
   description: Complete container management platform - rke2 charts
   copyright:
     - license: Apache-2.0
@@ -18,7 +18,7 @@ pipeline:
       repository: https://github.com/rancher/rke2-charts
       branch: main
       destination: ./charts
-      expected-commit: d44a62911fb3ee4021d9d02a9f1d83593be20192
+      expected-commit: f8a7af09daeea448ba2bf43fca21805c298c5de7
       depth: 1
 
   - runs: |
