@@ -1,7 +1,7 @@
 package:
   name: minify
   version: "2.24.13"
-  epoch: 0 # CVE-2026-27140
+  epoch: 1 # CVE-2026-39836
   description: "Go minifiers for web formats"
   copyright:
     - license: MIT
@@ -21,6 +21,7 @@ pipeline:
       packages: ./cmd/minify
       output: minify
       ldflags: -X main.Version=${{package.version}}
+      go-package: go-1.26
 
 subpackages:
   - name: minify-bash-completion
@@ -37,7 +38,7 @@ subpackages:
 environment:
   contents:
     packages:
-      - go-1.25
+      - go-1.26
 
 update:
   enabled: true
