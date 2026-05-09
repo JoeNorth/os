@@ -1,7 +1,7 @@
 package:
   name: nuclei
   version: "3.8.0"
-  epoch: 3 # GHSA-mh2q-q3fh-2475
+  epoch: 4 # CVE-2026-33811
   description: "yaml based vulnerability scanner"
   copyright:
     - license: MIT
@@ -11,7 +11,7 @@ environment:
     packages:
       - build-base
       - ca-certificates-bundle
-      - go-1.25
+      - go-1.26
       - wolfi-base
       - wolfi-baselayout
 
@@ -35,6 +35,7 @@ pipeline:
       modroot: .
       packages: cmd/nuclei/main.go
       output: nuclei
+      go-package: go-1.26
 
   - uses: strip
 
