@@ -1,7 +1,7 @@
 # Generated from https://pypi.org/project/poetry/
 package:
   name: py3-poetry
-  version: "2.4.0"
+  version: "2.4.1"
   epoch: 0 # go/wolfi-rsc/py3-poetry
   description: Python dependency management and packaging made easy.
   copyright:
@@ -40,7 +40,7 @@ pipeline:
     with:
       repository: https://github.com/python-poetry/poetry
       tag: ${{package.version}}
-      expected-commit: 3fc8b33d8c46bf3fbbf06255f1688a2a7bfdfc6b
+      expected-commit: 811a12dae0fe81f199e3f1b88b8b8be9eed543c2
 
 subpackages:
   - range: py-versions
