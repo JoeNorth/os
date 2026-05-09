@@ -1,13 +1,16 @@
 package:
   name: ocaml-dune
   version: "3.22.2"
-  epoch: 0
+  epoch: 1 # go/wolfi-rsc/ocaml-dune
   description: "Composable build system for OCaml"
   copyright:
     - license: MIT
   resources:
-    cpu: "2"
+    cpu: "1"
     memory: 4Gi
+  test-resources:
+    cpu: "1"
+    memory: 3Gi
 
 environment:
   contents:
