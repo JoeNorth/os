@@ -2,7 +2,7 @@
 #nolint:git-checkout-must-use-github-updates
 package:
   name: dash
-  version: "0.5.13.3"
+  version: "0.5.13.4"
   epoch: 0 # add ldd-check test
   description: Small and fast POSIX-compliant shell
   copyright:
@@ -30,7 +30,7 @@ pipeline:
     with:
       repository: https://kernel.googlesource.com/pub/scm/utils/dash/dash.git
       tag: v${{package.version}}
-      expected-commit: 601bc50bfc2858ab7a9ec327fe4e33a9c4877759
+      expected-commit: 6a1533f24b646364ad514c542292b5c85b2adabf
 
   - runs: ./autogen.sh
 
