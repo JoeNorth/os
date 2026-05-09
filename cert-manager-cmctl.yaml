@@ -3,7 +3,7 @@ package:
   # This got pulled from the cert-manager repo in the 1.15 release, prior to
   # that it was in the cert-manager/cert-manager repo.
   version: "2.5.0"
-  epoch: 1 # GHSA-mh2q-q3fh-2475
+  epoch: 2 # CVE-2026-33814
   description: Automatically provision and manage TLS certificates in Kubernetes
   copyright:
     - license: Apache-2.0
@@ -20,6 +20,10 @@ pipeline:
       expected-commit: 46bd6766e7c7e345b29f1bc2dc737872bce6fb66
       repository: https://github.com/cert-manager/cmctl
       tag: v${{package.version}}
+
+  - uses: bump
+    with:
+      deps: golang.org/x/net@v0.53.0
 
   - uses: go/build
     with:
