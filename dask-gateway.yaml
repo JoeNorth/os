@@ -1,7 +1,7 @@
 package:
   name: dask-gateway
   version: "2026.3.0"
-  epoch: 3 # revert Libraries conversion, OS-1979
+  epoch: 4 # CVE-2026-33811
   description: "A multi-tenant server for securely deploying and managing Dask clusters."
   copyright:
     - license: BSD-3-Clause
@@ -32,7 +32,7 @@ environment:
       - build-base
       - busybox
       - ca-certificates-bundle
-      - go
+      - go-1.26
       - py${{vars.python-version}}-build-base-dev
       - py${{vars.python-version}}-gpep517
       - py${{vars.python-version}}-hatchling
