@@ -2,7 +2,7 @@
 package:
   name: lvm2
   version: "2.03.40"
-  epoch: 0 # add LVM tests
+  epoch: 1 # go/wolfi-rsc/lvm2
   description: Logical Volume Manager 2 utilities
   copyright:
     - license: GPL-2.0-only AND LGPL-2.1-only
@@ -13,8 +13,11 @@ package:
       - merged-usrsbin
       - wolfi-baselayout
   resources:
-    cpu: "1"
+    cpu: "2"
     memory: 4Gi
+  test-resources:
+    cpu: "1"
+    memory: 1Gi
 
 var-transforms:
   - from: ${{package.version}}
