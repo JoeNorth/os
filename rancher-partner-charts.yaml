@@ -1,7 +1,7 @@
 #nolint:git-checkout-must-use-github-updates,valid-pipeline-git-checkout-tag
 package:
   name: rancher-partner-charts
-  version: "0_git20260508"
+  version: "0_git20260509"
   epoch: 0
   description: Complete container management platform - partner charts
   copyright:
@@ -18,7 +18,7 @@ pipeline:
       repository: https://github.com/rancher/partner-charts
       branch: main
       destination: ./charts
-      expected-commit: 7be44f4beef813c021e79a39627a7aeadbb3f647
+      expected-commit: 5515d57454f429b6cea8fcd45ec460a2ced52b75
       depth: 1
 
   - runs: |
