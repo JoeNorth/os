@@ -1,7 +1,7 @@
 package:
   name: vcluster
   version: "0.34.0"
-  epoch: 3
+  epoch: 4 # CVE-2026-33814
   description: Create fully functional virtual Kubernetes clusters
   copyright:
     - license: Apache-2.0
@@ -49,13 +49,14 @@ pipeline:
       go mod edit -droprequire github.com/loft-sh/e2e-framework
       sed -i '/loft-sh\/e2e-framework/d' go.sum
 
-  - uses: go/bump
+  - uses: bump
     with:
       deps: |-
         github.com/docker/cli@v29.2.0
         github.com/go-jose/go-jose/v4@v4.1.4
         github.com/aws/aws-sdk-go-v2/service/s3@v1.97.3
         github.com/moby/spdystream@v0.5.1
+        golang.org/x/net@v0.53.0
 
   - runs: |
       export RELEASE_VERSION=${{package.version}}
