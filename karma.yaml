@@ -2,7 +2,7 @@ package:
   name: karma
   version: "0.129"
   description: "A dashboard for managing alerts from Alertmanager"
-  epoch: 2 # GHSA-8rm2-7qqf-34qm
+  epoch: 3 # CVE-2026-33814
   copyright:
     - license: Apache-2.0
   resources:
