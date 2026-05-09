@@ -1,6 +1,6 @@
 package:
   name: biome
-  version: "2.4.14"
+  version: "2.4.15"
   epoch: 0 # go/wolfi-rsc/biome
   description: Fast formatter, linter, and checker for JavaScript, TypeScript, CSS, HTML, GraphQL, and more
   copyright:
@@ -23,7 +23,7 @@ pipeline:
     with:
       repository: https://github.com/biomejs/biome
       tag: "@biomejs/biome@${{package.version}}"
-      expected-commit: 46393e0240944064eb2a33c1810fc4204ced0cf7
+      expected-commit: 9dd3271eef16090416b6e77615a01e3bfbcf7993
 
   # mitigate CVE-2024-43806 GHSA-c827-hfw6-qwvm
   - uses: rust/cargobump
