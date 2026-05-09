@@ -1,7 +1,7 @@
 package:
   name: crossplane-provider-aws-kinesis
   version: "2.5.0"
-  epoch: 8 # go/wolfi-rsc/crossplane-provider-aws-kinesis
+  epoch: 9 # go/wolfi-rsc/crossplane-provider-aws-kinesis
   description: Crossplane AWS kinesis provider
   copyright:
     - license: Apache-2.0
@@ -9,7 +9,7 @@ package:
     cpu: 32
     memory: 48Gi
   test-resources:
-    cpu: "2"
+    cpu: "1"
     memory: 10Gi
 
 environment:
