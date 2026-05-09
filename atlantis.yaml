@@ -1,7 +1,7 @@
 package:
   name: atlantis
   version: "0.43.0"
-  epoch: 0
+  epoch: 1 # CVE-2026-33814
   description: Terraform Pull Request Automation
   copyright:
     - license: Apache-2.0
@@ -28,12 +28,19 @@ pipeline:
       tag: v${{package.version}}
       expected-commit: 5d8c03c198226f9e076be5c9732b37d3146c1d2f
 
+  - uses: bump
+    with:
+      deps: |-
+        golang.org/x/net@v0.53.0
+        golang.org/x/term@v0.42.0
+        golang.org/x/text@v0.36.0
+
   - uses: go/build
     with:
       modroot: .
       packages: .
       output: atlantis
-      go-package: go
+      go-package: go-1.26
       ldflags: -X main.version=${{package.version}} -X main.commit=$(git rev-parse HEAD) -X main.date=$(date ${SOURCE_DATE_EPOCH:+ -d@${SOURCE_DATE_EPOCH}} "+%Y-%m-%dT%H:%M:%SZ")
 
   - runs: |
