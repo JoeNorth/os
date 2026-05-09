@@ -3,7 +3,7 @@ package:
   # Note the npm version has been pinned to 10.8.3 to avoid the error:
   # "npm error notsup Required: {"node":">=18.10.0","npm":"^9.0.0 || ^10.0.0"}"
   version: "11.7.0"
-  epoch: 0 # CVE-2026-27143
+  epoch: 1 # CVE-2026-33811
   description: "Mattermost is an open source platform for secure collaboration across the entire software development lifecycle."
   copyright:
     - license: MIT
@@ -26,7 +26,7 @@ environment:
       - ca-certificates-bundle
       - curl
       - gnupg-scdaemon
-      - go-1.25
+      - go-1.26
       - gpg
       - libimagequant-dev
       - libpng-dev
