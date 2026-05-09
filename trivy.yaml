@@ -1,7 +1,7 @@
 package:
   name: trivy
   version: "0.69.3"
-  epoch: 13 # GHSA-92mm-2pjq-r785
+  epoch: 14 # GHSA-pmwq-pjrm-6p5r
   description: Simple and comprehensive vulnerability scanner for containers
   copyright:
     - license: Apache-2.0
@@ -19,7 +19,7 @@ pipeline:
       repository: https://github.com/aquasecurity/trivy
       tag: v${{package.version}}
 
-  - uses: go/bump
+  - uses: bump
     with:
       deps: |-
         github.com/docker/cli@v29.3.1
@@ -27,8 +27,6 @@ pipeline:
         github.com/moby/buildkit@v0.28.1
         golang.org/x/net@v0.51.0
         google.golang.org/grpc@v1.79.3
-        github.com/docker/cli@v29.2.0
-        github.com/moby/buildkit@v0.28.1
         github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream@v1.7.8
         github.com/aws/aws-sdk-go-v2/service/s3@v1.97.3
         github.com/go-jose/go-jose/v4@v4.1.4
@@ -37,8 +35,8 @@ pipeline:
         helm.sh/helm/v3@v3.20.2
         github.com/hashicorp/go-getter@v1.8.6
         github.com/sigstore/timestamp-authority/v2@v2.0.6
-      replaces: |-
-        github.com/moby/spdystream=github.com/moby/spdystream@v0.5.1
+        github.com/in-toto/in-toto-golang@v0.11.0
+      replaces: github.com/moby/spdystream=github.com/moby/spdystream@v0.5.1
 
   - uses: go/build
     with:
@@ -46,6 +44,7 @@ pipeline:
       packages: ./cmd/trivy
       output: trivy
       ldflags: -X github.com/aquasecurity/trivy/pkg/version/app.ver=${{package.version}}
+      go-package: go-1.26
 
   # Install contrib output templates (html, junit, gitlab, asff, etc.)
   # These are included in the upstream Dockerfile and required for --format template
@@ -123,4 +122,4 @@ update:
 environment:
   contents:
     packages:
-      - go-1.25
+      - go-1.26
