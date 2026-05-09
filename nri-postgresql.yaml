@@ -1,7 +1,7 @@
 package:
   name: nri-postgresql
   version: "2.27.0"
-  epoch: 0 # CVE-2026-32280
+  epoch: 1 # CVE-2026-39836
   description: New Relic Infrastructure Postgresql Integration
   copyright:
     - license: MIT
@@ -21,7 +21,7 @@ pipeline:
       modroot: .
       packages: ./src/
       output: nri-postgresql
-      go-package: go-1.25
+      go-package: go-1.26
 
   - runs: |
       mkdir -p "${{targets.destdir}}"/etc/newrelic-infra/integrations.d
@@ -76,4 +76,4 @@ test:
 environment:
   contents:
     packages:
-      - go-1.25
+      - go-1.26
