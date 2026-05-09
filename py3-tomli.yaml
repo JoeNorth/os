@@ -1,7 +1,7 @@
 package:
   name: py3-tomli
   version: "2.4.1"
-  epoch: 2 # remove py3.14 from range, use standalone py3.14-tomli instead
+  epoch: 3 # go/wolfi-rsc/py3-tomli
   description: TOML parser
   copyright:
     - license: MIT
@@ -9,7 +9,7 @@ package:
     provider-priority: 0
   resources:
     cpu: "1"
-    memory: 2Gi
+    memory: 3Gi
   test-resources:
     cpu: "1"
     memory: 1Gi
