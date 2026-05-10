@@ -1,7 +1,7 @@
 package:
   name: terraform-provider-tls
   version: "4.2.1"
-  epoch: 10 # CVE-2026-33811
+  epoch: 11 # go/wolfi-rsc/terraform-provider-tls
   description: Utility provider that works with Transport Layer Security keys and certificates.
   copyright:
     - license: MPL-2.0
@@ -11,6 +11,9 @@ package:
   resources:
     cpu: "1"
     memory: 7Gi
+  test-resources:
+    cpu: "1"
+    memory: 1Gi
 
 pipeline:
   - uses: git-checkout
