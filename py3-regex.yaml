@@ -1,8 +1,8 @@
 # Generated from https://pypi.org/project/regex/
 package:
   name: py3-regex
-  version: "2026.4.4"
-  epoch: 1 # go/wolfi-rsc/py3-regex
+  version: "2026.5.9"
+  epoch: 0 # go/wolfi-rsc/py3-regex
   description: Alternative regular expression module, to replace re.
   copyright:
     - license: Apache-2.0
@@ -36,7 +36,7 @@ environment:
 pipeline:
   - uses: git-checkout
     with:
-      expected-commit: bc57b04b00de68590345ac2eb621b9a8dd222d7d
+      expected-commit: e57d185bb711729091907b23edac5dcba0426243
       repository: https://github.com/mrabarnett/mrab-regex
       tag: ${{package.version}}
 
