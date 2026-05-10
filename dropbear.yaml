@@ -1,6 +1,6 @@
 package:
   name: dropbear
-  version: "2026.90"
+  version: "2026.91"
   epoch: 0
   description: "small SSH 2 client/server designed for small memory environments"
   copyright:
@@ -24,7 +24,7 @@ pipeline:
     with:
       repository: https://github.com/mkj/dropbear
       tag: DROPBEAR_${{package.version}}
-      expected-commit: 3d18eb4e9519d21799975cd6409acd0ceff0ad69
+      expected-commit: 191cb1158f367fd3afa68922877bed5326c9abbf
 
   - uses: autoconf/configure
     with:
