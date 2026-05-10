@@ -1,15 +1,18 @@
 package:
   name: task
   version: "3.50.0"
-  epoch: 2 # CVE-2026-33814
+  epoch: 3 # go/wolfi-rsc/task
   description: A task runner / simpler Make alternative written in Go
   copyright:
     - license: MIT
       paths:
         - "*"
   resources:
+    cpu: "2"
+    memory: 5Gi
+  test-resources:
     cpu: "1"
-    memory: 2Gi
+    memory: 1Gi
 
 pipeline:
   - uses: git-checkout
