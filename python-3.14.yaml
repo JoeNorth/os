@@ -1,7 +1,7 @@
 package:
   name: python-3.14
-  version: "3.14.4"
-  epoch: 4 # CVE-2026-6019
+  version: "3.14.5"
+  epoch: 0 # CVE-2026-6019
   description: "the Python programming language"
   copyright:
     - license: PSF-2.0
@@ -88,7 +88,7 @@ var-transforms:
 pipeline:
   - uses: git-checkout
     with:
-      expected-commit: 23116f998f6789d8c2fbe5ed5b8146854c8c2a4f
+      expected-commit: 5607950ef232dad16d75c0cf53101d9649d89115
       repository: https://github.com/python/cpython.git
       tag: v${{package.version}}
       cherry-picks: |
