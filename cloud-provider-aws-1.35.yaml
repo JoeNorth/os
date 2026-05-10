@@ -1,7 +1,7 @@
 package:
   name: cloud-provider-aws-1.35
   version: "1.35.1"
-  epoch: 5 # go/wolfi-rsc/cloud-provider-aws-1.35
+  epoch: 6 # CVE-2026-33814
   description: The AWS cloud provider provides the interface between a Kubernetes cluster and AWS service APIs.
   copyright:
     - license: Apache-2.0
@@ -27,6 +27,7 @@ pipeline:
       deps: |-
         google.golang.org/grpc@v1.79.3
         go.opentelemetry.io/otel/sdk@v1.43.0
+        golang.org/x/net@v0.53.0
       modroot: tests/e2e
 
   - uses: bump
@@ -105,4 +106,4 @@ test:
 environment:
   contents:
     packages:
-      - go-1.25
+      - go-1.26
