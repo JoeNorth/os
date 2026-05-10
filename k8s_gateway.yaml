@@ -1,7 +1,7 @@
 package:
   name: k8s_gateway
   version: "1.8.0"
-  epoch: 2 # GHSA-2wpx-qpw2-g5h5 GHSA-h8mm-c463-wjq3 GHSA-63cw-r7xf-jmwr GHSA-qhmp-q7xh-99rh GHSA-vp29-5652-4fw9
+  epoch: 3 # CVE-2026-33814
   description: A CoreDNS plugin to resolve all types of external Kubernetes resources
   copyright:
     - license: Apache-2.0
@@ -22,10 +22,11 @@ pipeline:
       tag: v${{package.version}}
       expected-commit: f3486f13b7f038dfff7b2f647c548c3bbee49d93
 
-  - uses: go/bump
+  - uses: bump
     with:
       deps: |-
         github.com/coredns/coredns@v1.14.3
+        golang.org/x/net@v0.53.0
 
   - uses: go/build
     with:
