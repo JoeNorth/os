@@ -1,7 +1,7 @@
 package:
   name: gitness
   version: "3.3.0"
-  epoch: 17 # GHSA-6pjf-3r9x-m592
+  epoch: 18 # CVE-2026-33814
   description: Gitness is an Open Source developer platform with Source Control management, Continuous Integration and Continuous Delivery.
   copyright:
     - license: Apache-2.0
@@ -15,7 +15,7 @@ environment:
       - build-base
       - busybox
       - ca-certificates-bundle
-      - go
+      - go-1.26
       - nodejs
       - protobuf
       - protoc
@@ -48,8 +48,10 @@ pipeline:
         github.com/aws/aws-sdk-go@v1.55.5
         github.com/opencontainers/image-spec@v1.1.1
         github.com/stretchr/testify@v1.11.1
-        golang.org/x/crypto@v0.49.0
-        golang.org/x/net@v0.52.0
+        golang.org/x/crypto@v0.50.0
+        golang.org/x/net@v0.53.0
+        golang.org/x/term@v0.42.0
+        golang.org/x/text@v0.36.0
 
   - runs: |
       cd web
