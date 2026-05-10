@@ -1,13 +1,16 @@
 package:
   name: cbindgen
   version: "0.29.2"
-  epoch: 3 # go/wolfi-rsc/cbindgen
+  epoch: 4 # go/wolfi-rsc/cbindgen
   description: Tool to generate C bindings from Rust code
   copyright:
     - license: MPL-2.0
   resources:
     cpu: "2"
     memory: 5Gi
+  test-resources:
+    cpu: "1"
+    memory: 1Gi
 
 vars:
   rust-version: "1.94"
