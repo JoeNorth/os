@@ -1,7 +1,7 @@
 package:
   name: opa-envoy
   version: "1.16.1"
-  epoch: 1 # GHSA-w8rr-5gcm-pp58
+  epoch: 2 # go/wolfi-rsc/opa-envoy
   description: A plugin to enforce OPA policies with Envoy.
   copyright:
     - license: Apache-2.0
@@ -9,8 +9,8 @@ package:
     provides:
       - opa=${{vars.base-semver}}
   resources:
-    cpu: "3"
-    memory: 9Gi
+    cpu: "1"
+    memory: 6Gi
   test-resources:
     cpu: "1"
     memory: 1Gi
