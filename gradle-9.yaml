@@ -3,7 +3,7 @@ package:
   version: "9.4.1"
   # For version upgrades check whether patches are still needed.
   # Upstream changes are being tracked in https://github.com/gradle/gradle/issues/25945
-  epoch: 2 # GHSA-c3fc-8qff-9hwx, GHSA-cj8j-37rh-8475
+  epoch: 3 # go/wolfi-rsc/gradle-9
   description: A Java project management and project comprehension tool.
   copyright:
     - license: Apache-2.0
@@ -11,8 +11,11 @@ package:
     provides:
       - gradle=${{ package.full-version }}
   resources:
-    cpu: "13"
-    memory: 30Gi
+    cpu: "7"
+    memory: 22Gi
+  test-resources:
+    cpu: "1"
+    memory: 1Gi
 
 environment:
   contents:
