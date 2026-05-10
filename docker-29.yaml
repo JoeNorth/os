@@ -1,7 +1,7 @@
 package:
   name: docker-29
   version: "29.4.3"
-  epoch: 0 # GHSA-hfvc-g4fc-pqhx
+  epoch: 1 # CVE-2026-33811
   description: A meta package for Docker Engine and Docker CLI
   copyright:
     - license: Apache-2.0
@@ -38,7 +38,7 @@ environment:
       - ca-certificates-bundle
       - containerd
       - coreutils
-      - go
+      - go-1.26
       - libseccomp-dev
       - libtool
       - linux-headers
