@@ -1,7 +1,7 @@
 package:
   name: kuma-2.12
   version: "2.12.3"
-  epoch: 14 # CVE-2026-33814
+  epoch: 15 # go/wolfi-rsc/kuma-2.12
   description: A multi-zone service mesh for containers, Kubernetes and VMs.
   copyright:
     - license: Apache-2.0
@@ -9,8 +9,11 @@ package:
     provides:
       - kuma=${{package.full-version}}
   resources:
-    cpu: "11"
-    memory: 16Gi
+    cpu: "6"
+    memory: 11Gi
+  test-resources:
+    cpu: "1"
+    memory: 2Gi
 
 var-transforms:
   - from: ${{package.version}}
