@@ -1,7 +1,7 @@
 package:
   name: kubernetes-1.36
   version: "1.36.0"
-  epoch: 1 # CVE-2026-33811
+  epoch: 2 # CVE-2026-33814
   description: Production-Grade Container Scheduling and Management
   copyright:
     - license: Apache-2.0
@@ -49,126 +49,33 @@ pipeline:
       tag: v${{package.version}}
       expected-commit: ecf6decece6a6de25a57aad9ba90b6ce580f6f78
 
-  - uses: go/bump
+  - uses: bump
     with:
       deps: |-
         google.golang.org/grpc@v1.79.3
-      modroot: staging/src/k8s.io/kubelet
-      tidy: false
-
-  - uses: go/bump
-    with:
-      deps: |-
-        google.golang.org/grpc@v1.79.3
-      modroot: staging/src/k8s.io/kms/internal/plugins/_mock
-      tidy: false
-
-  - uses: go/bump
-    with:
-      deps: |-
-        google.golang.org/grpc@v1.79.3
-      modroot: staging/src/k8s.io/kms
-      tidy: false
-
-  - uses: go/bump
-    with:
-      deps: |-
-        google.golang.org/grpc@v1.79.3
-      modroot: staging/src/k8s.io/externaljwt
-      tidy: false
-
-  - uses: go/bump
-    with:
-      deps: |-
-        google.golang.org/grpc@v1.79.3
-      modroot: staging/src/k8s.io/dynamic-resource-allocation
-      tidy: false
-
-  - uses: go/bump
-    with:
-      deps: |-
-        google.golang.org/grpc@v1.79.3
-      modroot: staging/src/k8s.io/cri-api
-      tidy: false
-
-  - uses: go/bump
-    with:
-      deps: |-
         go.opentelemetry.io/otel/sdk@v1.43.0
-        google.golang.org/grpc@v1.79.3
-      modroot: staging/src/k8s.io/sample-apiserver
-      tidy: false
-
-  - uses: go/bump
-    with:
-      deps: |-
-        go.opentelemetry.io/otel/sdk@v1.43.0
-        google.golang.org/grpc@v1.79.3
-      modroot: staging/src/k8s.io/pod-security-admission
-      tidy: false
-
-  - uses: go/bump
-    with:
-      deps: |-
-        go.opentelemetry.io/otel/sdk@v1.43.0
-        google.golang.org/grpc@v1.79.3
-      modroot: staging/src/k8s.io/kube-aggregator
-      tidy: false
-
-  - uses: go/bump
-    with:
-      deps: |-
-        go.opentelemetry.io/otel/sdk@v1.43.0
-        google.golang.org/grpc@v1.79.3
-      modroot: staging/src/k8s.io/cri-client
-      tidy: false
-
-  - uses: go/bump
-    with:
-      deps: |-
-        go.opentelemetry.io/otel/sdk@v1.43.0
-        google.golang.org/grpc@v1.79.3
-      modroot: staging/src/k8s.io/controller-manager
-      tidy: false
-
-  - uses: go/bump
-    with:
-      deps: |-
-        go.opentelemetry.io/otel/sdk@v1.43.0
-        google.golang.org/grpc@v1.79.3
-      modroot: staging/src/k8s.io/component-base
-      tidy: false
-
-  - uses: go/bump
-    with:
-      deps: |-
-        go.opentelemetry.io/otel/sdk@v1.43.0
-        google.golang.org/grpc@v1.79.3
-      modroot: staging/src/k8s.io/cloud-provider
-      tidy: false
-
-  - uses: go/bump
-    with:
-      deps: |-
-        go.opentelemetry.io/otel/sdk@v1.43.0
-        google.golang.org/grpc@v1.79.3
-      modroot: staging/src/k8s.io/apiserver
-      tidy: false
-
-  - uses: go/bump
-    with:
-      deps: |-
-        go.opentelemetry.io/otel/sdk@v1.43.0
-        google.golang.org/grpc@v1.79.3
-      modroot: staging/src/k8s.io/apiextensions-apiserver
-      tidy: false
-
-  - uses: go/bump
-    with:
-      deps: |-
-        go.opentelemetry.io/otel/sdk@v1.43.0
-        google.golang.org/grpc@v1.79.3
-      work: true
+        golang.org/x/net@v0.53.0
+        golang.org/x/term@v0.42.0
+        golang.org/x/text@v0.36.0
+        golang.org/x/crypto@v0.50.0
+        golang.org/x/sys@v0.43.0
+      modroot: |-
+        staging/src/k8s.io/kubelet
+        staging/src/k8s.io/kms/internal/plugins/_mock
+        staging/src/k8s.io/kms
+        staging/src/k8s.io/externaljwt
+        staging/src/k8s.io/dynamic-resource-allocation
+        staging/src/k8s.io/cri-api
+        staging/src/k8s.io/sample-apiserver
+        staging/src/k8s.io/pod-security-admission
+        staging/src/k8s.io/kube-aggregator
+        staging/src/k8s.io/cri-client
+        staging/src/k8s.io/controller-manager
+        staging/src/k8s.io/component-base
+        staging/src/k8s.io/cloud-provider
+        staging/src/k8s.io/apiserver
+        staging/src/k8s.io/apiextensions-apiserver
+        .
 
   # fixes mismatch between current go version and what is defined in go.work
   - runs: |
