@@ -1,16 +1,16 @@
 package:
   name: at-spi2-core
   version: "2.60.3"
-  epoch: 0 # go/wolfi-rsc/at-spi2-core
+  epoch: 1 # go/wolfi-rsc/at-spi2-core
   description: Protocol definitions and daemon for D-Bus at-spi
   copyright:
     - license: LGPL-2.0-or-later
   resources:
     cpu: "1"
-    memory: 7Gi
+    memory: 2Gi
   test-resources:
     cpu: "1"
-    memory: 8Gi
+    memory: 1Gi
 
 environment:
   contents:
