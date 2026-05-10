@@ -2,7 +2,7 @@ package:
   name: buildah
   version: "1.43.1"
   description: "A tool that facilitates building OCI images"
-  epoch: 2 # GHSA-mh2q-q3fh-2475
+  epoch: 3 # CVE-2026-33811
   copyright:
     - license: Apache-2.0
   dependencies:
@@ -21,7 +21,7 @@ environment:
     packages:
       - busybox
       - ca-certificates-bundle
-      - go
+      - go-1.26
       - gpgme-dev
       - libassuan-dev
       - libgpg-error-dev
