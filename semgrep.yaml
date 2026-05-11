@@ -65,7 +65,7 @@ pipeline:
   - name: Change tree sitter version to 0.25
     runs: |
       # The tree-sitter version in the repo is 0.20.6, but we need to use 0.25.3
-      sed -i 's/0\.20\.6/0.25.3/g' libs/ocaml-tree-sitter-core/tree-sitter-version.default
+      sed -i 's/0\.22\.6/0.26.8/g' libs/ocaml-tree-sitter-core/tree-sitter-version.default
 
   - name: "initialize the environment"
     runs: |
