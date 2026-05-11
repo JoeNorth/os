@@ -1,7 +1,7 @@
 package:
   name: newrelic-k8s-metadata-injection
-  version: "1.42.0"
-  epoch: 1 # CVE-2026-32280
+  version: "1.42.1"
+  epoch: 0 # CVE-2026-32280
   description: Kubernetes metadata injection for New Relic APM to make a linkage between APM and Infrastructure data.
   copyright:
     - license: Apache-2.0
@@ -17,7 +17,7 @@ environment:
 pipeline:
   - uses: git-checkout
     with:
-      expected-commit: feaa3f35a40897b73d5343db0f2f46781c017163
+      expected-commit: 432e942e6dcb46e385c29f6572faa6ac034a88b1
       repository: https://github.com/newrelic/k8s-metadata-injection
       tag: v${{package.version}}
 
