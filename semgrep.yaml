@@ -1,4 +1,4 @@
-/package:
+package:
   name: semgrep
   version: "1.162.0"
   epoch: 0
