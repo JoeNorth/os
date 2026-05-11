@@ -15,8 +15,8 @@ var-transforms:
 package:
   name: gitlab-runner-18.11
   # ---Additional updates required--- Review 'vars' section (above), when reviewing version bumps.
-  version: "18.11.2"
-  epoch: 5 # GHSA-pmwq-pjrm-6p5r
+  version: "18.11.3"
+  epoch: 0 # GHSA-pmwq-pjrm-6p5r
   description: GitLab Runner is the open source project that is used to run your CI/CD jobs and send the results back to GitLab
   copyright:
     - license: MIT
@@ -29,7 +29,7 @@ pipeline:
     with:
       repository: https://gitlab.com/gitlab-org/gitlab-runner
       tag: v${{package.version}}
-      expected-commit: 6822948553cf9cba4bb3c063f36e1a6001746af2
+      expected-commit: ad1797b33167da20f3d158339e0081c0fa9c4dab
 
   - name: Verify base-images-tag matches the expected upstream value
     runs: |
