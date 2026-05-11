@@ -1,7 +1,7 @@
 package:
   name: src
-  version: "7.2.1"
-  epoch: 3 # CVE-2026-33814
+  version: "7.2.2"
+  epoch: 0 # CVE-2026-33814
   description: Sourcegraph CLI
   copyright:
     - license: Apache-2.0
@@ -25,7 +25,7 @@ pipeline:
   - uses: git-checkout
     with:
       repository: https://github.com/sourcegraph/src-cli
-      expected-commit: b7cf7778cd18a3c60d1ad4456ce88e436a003e2f
+      expected-commit: 5d73e6e4130e42c3b2e2bf925eb6e6d368f9b58a
       tag: ${{package.version}}
 
   - uses: bump
