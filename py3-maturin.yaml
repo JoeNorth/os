@@ -1,14 +1,18 @@
 package:
   name: py3-maturin
   version: "1.13.3"
-  epoch: 0 # remove py3.14 from range, use standalone py3.14-maturin instead
+  epoch: 1 # go/wolfi-rsc/py3-maturin
   description: Build and publish crates with pyo3, rust-cpython and cffi bindings as well as rust binaries as python packages
   copyright:
     - license: MIT OR Apache-2.0
   dependencies:
     provider-priority: 0
   resources:
-    memory: 14Gi
+    memory: 9Gi
+    cpu: "2"
+  test-resources:
+    cpu: "1"
+    memory: 1Gi
 
 environment:
   contents:
