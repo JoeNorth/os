@@ -1,6 +1,6 @@
 package:
   name: yam
-  version: "0.2.58"
+  version: "0.2.59"
   epoch: 0 # CVE-2026-27140
   description: A sweet little formatter for YAML
   copyright:
@@ -17,7 +17,7 @@ pipeline:
     with:
       repository: https://github.com/chainguard-dev/yam
       tag: v${{package.version}}
-      expected-commit: 3169c833b3fecc00a3e42b6a4546b5917866128f
+      expected-commit: ce3283c291d29428170c8435ff7012696bda8b72
 
   - uses: go/build
     with:
