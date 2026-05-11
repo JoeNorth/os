@@ -1,7 +1,7 @@
 package:
   name: druid
   version: "37.0.0"
-  epoch: 3 # GHSA-cm33-6792-r9fm
+  epoch: 4 # GHSA-f6hv-jmp6-3vwv
   description: Apache Druid is a high performance real-time analytics database.
   copyright:
     - license: Apache-2.0
