@@ -1,8 +1,8 @@
 #nolint:git-checkout-must-use-github-updates,valid-pipeline-git-checkout-tag
 package:
   name: rancher-rke2-charts
-  version: "0_git20260509"
-  epoch: 1
+  version: "0_git20260511"
+  epoch: 0
   description: Complete container management platform - rke2 charts
   copyright:
     - license: Apache-2.0
@@ -18,7 +18,7 @@ pipeline:
       repository: https://github.com/rancher/rke2-charts
       branch: main
       destination: ./charts
-      expected-commit: f8a7af09daeea448ba2bf43fca21805c298c5de7
+      expected-commit: b6fca2153a950821231edba797fda1dbe5d82142
       depth: 1
 
   - runs: |
