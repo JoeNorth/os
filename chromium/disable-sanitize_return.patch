@@ -1,0 +1,17 @@
+The sanitize_return config includes
+`-fsanitize-ignore-for-ubsan-feature=return` which isn't available in our clang
+(upstream build with trunk): without that, the sanitize_return config results
+in build failures.
+
+diff --git a/build/config/BUILDCONFIG.gn b/build/config/BUILDCONFIG.gn
+index cc00f84..4d1ac59 100644
+--- a/build/config/BUILDCONFIG.gn
++++ b/build/config/BUILDCONFIG.gn
+@@ -362,7 +362,6 @@ default_compiler_configs = [
+   "//build/config/compiler:no_unresolved_symbols",
+   "//build/config/compiler:runtime_library",
+   "//build/config/compiler:sanitize_c_array_bounds",
+-  "//build/config/compiler:sanitize_return",
+   "//build/config/compiler:thin_archive",
+   "//build/config/compiler:thinlto_optimize_default",
+   "//build/config/compiler:tot_warnings",
