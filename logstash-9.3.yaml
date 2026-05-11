@@ -11,7 +11,7 @@
 package:
   name: logstash-9.3
   version: "9.3.4"
-  epoch: 1 # GHSA-vcgp-9326-pqcp
+  epoch: 2 # Cleanup to match logstash-fips-9.3
   description: Logstash - transport and process your logs, events, or other data
   copyright:
     - license: Apache-2.0
@@ -28,16 +28,18 @@ package:
       - merged-usrsbin
       - openjdk-${{vars.java-version}}-default-jdk
       - openssl
-      - wolfi-baselayout
+
+vars:
+  kafka-integration-version: "12.1.1"
+  java-version: "21"
+  jruby-version: "9.4"
+  opensearch-output-version: "2.1.1"
 
 var-transforms:
   - from: ${{package.version}}
     match: ^(\d+\.\d+)\.\d+$
     replace: $1
     to: major-minor-version
-
-vars:
-  java-version: "21"
 
 environment:
   contents:
@@ -52,7 +54,7 @@ environment:
       - gradle
       - grep
       - jq
-      - jruby-9.4
+      - jruby-${{vars.jruby-version}}
       - logstash-output-opensearch
       - net-tools
       - openjdk-${{vars.java-version}}-default-jdk
@@ -60,17 +62,19 @@ environment:
       - sed
       - yq
   environment:
-    OSS: "true"
-    LOGSTASH_SOURCE: "1"
-    LANG: en_US.UTF-8
+    # Some of these look like runtime envvars, but it's possible that gradle is
+    # baking them into the output artifacts.
+    GRADLE_OPTS: "-Dorg.gradle.caching=true"
+    GRADLE_USER_HOME: "/var/cache/melange"
     JAVA_HOME: /usr/lib/jvm/default-jvm
     # --dev is the default used by logstash-plugin and improves start-up time
     JRUBY_OPTS: "--dev -J-Xmx4g"
-    LS_JAVA_HOME: /usr/lib/jvm/default-jvm
+    LANG: en_US.UTF-8
+    LOGSTASH_SOURCE: "1"
     LS_DESTINATION: usr/share/logstash
+    LS_JAVA_HOME: /usr/lib/jvm/default-jvm
     MAVEN_OPTS: "-Dmaven.repo.local=/var/cache/melange"
-    GRADLE_USER_HOME: "/var/cache/melange"
-    GRADLE_OPTS: "-Dorg.gradle.caching=true"
+    OSS: "true"
 
 pipeline:
   - uses: git-checkout
@@ -79,73 +83,44 @@ pipeline:
       tag: v${{package.version}}
       expected-commit: d084cc4937d87d6a41b05ceca1d8643dda10bc1b
 
-  - name: Patch Gem CVEs
-    runs: |
-      # Fix GHSA-xc9x-jj77-9p9j
-      sed -i "s/'date', '>= 3.3.3'/'date', '>= 3.4.1'/" "Gemfile.template"
-      # Fix GHSA-7mqq-6cf9-v2qp, GHSA-8vqr-qjwx-82mw, GHSA-g2pf-xv49-m2h5, GHSA-h2jq-g4cq-5ppq, GHSA-rx22-g9mx-qrhv et al.
-      echo "gem 'rack', '>= 3.2.6'" >> Gemfile.template
-      echo "gem 'sinatra', '4.2.0'" >> Gemfile.template
-      # Fix CVE-2025-27221, GHSA-j4pr-3wm6-xx2r
-      sed -i "s/'uri', '>= 0.12.3'/'uri', '>= 0.12.5'/" "Gemfile.template"
-      # Fix CVE-2025-14762
-      echo "gem 'aws-sdk-s3', '1.208.0'" >> Gemfile.template
-      # Fix CVE-2026-33210, GHSA-3m6g-2423-7cp3
-      echo "gem 'json', '>= 2.19.2'" >> Gemfile.template
-      # Fix GHSA-33qg-7wpp-89cq
-      echo "gem 'rack-session', '>= 2.1.2'" >> Gemfile.template
-      # Fix GHSA-h27x-rffw-24p4
-      echo "gem 'addressable', '>= 2.9.0'" >> Gemfile.template
-      # Fix GHSA-vcgp-9326-pqcp, GHSA-75xq-5h9v-w6px, GHSA-87pf-fpwv-p7m7, GHSA-q2mw-fvj9-vvcw, GHSA-hm49-wcqc-g2xg
-      echo "gem 'net-imap', '0.5.14'" >> Gemfile.template
-      # Fix GHSA-2m67-wjpj-xhg9
-      echo "gem 'logstash-filter-elastic_integration', '9.4.0'" >> Gemfile.template
-
-  - name: Fix log4j CVEs in logstash-core
-    runs: |
-      # Fix GHSA-h383-gmxw-35v2, GHSA-3pxv-7cmr-fjr4, GHSA-445c-vh5m-36rj, GHSA-6hg6-v5c8-fphq
-      sed -i "s/String log4jVersion = '2.25.3'/String log4jVersion = '2.25.4'/" logstash-core/build.gradle
-
-  # Disable -Werror which means that warnings are not treated as errors
-  # during compilation.  Required for Java 21.
-  - name: Disable -Werror for Java 21+
-    runs: |
-      sed -i '/options.compilerArgs.add("-Werror")/s/^/\/\//' build.gradle
-
-  # A hack-fix to tackle with `Could not find method enabled() for
-  # arguments [true] on Report xml` error starting after 8.11.x.
-  - name: Hack around "Could not find method enabled()" error after 8.11.x
-    runs: |
-      sed -i '/enabled/d' logstash-core/build.gradle
-
-  - name: Patch out the windows and mac tarball creation
-    uses: patch
+  # Patches:
+  #
+  # - create_archive_pack - Don't make macOS/Windows archives.
+  # - fix-cves - Fix the Java and Ruby CVEs that aren't due to vendored
+  #              packages.
+  # - gradle-skip-macwin - Skips downloading Mac/Windows JDKs during build.
+  #
+  # Things fix-cves.patch *doesn't* fix are due to vendored jruby pulling in:
+  #
+  #   - bcpkix-jdk18on-1.79
+  #   - bcpkix-jdk18on-1.83 via jruby-openssl-0.15.6
+  #   - bcprov-jdk18on-1.79
+  #   - bcprov-jdk18on-1.83 via jruby-openssl-0.15.6
+  #   - jackson-core-2.15.4 via jrjackson 0.4.20
+  #   - nokogiri-1.18.10-java (fixed requires Ruby > 3.1, which would require
+  #     JRuby 10.x, which probably requires a big upstream update)
+  #
+  # Future work (OS-1796) will attempt to replace the vendored jruby with ours,
+  # and a jruby-openssl that uses our BouncyCastle FIPS as its backend. These
+  # changes will be propagated to non-FIPS Logstash 9.3.x.
+  - uses: patch
     with:
-      patches: create_archive_pack.patch
+      patches: |
+        create_archive_pack.patch
+        fix-cves.patch
+        gradle-skip-macwin.patch
 
   - name: Install all the default plugins
     runs: |
       ./gradlew installDefaultGems
 
-  - name: Upgrade logstash-integration-kafka for GHSA-j288-q9x7-2f5v, GHSA-5qcv-4rpc-jp93
+  - name: Upgrade logstash-integration-kafka for GHSA-72hv-8253-57qq
     runs: |
-      bin/logstash-plugin install --no-verify --version 12.1.1 logstash-integration-kafka
+      bin/logstash-plugin install --no-verify --version ${{vars.kafka-integration-version}} logstash-integration-kafka
 
-  - name: Build tarball distribution
+  - name: Build and generate tarball distribution
     runs: |
       ./gradlew assembleTarDistribution -Pjdk_bundle_os=linux
-
-      # Remove x-pack from the tarball. There is no bundled JDK.
-      tarball="build/logstash-${{package.version}}-SNAPSHOT.tar.gz"
-      tmpdir=$(mktemp -d)
-      tar -xzf "$tarball" --strip-components 1 -C "$tmpdir"
-
-      # Note that "--strip-components 1" means there's no
-      # logstash-${{package.version}}-SNAPSHOT in these paths.
-      rm -rf "$tmpdir"/x-pack
-
-      tar -czf "$tarball" -C "$tmpdir" .
-      rm -rf "$tmpdir"
 
   - name: Package distribution
     runs: |
@@ -166,7 +141,8 @@ pipeline:
         ln -sf /${LS_DESTINATION}/bin/$name ${{targets.contextdir}}/usr/bin/$name
       done
 
-  - name: Patch CVEs
+  # TODO: This might not be necessary after OS-1795.
+  - name: Remove unnecessary maven-home libs
     runs: |
       # Hack-fix to reduce CVE count: https://github.com/elastic/logstash/pull/3855
       rm -rf ${{targets.contextdir}}/${LS_DESTINATION}/vendor/bundle/jruby/*/gems/ruby-maven-libs-*/maven-home/lib
@@ -180,7 +156,6 @@ subpackages:
         - ${{package.name}}-with-output-opensearch
       runtime:
         - merged-usrsbin
-        - wolfi-baselayout
     pipeline:
       - runs: |
           src=docker/data/logstash
@@ -216,11 +191,12 @@ subpackages:
         - glibc-locale-en
         - glibc-locales
         - grep
+        - merged-usrsbin
         - net-tools
         - openjdk-${{vars.java-version}}-default-jdk
+        - openssl
         - posix-libc-utils # Required for getent
         - sed
-        - wolfi-baselayout
         - yq
     pipeline:
       - uses: iamguarded/build-compat
@@ -290,7 +266,7 @@ subpackages:
             - bash
             - curl
             - busybox
-            - openjdk-${{vars.java-version}}
+            - openjdk-${{vars.java-version}}-default-jdk
             - sudo
         accounts:
           groups:
@@ -310,7 +286,7 @@ subpackages:
             - runs: |
                 run-script --version
                 run-script --help
-            - name: "start daemon on localhost"
+            - name: "start daemon on localhost (Logstash for IAMGuarded)"
               uses: test/daemon-check-output
               with:
                 setup: |
@@ -329,7 +305,6 @@ subpackages:
                   Starting http input listener
                 post: |
                   #!/bin/sh -e
-                  sleep 1
                   url=http://localhost:8080
                   response=$(curl -fsS --connect-timeout 10 --max-time 20 --retry 5 --retry-delay 1 --retry-max-time 40 "$url") || {
                     echo "curl ${url} failed $?"
@@ -361,14 +336,7 @@ subpackages:
           chmod +x "${{targets.contextdir}}/usr/bin/env2yaml"
     dependencies:
       runtime:
-        - merged-usrsbin
-        - wolfi-baselayout
         - openjdk-${{vars.java-version}}-default-jdk
-        # Due to the way logstash implements their plugin system, this is a full
-        # logstash package with the opensearch plugin bundled. It is based off the
-        # same artifacts in the main package, meaning it will pick up the changes to
-        # the default gems that were made in the main package it just adds the
-        # opensearch plugin.
     test:
       pipeline:
         - runs: |
@@ -387,97 +355,6 @@ subpackages:
             grep -F 'pipeline.workers: ${pipeline_workers}' /tmp/logstash.yml
             # Verify existing configuration was preserved
             grep -F 'existing: value' /tmp/logstash.yml
-
-  - name: ${{package.name}}-with-output-opensearch
-    description: Build logstash with logstash-output-opensearch plugin
-    dependencies:
-      replaces:
-        - ${{package.name}}
-      runtime:
-        - bash # some helper scripts use bash and busybox utilities
-        - busybox
-        - merged-usrsbin
-        - openjdk-${{vars.java-version}}-default-jdk
-        - openssl
-        - wolfi-baselayout
-    pipeline:
-      - name: Install all the default plugins
-        runs: |
-          ./gradlew installDefaultGems
-      - name: Re-inject default plugins that have been patched
-        runs: |
-          for gem in \
-            "logstash-output-opensearch";
-          do
-            echo "Searching for gem search=$gem-*.gem"
-            gem_path=$(find /usr/share/jruby -type f -name "$gem-*.gem")
-            if [ -z "$gem_path" ]; then
-              echo "Could not find gem gem_path=$gem_path gem=$gem"
-              exit 1
-            fi
-            echo "Installing gem gem_path=$gem_path"
-            bin/logstash-plugin install "$gem_path"
-          done
-      - name: Build tarball distribution
-        runs: |
-          ./gradlew assembleTarDistribution -Pjdk_bundle_os=linux
-      - name: Package distribution
-        runs: |
-          mkdir -p ${{targets.contextdir}}/${LS_DESTINATION}
-          tar --strip-components 1 \
-            -C ${{targets.contextdir}}/${LS_DESTINATION} \
-            -xf $(find . -type f -name "logstash-${{package.version}}-SNAPSHOT.tar.gz")
-
-          mkdir -p ${{targets.contextdir}}/usr/bin/$name
-          for i in ${{targets.contextdir}}/${LS_DESTINATION}/bin/*; do
-            name=$(basename $i)
-            ln -sf /${LS_DESTINATION}/bin/$name ${{targets.contextdir}}/usr/bin/$name
-          done
-
-          # Remove x-pack (Elastic licensed) - we build OSS only
-          rm -rf ${{targets.contextdir}}/${LS_DESTINATION}/x-pack
-
-          # Remove bundled JDK - we use system OpenJDK
-          rm -rf ${{targets.contextdir}}/${LS_DESTINATION}/jdk
-          rm -rf ${{targets.contextdir}}/${LS_DESTINATION}/jdk.app
-      - name: Patch CVEs
-        runs: |
-          # Hack-fix to reduce CVE count: https://github.com/elastic/logstash/pull/3855
-          rm -rf ${{targets.contextdir}}/${LS_DESTINATION}/vendor/bundle/jruby/*/gems/ruby-maven-libs-*/maven-home/lib
-    test:
-      environment:
-        contents:
-          packages:
-            - openjdk-${{vars.java-version}}
-            - sudo
-        accounts:
-          groups:
-            - groupname: logstash
-              gid: 1001
-          users:
-            - username: logstash
-              gid: 1001
-              uid: 1001
-          run-as: 0
-        environment:
-          LS_JAVA_HOME: /usr/lib/jvm/default-jvm
-      pipeline:
-        - name: Ensure output opensearch plugin was installed
-          runs: |
-            set -euo pipefail
-            logstash-plugin list | grep logstash-output-opensearch
-        - name: Ensure logstash itself works with basic function
-          runs: |
-            set -euo pipefail
-            # Ensure logstash user can access the files and write to data for tests
-            chown logstash: -fR /usr/share/logstash/
-
-            echo "hello" | \
-              sudo -ulogstash logstash -e 'input { stdin { } } output { stdout {} }' | \
-              grep 'message.*hello'
-        - uses: test/tw/ldd-check
-          with:
-            extra-library-paths: /usr/share/logstash/jdk/lib/server
 
 test:
   environment:
@@ -500,26 +377,26 @@ test:
     - uses: test/tw/ldd-check
       with:
         extra-library-paths: /usr/share/logstash/jdk/lib/server
-    - uses: test/tw/help-check
-      with:
-        bins: |
-          pqcheck
-          ruby
-          system-install
     - uses: test/tw/ver-check
       with:
-        bins: |
-          logstash
-    - name: Ensure logstash itself works with basic function
+        bins: logstash
+    - uses: test/tw/ver-check
+      with:
+        bins: ruby
+        version: ${{vars.jruby-version}}
+    - uses: test/tw/help-check
+      with:
+        bins: pqcheck ruby system-install
+    - name: "Ensure logstash itself works with basic function"
       runs: |
         set -euo pipefail
         # Ensure logstash user can access the files and write to data for tests
         chown logstash: -fR /usr/share/logstash/
 
         echo "hello" | \
-          sudo -ulogstash logstash -e 'input { stdin { } } output { stdout {} }' | \
-          grep 'message.*hello'
-    - name: Test logstash-filter-xml
+          sudo -ulogstash logstash -e 'input { stdin { } } output { stdout {} }' | tee logstash.out
+        grep 'message.*hello' logstash.out
+    - name: "Test logstash-filter-xml"
       runs: |
         # Copy the file to make it readable by logstash user
         cp $PWD/test/logstash-filter-xml/logstash.conf /tmp/logstash.conf
