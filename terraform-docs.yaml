@@ -1,7 +1,7 @@
 package:
   name: terraform-docs
-  version: "0.23.0"
-  epoch: 1
+  version: "0.24.0"
+  epoch: 0
   description: Generate documentation from Terraform modules in various output formats
   copyright:
     - license: MIT
@@ -11,7 +11,7 @@ pipeline:
     with:
       repository: https://github.com/terraform-docs/terraform-docs
       tag: v${{package.version}}
-      expected-commit: b8f73e22eae2560d55ec5e9da62251c068fa9ccb
+      expected-commit: 9d4455198941806aa02ec14369de030cda2c2b59
 
   - uses: go/build
     with:
