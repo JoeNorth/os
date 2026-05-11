@@ -1,10 +1,13 @@
 package:
   name: jenkins-plugin-manager
   version: "2.15.0"
-  epoch: 0 #GHSA-72hv-8253-57qq
+  epoch: 1 # go/wolfi-rsc/jenkins-plugin-manager
   description: Plugin Manager CLI tool for Jenkins
   copyright:
     - license: MIT
+  resources:
+    cpu: "1"
+    memory: 1Gi
 
 environment:
   contents:
