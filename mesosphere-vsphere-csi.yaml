@@ -5,7 +5,7 @@
 package:
   name: mesosphere-vsphere-csi
   version: "3.5.0"
-  epoch: 16 # GHSA-mh2q-q3fh-2475
+  epoch: 17 # GHSA-mh2q-q3fh-2475
   description: Simple, fast container image builder for Go applications.
   copyright:
     - license: Apache-2.0
