@@ -1,7 +1,7 @@
 package:
   name: grafana-alloy
   version: "1.15.1"
-  epoch: 4 # GHSA-wf45-q9ch-q8gh
+  epoch: 5 # GHSA-wf45-q9ch-q8gh
   description: OpenTelemetry Collector distribution with programmable pipelines
   copyright:
     - license: Apache-2.0
