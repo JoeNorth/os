@@ -1,7 +1,7 @@
 package:
   name: melange
-  version: "0.50.5"
-  epoch: 2 # go/wolfi-rsc/melange
+  version: "0.50.6"
+  epoch: 0 # go/wolfi-rsc/melange
   description: build APKs from source code
   copyright:
     - license: Apache-2.0
@@ -19,7 +19,7 @@ package:
 pipeline:
   - uses: git-checkout
     with:
-      expected-commit: e04248bc044fbec3c8332b080665d2e74c1dfd66
+      expected-commit: 02f6591a691807e561bb77cfda160a902ff8aa50
       repository: https://github.com/chainguard-dev/melange
       tag: v${{package.version}}
 
