@@ -11,7 +11,7 @@ package:
       - karpenter-provider-aws=${{package.full-version}}
   resources:
     cpu: "2"
-    memory: 5Gi
+    memory: 8Gi
   test-resources:
     cpu: "1"
     memory: 1Gi
