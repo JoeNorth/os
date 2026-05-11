@@ -2,7 +2,7 @@
 package:
   name: ruby3.4-nokogiri
   version: "1.19.3"
-  epoch: 0 # go/wolfi-rsc/ruby3.4-nokogiri
+  epoch: 1 # go/wolfi-rsc/ruby3.4-nokogiri
   description: |
     Nokogiri makes it easy and painless to work with XML and HTML from Ruby.
   copyright:
@@ -12,7 +12,10 @@ package:
       - ruby3.4-mini_portile2
   resources:
     cpu: "2"
-    memory: 7Gi
+    memory: 5Gi
+  test-resources:
+    cpu: "1"
+    memory: 1Gi
 
 environment:
   contents:
