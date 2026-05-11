@@ -1,7 +1,7 @@
 # Generated from https://pypi.org/project/idna/
 package:
   name: py3-idna
-  version: "3.13"
+  version: "3.14"
   epoch: 0 # go/wolfi-rsc/py3-idna
   description: Internationalized Domain Names in Applications (IDNA)
   copyright:
@@ -40,7 +40,7 @@ pipeline:
     with:
       repository: https://github.com/kjd/idna.git
       tag: v${{package.version}}
-      expected-commit: 89cdfd27338896cee6b1ee18e64c96ac28684ce0
+      expected-commit: 37b6b7497aee4805f7a74a7d86206ac05be9669a
 
 subpackages:
   - range: py-versions
