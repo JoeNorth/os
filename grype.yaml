@@ -1,7 +1,7 @@
 package:
   name: grype
   version: "0.112.0"
-  epoch: 1 # GHSA-3xc5-wrhm-f963
+  epoch: 2 # GHSA-389r-gv7p-r3rp
   description: Vulnerability scanner for container images, filesystems, and SBOMs
   copyright:
     - license: Apache-2.0
@@ -14,7 +14,7 @@ environment:
     CGO_ENABLED: "0"
   contents:
     packages:
-      - go-1.25
+      - go-1.26
 
 pipeline:
   - uses: git-checkout
@@ -23,11 +23,16 @@ pipeline:
       tag: v${{package.version}}
       expected-commit: 244f2a10a5668078fcf771454bbd832b3a5b9e8a
 
+  - uses: bump
+    with:
+      deps: github.com/go-git/go-git/v5@v5.19.0
+
   - uses: go/build
     with:
       ldflags: -X main.version=${{package.version}}
       output: grype
       packages: ./cmd/grype
+      go-package: go-1.26
 
   - uses: strip
 

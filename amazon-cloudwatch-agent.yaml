@@ -1,7 +1,7 @@
 package:
   name: amazon-cloudwatch-agent
-  version: "1.300067.0"
-  epoch: 3 # CVE-2026-33814
+  version: "1.300068.0"
+  epoch: 0 # CVE-2026-33814
   description: CloudWatch Agent enables you to collect and export host-level metrics and logs on instances running Linux or Windows server.
   copyright:
     - license: Apache-2.0
@@ -25,7 +25,7 @@ pipeline:
     with:
       repository: https://github.com/aws/amazon-cloudwatch-agent
       tag: v${{package.version}}
-      expected-commit: 522d63b902ae3d6fd12fd896183b9063a5a639ca
+      expected-commit: 99245a47610e4bacec2df50e1fb4b1c0303bb379
 
   - uses: bump
     with:
