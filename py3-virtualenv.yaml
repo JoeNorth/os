@@ -1,6 +1,6 @@
 package:
   name: py3-virtualenv
-  version: "21.3.1"
+  version: "21.3.2"
   epoch: 0
   description: Virtual Python Environment builder
   copyright:
@@ -34,7 +34,7 @@ pipeline:
     with:
       repository: https://github.com/pypa/virtualenv
       tag: ${{package.version}}
-      expected-commit: 12ab4957289c1963849bf04a5f35982c928c0a35
+      expected-commit: 8531d47ff3e78492d0c1eb7d1159750e91176b67
 
 subpackages:
   - range: py-versions
