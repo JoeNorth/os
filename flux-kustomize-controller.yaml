@@ -1,7 +1,7 @@
 package:
   name: flux-kustomize-controller
-  version: "1.8.4"
-  epoch: 2 # CVE-2026-33814
+  version: "1.8.5"
+  epoch: 0 # CVE-2026-33814
   description: The GitOps Toolkit Kustomize reconciler
   copyright:
     - license: Apache-2.0
@@ -38,7 +38,7 @@ environment:
 pipeline:
   - uses: git-checkout
     with:
-      expected-commit: b1937c69bf0ffa69a14d243f46cc270eb152c6d0
+      expected-commit: b74fb3e4106f8b95f2d9ac8b9565a29067b9d5d4
       repository: https://github.com/fluxcd/kustomize-controller
       tag: v${{package.version}}
 
