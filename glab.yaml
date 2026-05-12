@@ -4,7 +4,7 @@
 #nolint:git-checkout-must-use-github-updates
 package:
   name: glab
-  version: "1.95.0"
+  version: "1.96.0"
   epoch: 0
   description: A GitLab CLI tool bringing GitLab to your command line
   copyright:
@@ -31,7 +31,7 @@ pipeline:
     with:
       repository: https://gitlab.com/gitlab-org/cli
       tag: v${{package.version}}
-      expected-commit: 6a2f207dd73796fb27873b9197bebbaf63e6fae2
+      expected-commit: c251988c830c487395e3fa14589782cdbe5a4aea
 
   - uses: go/build
     with:
