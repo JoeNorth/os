@@ -1,7 +1,7 @@
 package:
   name: promitor
   version: "2.15.0"
-  epoch: 2
+  epoch: 3 # GHSA-g94r-2vxg-569j
   description: Bringing Azure Monitor metrics where you need them.
   copyright:
     - license: MIT
@@ -33,6 +33,8 @@ pipeline:
         -e 's|<PackageReference Include="System.Security.Cryptography.Xml" Version="9\.0\.10" />|<PackageReference Include="System.Security.Cryptography.Xml" Version="9.0.15" />|g' \
         -e 's|<PackageReference Include="System.Security.Cryptography.Pkcs" Version="9\.0\.10" />|<PackageReference Include="System.Security.Cryptography.Pkcs" Version="9.0.15" />|g' \
         {} \;
+
+      sed -i 's/\(Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="\)1.12.0"/\11.15.3"/' Promitor.Integrations.Sinks.OpenTelemetry/Promitor.Integrations.Sinks.OpenTelemetry.csproj
 
   - working-directory: src
     pipeline:
