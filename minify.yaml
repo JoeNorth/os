@@ -1,13 +1,16 @@
 package:
   name: minify
   version: "2.24.13"
-  epoch: 1 # CVE-2026-39836
+  epoch: 2 # go/wolfi-rsc/minify
   description: "Go minifiers for web formats"
   copyright:
     - license: MIT
   resources:
     cpu: "1"
-    memory: 5Gi
+    memory: 2Gi
+  test-resources:
+    cpu: "1"
+    memory: 1Gi
 
 pipeline:
   - uses: git-checkout
