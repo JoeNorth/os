@@ -1,7 +1,7 @@
 package:
   name: etcd-3.6
   version: "3.6.11"
-  epoch: 3 # go/wolfi-rsc/etcd-3.6
+  epoch: 2 # go/wolfi-rsc/etcd-3.6
   description: A highly-available key value store for shared configuration and service discovery.
   copyright:
     - license: Apache-2.0
@@ -14,11 +14,8 @@ package:
     provides:
       - etcd=${{package.full-version}}
   resources:
-    cpu: "2"
+    cpu: "3"
     memory: 5Gi
-  test-resources:
-    cpu: "1"
-    memory: 3Gi
 
 var-transforms:
   - from: ${{package.version}}

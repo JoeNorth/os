@@ -1,7 +1,7 @@
 package:
   name: argo-workflows-4.0
   version: "4.0.5"
-  epoch: 4 # GHSA-389r-gv7p-r3rp
+  epoch: 3 # CVE-2026-33814
   description: Workflow engine for Kubernetes.
   copyright:
     - license: Apache-2.0
@@ -47,7 +47,6 @@ pipeline:
         golang.org/x/crypto@v0.50.0
         golang.org/x/sys@v0.43.0
         golang.org/x/term@v0.42.0
-        github.com/go-git/go-git/v5@v5.19.0
       modroot: |-
         .
         sdks/go/grpc-client
