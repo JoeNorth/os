@@ -2,13 +2,17 @@
 package:
   name: jupyterhub-k8s-network-tools
   version: "4.3.5"
-  epoch: 0
+  epoch: 1 # go/wolfi-rsc/jupyterhub-k8s-network-tools
   description: Network diagnostic tools for use within a JupyterHub Kubernetes cluster
   copyright:
     - license: BSD-3-Clause
   dependencies:
     runtime:
       - iptables-nft
+  resources:
+    cpu: "1"
+  test-resources:
+    memory: 1Gi
 
 environment:
   contents:
