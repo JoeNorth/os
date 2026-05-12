@@ -1,7 +1,7 @@
 package:
   name: go-1.26
   version: "1.26.3"
-  epoch: 1
+  epoch: 2
   description: "the Go programming language"
   copyright:
     - license: BSD-3-Clause
@@ -10,7 +10,6 @@ package:
       - go=${{package.full-version}}
     runtime:
       - bash
-      - build-base
   annotations:
     toolchain: true
   resources:
