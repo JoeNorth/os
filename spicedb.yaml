@@ -1,12 +1,12 @@
 package:
   name: spicedb
   version: "1.52.0"
-  epoch: 2 # GHSA-j88v-2chj-qfwx
+  epoch: 3 # go/wolfi-rsc/spicedb
   description: Open Source, Google Zanzibar-inspired fine-grained permissions database
   copyright:
     - license: Apache-2.0
   resources:
-    cpu: "5"
+    cpu: "3"
     memory: 9Gi
   test-resources:
     cpu: "1"
