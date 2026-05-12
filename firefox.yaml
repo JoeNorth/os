@@ -1,7 +1,7 @@
 package:
   name: firefox
-  version: "150.0.2"
-  epoch: 1 # go/wolfi-rsc/firefox
+  version: "150.0.3"
+  epoch: 0 # go/wolfi-rsc/firefox
   description: Firefox web browser
   copyright:
     - license: GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0
@@ -75,7 +75,7 @@ pipeline:
   - uses: fetch
     with:
       uri: https://ftp.mozilla.org/pub/firefox/releases/${{package.version}}/source/firefox-${{package.version}}.source.tar.xz
-      expected-sha256: e3830b20cdf660a9cdec6e4d2326d7ced07333d9746df028cfc00c8216acbec9
+      expected-sha256: 0a0a539ccc96d928fec78af511884b9b89d0aec87f0d5a8852d9298b2d9332da
 
   - name: Move glslopt so that we can patch it
     runs: |
