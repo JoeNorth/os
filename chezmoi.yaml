@@ -1,13 +1,16 @@
 package:
   name: chezmoi
   version: "2.70.3"
-  epoch: 0 # CVE-2026-32280
+  epoch: 1 # go/wolfi-rsc/chezmoi
   description: Manage your dotfiles across multiple diverse machines, securely.
   copyright:
     - license: MIT
   resources:
-    cpu: "2"
+    cpu: "1"
     memory: 6Gi
+  test-resources:
+    cpu: "1"
+    memory: 1Gi
 
 environment:
   contents:
