@@ -1,6 +1,6 @@
 package:
   name: k8s-sidecar
-  version: "2.7.2"
+  version: "2.7.3"
   epoch: 0 # convert to uv venv application package
   description: "container intended to run inside a kubernetes cluster to collect config maps with a specified label and store the included files in a local folder"
   copyright:
@@ -36,7 +36,7 @@ pipeline:
     with:
       repository: https://github.com/kiwigrid/k8s-sidecar
       tag: ${{package.version}}
-      expected-commit: db1e987f3b8759bff550ced0436f2463d2db5ef5
+      expected-commit: 070c102fac9bce0eeda44af52d87b6acdfd00f0c
 
   - uses: auth/uv
     with:
