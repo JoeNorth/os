@@ -1,6 +1,6 @@
 package:
   name: jenkins-docker
-  version: "2.563"
+  version: "2.564"
   epoch: 0
   description: Docker compatbility scripts and tooling for Jenkins
   copyright:
@@ -39,7 +39,7 @@ pipeline:
     with:
       repository: https://github.com/jenkinsci/docker
       tag: ${{package.version}}
-      expected-commit: 7cb5ae46b93f5da610a5a09ce1865ddcd9ede8ee
+      expected-commit: 66b2ecc17c2f3ef750ef8cf7d4a3674f95b3fe7a
 
   # https://github.com/jenkinsci/docker/blob/master/alpine/hotspot/Dockerfile#L136
   - runs: |
