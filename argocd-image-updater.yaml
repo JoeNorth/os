@@ -1,7 +1,7 @@
 package:
   name: argocd-image-updater
   version: "1.2.0"
-  epoch: 2 # CVE-2026-33814
+  epoch: 3 # GHSA-389r-gv7p-r3rp
   description: Automatic container image update for Argo CD
   copyright:
     - license: Apache-2.0
@@ -29,7 +29,7 @@ pipeline:
   - uses: bump
     with:
       deps: |-
-        github.com/go-git/go-git/v5@v5.18.0
+        github.com/go-git/go-git/v5@v5.19.0
         go.opentelemetry.io/otel/sdk@v1.43.0
         github.com/moby/spdystream@v0.5.1
         github.com/argoproj/argo-cd/v3@v3.3.9
