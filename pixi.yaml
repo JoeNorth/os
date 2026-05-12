@@ -1,6 +1,6 @@
 package:
   name: pixi
-  version: "0.68.0"
+  version: "0.68.1"
   epoch: 0 # GHSA-cq8v-f236-94qc
   description: "Package management made easy"
   dependencies:
@@ -21,7 +21,7 @@ pipeline:
   - uses: git-checkout
     with:
       repository: https://github.com/prefix-dev/pixi
-      expected-commit: e30d4b43229310c8ad7883501cea409e7b846f52
+      expected-commit: a2453cacd4a02bc99ee84b5e6015ec83bbb2d397
       tag: v${{package.version}}
 
   - name: change the tracing-subscriber version to 0.3.19 instead of =0.3.19
