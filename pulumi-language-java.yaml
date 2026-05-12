@@ -1,7 +1,7 @@
 package:
   name: pulumi-language-java
   version: "1.26.1"
-  epoch: 0 # GHSA-3xc5-wrhm-f963
+  epoch: 1 # GHSA-389r-gv7p-r3rp
   description: Pulumi Language SDK for Java
   copyright:
     - license: Apache-2.0
@@ -14,7 +14,7 @@ environment:
     packages:
       - busybox
       - ca-certificates-bundle
-      - go-1.25
+      - go-1.26
 
 pipeline:
   - uses: git-checkout
@@ -23,16 +23,16 @@ pipeline:
       repository: https://github.com/pulumi/pulumi-java.git
       tag: v${{package.version}}
 
-  - uses: go/bump
+  - uses: bump
     with:
       deps: |-
         golang.org/x/net@v0.51.0
+        github.com/go-git/go-git/v5@v5.19.0
       modroot: sdk/java/pulumi/src/test/resources/testproj
-      tidy: false
 
   - uses: go/build
     with:
-      go-package: go-1.25
+      go-package: go-1.26
       ldflags: -X github.com/pulumi/pulumi-java/pkg/version.Version=v${{package.version}}
       modroot: .
       output: pulumi-language-java
