@@ -8,7 +8,7 @@
 package:
   name: chromium
   version: "148.0.7778.96"
-  epoch: 0 # go/wolfi-rsc/chromium
+  epoch: 1 # go/wolfi-rsc/chromium
   description: "Open source version of Google's chrome web browser"
   copyright:
     - license: BSD-3-Clause
@@ -191,8 +191,8 @@ pipeline:
         cr146-sanitize-ignore-for-ubsan-feature.patch
         no-lifetime-dse.patch
         bytemuck-use-stable-versions.patch
-        disable-sanitize_return.patch
         cr148-v8-no-san-trap.patch
+        sanitize-ignore-for-ubsan-feature-return.patch
 
   - name: Use system libraries
     runs: |
