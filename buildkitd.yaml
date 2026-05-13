@@ -1,8 +1,8 @@
 package:
   name: buildkitd
-  version: "0.29.0"
+  version: "0.30.0"
   description: "concurrent, cache-efficient, and Dockerfile-agnostic builder toolkit"
-  epoch: 10 # GHSA-pmwq-pjrm-6p5r
+  epoch: 0 # GHSA-pmwq-pjrm-6p5r
   copyright:
     - license: Apache-2.0
   dependencies:
@@ -32,17 +32,12 @@ pipeline:
     with:
       repository: https://github.com/moby/buildkit
       tag: v${{package.version}}
-      expected-commit: 8543ce4428265d547cb009e5ad62348284497a88
+      expected-commit: dd2170e156c9633da1b2d1a58a6188e3f7d36fa4
 
   - uses: bump
     with:
       deps: |-
         github.com/aws/aws-sdk-go-v2/service/s3@v1.97.3
-        go.opentelemetry.io/otel/sdk@v1.43.0
-        go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetrichttp@v1.43.0
-        go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp@v1.43.0
-        github.com/sigstore/timestamp-authority/v2@v2.0.6
-        github.com/in-toto/in-toto-golang@v0.11.0
 
   - uses: go/build
     with:
