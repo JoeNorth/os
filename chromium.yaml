@@ -8,7 +8,7 @@
 package:
   name: chromium
   version: "148.0.7778.167"
-  epoch: 0 # go/wolfi-rsc/chromium
+  epoch: 1 # use vendored icu
   description: "Open source version of Google's chrome web browser"
   copyright:
     - license: BSD-3-Clause
@@ -20,7 +20,6 @@ package:
       - font-opensans
       - fontconfig
       - gtk-3
-      - icu-data-full
       - libnss
       - mesa
       - mesa-glx
@@ -76,7 +75,6 @@ environment:
       - harfbuzz-static
       - hwdata-dev
       - hwdata-usb
-      - icu-dev
       - krb5-dev
       - lcms2-dev
       - libbsd-dev
@@ -229,7 +227,6 @@ pipeline:
           find . -type f -path "*third_party/$_lib/*" \
           \! -path "*third_party/$_lib/chromium/*" \
           \! -path "*third_party/$_lib/google/*" \
-          \! -path './base/third_party/icu/*' \
           \! -path './third_party/libxml/*' \
           \! -path './third_party/pdfium/third_party/freetype/include/pstables.h' \
           \! -path './third_party/harfbuzz-ng/utils/hb_scoped.h' \
@@ -283,7 +280,7 @@ pipeline:
         enable_rust=true
         enable_widevine=true
         ffmpeg_branding=\"Chrome\"
-        icu_use_data_file=false
+        icu_use_data_file=true
         is_cfi=false
         is_clang=true
         is_component_build=false
@@ -344,6 +341,7 @@ pipeline:
       mv snapshot_blob.bin v8_context_snapshot.bin \
          vk_swiftshader_icd.json \
          *.pak locales \
+         icudtl.dat \
          ${{targets.contextdir}}/usr/lib/${{package.name}}/
 
       # Setup wrapper and symlinks
