@@ -1,6 +1,6 @@
 package:
   name: libksba
-  version: "1.7.0"
+  version: "1.8.0"
   epoch: 0 # go/wolfi-rsc/libksba
   description: Libksba is a CMS and X.509 access library
   copyright:
@@ -26,7 +26,7 @@ pipeline:
     with:
       repository: git://git.gnupg.org/libksba.git
       tag: libksba-${{package.version}}
-      expected-commit: 941eed831904fb7b3a4d7a3ed55a6842cf6db478
+      expected-commit: 476c602e2f35f1ddd769a613fa44681df33d0101
 
   - runs: |
       ./autogen.sh
