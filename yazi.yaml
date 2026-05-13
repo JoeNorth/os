@@ -13,7 +13,7 @@ package:
     memory: 15Gi
 
 vars:
-  rust-version: "1.94"
+  rust-version: "1.95"
 
 environment:
   contents:
