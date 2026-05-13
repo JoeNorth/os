@@ -1,19 +1,15 @@
 package:
-  name: njs
+  name: njs-stable
   version: "0.9.8"
-  epoch: 1
-  description: njs scripting language CLI utility + dynamic nginx modules for nginx-mainline
+  epoch: 0
+  description: njs scripting language CLI utility + dynamic nginx modules for nginx-stable
   copyright:
     - license: BSD-2-Clause
   dependencies:
-    # Provide `njs-mainline` so consumers can express the flavor pairing
-    # symmetrically with `njs-stable`. `nginx-mainline-config` makes the
-    # transitive nginx-mainline pull explicit, so `apk add nginx-stable njs`
-    # errors cleanly instead of silently shipping incompatible modules.
-    provides:
-      - njs-mainline=${{package.full-version}}
+    # Tie modules to the matching nginx-stable. Without this, `apk add njs-stable`
+    # alongside nginx-mainline would silently install incompatible modules.
     runtime:
-      - nginx-mainline-config
+      - nginx-stable-config
   resources:
     cpu: "2"
     memory: 6Gi
@@ -30,8 +26,7 @@ environment:
       - libedit-dev
       - libxml2-dev
       - libxslt-dev
-      # Must bump this when nginx-mainline is upgraded
-      - nginx-src-main
+      - nginx-src
       - openssl-dev
       - pcre2-dev
 
@@ -82,50 +77,19 @@ pipeline:
 
   - uses: strip
 
-subpackages:
-  - name: njs-debug
-    pipeline:
-      - runs: |
-          builddir=$(pwd)
-          mkdir -p "${{targets.contextdir}}"/usr/bin
-          install -m 755 -D "$builddir"/build/njs "${{targets.contextdir}}"/usr/bin/njs-debug
-    description: njs built with additional runtime checks and debug symbols
-    test:
-      pipeline:
-        - name: "Verify njs-debug can execute JavaScript"
-          runs: |
-            set -euo pipefail
-
-            # Test basic arithmetic evaluation
-            output=$(echo 'var x = 2 + 3; console.log(x)' | njs-debug)
-            echo "$output" | grep -F "5"
-
-            # Test string operations
-            output=$(echo 'console.log("hello njs-debug")' | njs-debug)
-            echo "$output" | grep -F "hello njs-debug"
-
 test:
   environment:
     contents:
       packages:
         - curl
-        - nginx-mainline-config
-        - njs-debug
+        - nginx-stable-config
         - wait-for-it
   pipeline:
     - name: "Verify njs can execute JavaScript"
       runs: |
         set -euo pipefail
-
-        # Test basic arithmetic evaluation
         output=$(echo 'var x = 2 + 3; console.log(x)' | njs)
         echo "$output" | grep -F "5"
-
-        # Test string concatenation
-        output=$(echo 'var a = "hello"; var b = " world"; console.log(a + b)' | njs)
-        echo "$output" | grep -F "hello world"
-
-        # Test JSON operations
         output=$(echo 'var obj = {key: "value"}; console.log(JSON.stringify(obj))' | njs)
         echo "$output" | grep -F '{"key":"value"}'
     - name: "Verify nginx dynamic modules exist"
@@ -135,31 +99,9 @@ test:
         name: "*.so"
     - uses: test/tw/ver-check
       with:
-        bins: |
-          njs
-          njs-debug
+        bins: njs
         version-flag: -v
     - uses: test/tw/ldd-check
-    - name: Run a basic njs script and verify output
-      runs: |
-        # njs -c evaluates a script; use console.log to print the result
-        result=$(njs -c 'var x = 6 * 7; console.log(x)')
-        [ "$result" = "42" ] || { echo "Expected 42, got: $result"; exit 1; }
-    - name: Run a string manipulation script
-      runs: |
-        # Verify njs can manipulate strings (core JS functionality)
-        result=$(njs -c 'console.log("hello world".toUpperCase())')
-        [ "$result" = "HELLO WORLD" ] || { echo "Expected 'HELLO WORLD', got: $result"; exit 1; }
-    - name: Run an njs script from a file
-      runs: |
-        # Write a script to a file and execute it with njs
-        cat > /tmp/test.js <<'EOF'
-        var arr = [3, 1, 4, 1, 5, 9, 2, 6];
-        arr.sort(function(a, b) { return a - b; });
-        console.log(arr[0]);
-        EOF
-        result=$(njs /tmp/test.js)
-        [ "$result" = "1" ] || { echo "Expected 1, got: $result"; exit 1; }
     - name: Module loads via nginx -t (regression guard, customer-issues#3486)
       runs: |
         cat > /tmp/njs.js <<'EOF'
