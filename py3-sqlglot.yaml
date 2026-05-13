@@ -1,6 +1,6 @@
 package:
   name: py3-sqlglot
-  version: "30.7.0"
+  version: "30.8.0"
   epoch: 0 # go/wolfi-rsc/py3-sqlglot
   description: An easily customizable SQL parser and transpiler
   copyright:
@@ -34,7 +34,7 @@ pipeline:
     with:
       repository: https://github.com/tobymao/sqlglot
       tag: v${{package.version}}
-      expected-commit: 693f4ed6db9d28e86ec7519000484ef83cfc4fb8
+      expected-commit: 9e37283ab01b089c9b50b5cd59b3a1eaf24e98a1
 
 subpackages:
   - range: py-versions
