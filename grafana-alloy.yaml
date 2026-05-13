@@ -13,7 +13,8 @@ package:
       - libsystemd
   resources:
     cpu: "19"
-    memory: 14Gi
+    memory: 16Gi
+    disk: 20Gi
 
 environment:
   contents:
