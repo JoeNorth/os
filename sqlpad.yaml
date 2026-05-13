@@ -1,7 +1,7 @@
 package:
   name: sqlpad
   version: "7.5.7" # when updating check the patch below as it contains dependency version updates which may downgrade if upstream upgrades them
-  epoch: 19 # GHSA-v2v4-37r5-5v8g
+  epoch: 20 # go/wolfi-rsc/sqlpad
   description: Web-based SQL editor. Legacy project in maintenance mode.
   copyright:
     - license: MIT
@@ -11,7 +11,7 @@ package:
       - yarn
   resources:
     cpu: "3"
-    memory: 8Gi
+    memory: 4Gi
 
 vars:
   py-version: "3.13"
