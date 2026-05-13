@@ -1,13 +1,16 @@
 package:
   name: multus-cni
   version: "4.2.4"
-  epoch: 9 # CVE-2026-33814
+  epoch: 10 # go/wolfi-rsc/multus-cni
   description: A CNI meta-plugin for multi-homed pods in Kubernetes
   copyright:
     - license: Apache-2.0
   resources:
     cpu: "2"
     memory: 5Gi
+  test-resources:
+    cpu: "1"
+    memory: 1Gi
 
 environment:
   contents:
