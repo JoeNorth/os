@@ -38,3 +38,6 @@ patches:
   - groupId: org.apache.neethi
     artifactId: neethi
     version: 3.2.2
+  - groupId: io.netty
+    artifactId: netty-codec-dns
+    version: 4.1.133.Final
