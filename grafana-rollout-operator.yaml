@@ -1,7 +1,7 @@
 package:
   name: grafana-rollout-operator
-  version: "0.36.2"
-  epoch: 0 # CVE-2026-33814
+  version: "0.36.1"
+  epoch: 6 # CVE-2026-33814
   description: Kubernetes Rollout Operator
   copyright:
     - license: Apache-2.0
@@ -26,7 +26,16 @@ pipeline:
     with:
       repository: https://github.com/grafana/rollout-operator
       tag: v${{package.version}}
-      expected-commit: 29f982af63b41e36d24eea2fbb770cea599fb6df
+      expected-commit: 2afe062893496f0554b4764bbe1638f8019832fb
+
+  - uses: bump
+    with:
+      deps: |-
+        go.opentelemetry.io/otel/sdk@v1.43.0
+        go.opentelemetry.io/otel/exporters/otlp/otlplog/otlploghttp@v0.19.0
+        go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetrichttp@v1.43.0
+        go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp@v1.43.0
+        golang.org/x/net@v0.53.0
 
   - uses: go/build
     with:

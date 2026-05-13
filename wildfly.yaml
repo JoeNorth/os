@@ -1,7 +1,7 @@
 package:
   name: wildfly
   version: "39.0.1"
-  epoch: 8 # GHSA-cm33-6792-r9fm
+  epoch: 7 # GHSA-2hfh-9h53-qc24
   description: WildFly Application Server
   copyright:
     - license: Apache-2.0

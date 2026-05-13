@@ -1,7 +1,7 @@
 package:
   name: pulumi-language-java
-  version: "1.27.0"
-  epoch: 0 # GHSA-389r-gv7p-r3rp
+  version: "1.26.1"
+  epoch: 1 # GHSA-389r-gv7p-r3rp
   description: Pulumi Language SDK for Java
   copyright:
     - license: Apache-2.0
@@ -19,9 +19,16 @@ environment:
 pipeline:
   - uses: git-checkout
     with:
-      expected-commit: 6236f33f2412c2f3e990be8852a491a02b160813
+      expected-commit: d14cc3b471b8219e0d61f7b237163ce2b85c67c5
       repository: https://github.com/pulumi/pulumi-java.git
       tag: v${{package.version}}
+
+  - uses: bump
+    with:
+      deps: |-
+        golang.org/x/net@v0.51.0
+        github.com/go-git/go-git/v5@v5.19.0
+      modroot: sdk/java/pulumi/src/test/resources/testproj
 
   - uses: go/build
     with:

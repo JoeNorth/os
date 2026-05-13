@@ -1,7 +1,7 @@
 package:
   name: kubernetes-1.36
-  version: "1.36.1"
-  epoch: 0 # CVE-2026-33814
+  version: "1.36.0"
+  epoch: 2 # CVE-2026-33814
   description: Production-Grade Container Scheduling and Management
   copyright:
     - license: Apache-2.0
@@ -47,7 +47,7 @@ pipeline:
     with:
       repository: https://github.com/kubernetes/kubernetes
       tag: v${{package.version}}
-      expected-commit: 756939600b9a7180fc2df6550a4585b638875e67
+      expected-commit: ecf6decece6a6de25a57aad9ba90b6ce580f6f78
 
   - uses: bump
     with:
