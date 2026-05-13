@@ -1,7 +1,7 @@
 package:
   name: pulumi
-  version: "3.237.0"
-  epoch: 1 # GHSA-v2v4-37r5-5v8g
+  version: "3.238.0"
+  epoch: 0 # GHSA-v2v4-37r5-5v8g
   description: Infrastructure as Code in any programming language
   copyright:
     - license: Apache-2.0
@@ -33,7 +33,7 @@ pipeline:
   - uses: git-checkout
     with:
       destination: ${{package.name}}
-      expected-commit: dc35aff8263f8fcd61bf93e48937a14eda6aecc7
+      expected-commit: 71ddfb54af45d028583ec147ca80b266efc3315e
       repository: https://github.com/pulumi/pulumi.git
       tag: v${{package.version}}
 
