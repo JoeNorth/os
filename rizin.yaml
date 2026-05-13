@@ -1,13 +1,16 @@
 package:
   name: rizin
   version: "0.8.2"
-  epoch: 0
+  epoch: 1 # go/wolfi-rsc/rizin
   description: "UNIX-like reverse engineering framework and command-line toolset"
   copyright:
     - license: LGPL-3.0-only
   resources:
     cpu: "4"
     memory: 8Gi
+  test-resources:
+    cpu: "1"
+    memory: 1Gi
 
 environment:
   contents:
