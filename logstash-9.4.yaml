@@ -10,7 +10,7 @@
 # edits before installDefaultGems runs.
 package:
   name: logstash-9.4
-  version: "9.4.0"
+  version: "9.4.1"
   epoch: 0
   description: Logstash - transport and process your logs, events, or other data
   copyright:
@@ -83,7 +83,7 @@ pipeline:
     with:
       repository: https://github.com/elastic/logstash
       tag: v${{package.version}}
-      expected-commit: 82c080f17671f45ac1ec6235529ac54bd7edeab7
+      expected-commit: b248f6c74ddbb2e955714521065575070d905af5
 
   # Patches:
   #
