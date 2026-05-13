@@ -1,6 +1,6 @@
 package:
   name: zed
-  version: "1.1.8"
+  version: "1.2.3"
   epoch: 0
   description: Zed is a high-performance, multiplayer code editor from the creators of Atom and Tree-sitter.
   copyright:
@@ -46,7 +46,7 @@ pipeline:
     with:
       repository: https://github.com/zed-industries/zed
       tag: v${{package.version}}
-      expected-commit: 7eb6bc7bad1afa0c026077d3a12e43f8e7c045f9
+      expected-commit: ede077939fbe732d38afe7cf2576d3a19ef3ca57
 
   - uses: bump
     with:
