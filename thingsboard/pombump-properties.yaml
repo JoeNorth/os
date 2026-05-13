@@ -3,11 +3,3 @@ properties:
     value: "7.2.1.202505142326-r"
   - property: mail.version
     value: "2.0.2"
-  # Bumping the netty.version property retags the whole netty-bom and
-  # subsumes individual netty-codec-* pins (GHSA-57rv-r2g8-2cj3 for
-  # netty-codec-http, GHSA-cm33-6792-r9fm for netty-codec-dns). A single
-  # netty-codec-* dep pin conflicts with the BOM and drops that artifact
-  # from the assembled fat jar (Spring Boot startup fails with
-  # NoClassDefFoundError io.netty.handler.codec.http.cookie.Cookie).
-  - property: netty.version
-    value: "4.1.133.Final"
