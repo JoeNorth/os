@@ -1,16 +1,16 @@
 package:
   name: harfbuzz
   version: "14.2.0"
-  epoch: 1 # go/wolfi-rsc/harfbuzz
+  epoch: 2 # go/wolfi-rsc/harfbuzz
   description: Text shaping library
   copyright:
     - license: MIT
   resources:
     cpu: "5"
-    memory: 10Gi
+    memory: 7Gi
   test-resources:
     cpu: "1"
-    memory: 2Gi
+    memory: 1Gi
 
 environment:
   contents:
