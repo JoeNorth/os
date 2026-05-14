@@ -2,7 +2,7 @@
 package:
   name: go-discover
   version: "0_git20260514"
-  epoch: 0 # GHSA-mh2q-q3fh-2475
+  epoch: 1 # GHSA-mh2q-q3fh-2475
   description: go-discover is a Go (golang) library and command line tool to discover ip addresses of nodes in cloud environments based on meta information like tags provided by the environment.
   copyright:
     - license: MPL-2.0
@@ -14,7 +14,7 @@ pipeline:
   - uses: git-checkout
     with:
       repository: https://github.com/hashicorp/go-discover
-      expected-commit: 259c2b3a9851e333964e33b074fca7024ec9e8b9
+      expected-commit: 7557c5550cdd22cc82b140732e58f6af1ef18960
       branch: master
 
   - uses: go/build
