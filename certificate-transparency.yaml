@@ -36,7 +36,7 @@ pipeline:
       tag: v${{package.version}}
       expected-commit: e8f93173135c7817ebd7133dab729c4576ce9a21
 
-  - uses: go/bump
+  - uses: bump
     with:
       deps: |-
         github.com/jackc/pgx/v5@v5.9.2
