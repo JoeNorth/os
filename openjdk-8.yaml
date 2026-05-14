@@ -80,8 +80,8 @@ environment:
       - zip
       - zlib-dev
   environment:
-    EXTRA_CFLAGS: "-Wno-incompatible-pointer-types -Wno-int-conversion -Wno-complain-wrong-lang -Wformat -Wno-cpp -Wno-error -fno-delete-null-pointer-checks -fno-lifetime-dse -fno-strict-overflow -Wno-format-overflow"
-    EXTRA_CPP_FLAGS: "-Wno-incompatible-pointer-types -Wno-int-conversion -Wno-complain-wrong-lang -Wno-cpp -fno-delete-null-pointer-checks -fno-lifetime-dse -fno-strict-overflow -Wno-format-overflow"
+    EXTRA_CFLAGS: "-Wno-incompatible-pointer-types -Wno-int-conversion -Wno-complain-wrong-lang -Wformat -Wno-cpp -Wno-error -fno-delete-null-pointer-checks -fno-lifetime-dse -fno-strict-overflow -Wno-format-overflow -Wno-stringop-overflow"
+    EXTRA_CPP_FLAGS: "-Wno-incompatible-pointer-types -Wno-int-conversion -Wno-complain-wrong-lang -Wno-cpp -fno-delete-null-pointer-checks -fno-lifetime-dse -fno-strict-overflow -Wno-format-overflow -Wno-stringop-overflow"
 
 pipeline:
   - uses: git-checkout
