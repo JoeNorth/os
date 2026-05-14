@@ -1,13 +1,16 @@
 package:
   name: pulumi
   version: "3.238.0"
-  epoch: 0 # GHSA-v2v4-37r5-5v8g
+  epoch: 1 # go/wolfi-rsc/pulumi
   description: Infrastructure as Code in any programming language
   copyright:
     - license: Apache-2.0
   resources:
-    cpu: "8"
+    cpu: "4"
     memory: 11Gi
+  test-resources:
+    cpu: "1"
+    memory: 1Gi
 
 environment:
   contents:
