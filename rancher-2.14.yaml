@@ -1,7 +1,7 @@
 package:
-  name: rancher-2.13
-  version: "2.13.5"
-  epoch: 3 # go/wolfi-rsc/rancher-2.13
+  name: rancher-2.14
+  version: "2.14.1"
+  epoch: 0 # go/wolfi-rsc/rancher-2.13
   description: Complete container management platform
   copyright:
     - license: Apache-2.0
@@ -85,7 +85,7 @@ environment:
 
 vars:
   python-version: 3.13
-  k3s-major-minor-version: 1.34
+  k3s-major-minor-version: 1.35
 
 var-transforms:
   - from: ${{package.version}}
@@ -98,7 +98,7 @@ pipeline:
     with:
       repository: https://github.com/rancher/rancher
       tag: v${{package.version}}
-      expected-commit: 8dbcbe437d063f86acf5da89ce686c2601a18010
+      expected-commit: 9cf8959713c9152622ce8337c3242da7e44944c1
 
   - uses: bump
     with:
@@ -318,13 +318,23 @@ test:
         start: "rancher --trace --debug" # We can't use `entrypoint.sh` here since it needs `/run/secrets/kubernetes.io/serviceaccount` and `/dev/kmsg` to be mounted
         timeout: 60
         # This is a negative-test to ensure that the Rancher prepares itself to run in a single server mode.
-        # After that it exits immediately due to the `:6443` is not available in this environment.
+        # After that it exits immediately because k3s cannot fully come up in this environment.
         # We can't use the `test/kwok/cluster` here as it conflicts with the Rancher package and it manages
         # its own k3s cluster inside.
         expected_output: |
           Running in single server mode
-          setupRancherService refreshing service
-          setupRancherService refreshing endpoint
+          Applying CRD managedcharts.management.cattle.io
+          Waiting for CRD managedcharts.management.cattle.io to become available
+        # FATAL is part of the expected exit (k3s shuts down) — drop it from defaults.
+        error_strings: |
+          ERROR
+          FAIL
+          Traceback.*most.recent.call
+          Exception in thread
+          java.lang.NullPointerException
+          java.lang.RuntimeException
+          Gem::MissingSpecError
+          command not found
 
 update:
   enabled: true
@@ -332,4 +342,4 @@ update:
     identifier: rancher/rancher
     strip-prefix: v
     use-tag: true
-    tag-filter: v2.13.
+    tag-filter: v2.14.
