@@ -1,13 +1,16 @@
 package:
   name: kubernetes-csi-external-resizer
   version: "2.1.0"
-  epoch: 10 # CVE-2026-33814
+  epoch: 11 # go/wolfi-rsc/kubernetes-csi-external-resizer
   description: Sidecar container that watches Kubernetes PersistentVolumeClaims objects and triggers controller side expansion operation against a CSI endpoint
   copyright:
     - license: Apache-2.0
   resources:
-    cpu: "1"
+    cpu: "2"
     memory: 6Gi
+  test-resources:
+    cpu: "1"
+    memory: 1Gi
 
 pipeline:
   - uses: git-checkout
