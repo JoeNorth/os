@@ -1,6 +1,6 @@
 package:
-  name: argo-cd-3.3
-  version: "3.3.10"
+  name: argo-cd-3.4
+  version: "3.4.2"
   epoch: 0 # GHSA-389r-gv7p-r3rp
   description: Declarative continuous deployment for Kubernetes.
   copyright:
@@ -23,6 +23,7 @@ environment:
       - busybox
       - ca-certificates-bundle
       - go-1.26
+      - make
       - nodejs-20
       - patch
       - yarn
@@ -32,7 +33,7 @@ pipeline:
     with:
       repository: https://github.com/argoproj/argo-cd
       tag: v${{package.version}}
-      expected-commit: 4e8d8b5d05451d76412b36122d6803a90b4f406e
+      expected-commit: 0dc6b1b57dd5bb925d5b03c3d09419ab9fb4225e
 
   - uses: bump
     with:
@@ -181,7 +182,7 @@ update:
   github:
     identifier: argoproj/argo-cd
     strip-prefix: v
-    tag-filter-prefix: v3.3.
+    tag-filter-prefix: v3.4.
 
 test:
   environment:
