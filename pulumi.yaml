@@ -1,7 +1,7 @@
 package:
   name: pulumi
-  version: "3.238.0"
-  epoch: 1 # go/wolfi-rsc/pulumi
+  version: "3.239.0"
+  epoch: 0 # go/wolfi-rsc/pulumi
   description: Infrastructure as Code in any programming language
   copyright:
     - license: Apache-2.0
@@ -36,7 +36,7 @@ pipeline:
   - uses: git-checkout
     with:
       destination: ${{package.name}}
-      expected-commit: 71ddfb54af45d028583ec147ca80b266efc3315e
+      expected-commit: b618cbb043587e869d72fca76d5ff4a6c4fe302b
       repository: https://github.com/pulumi/pulumi.git
       tag: v${{package.version}}
 
