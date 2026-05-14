@@ -1,6 +1,6 @@
 package:
   name: gitea
-  version: "1.26.0"
+  version: "1.26.1"
   epoch: 0 # GHSA-pjcq-xvwq-hhpj
   description: self-hosted git service
   copyright:
@@ -27,7 +27,7 @@ environment:
 pipeline:
   - uses: git-checkout
     with:
-      expected-commit: 9b9d1e31aa0bd2e2bb87d2ba329521ed3c5084bd
+      expected-commit: afdbd9b7c5685a0a9119e3d449650972fe24ba68
       repository: https://github.com/go-gitea/gitea
       tag: v${{package.version}}
 
