@@ -1,13 +1,16 @@
 package:
   name: ccache
   version: "4.13.6"
-  epoch: 0 # go/wolfi-rsc/ccache
+  epoch: 1 # go/wolfi-rsc/ccache
   description: Fast C/C++ compiler cache
   copyright:
     - license: GPL-3.0-or-later
   resources:
     cpu: "2"
-    memory: 10Gi
+    memory: 6Gi
+  test-resources:
+    cpu: "1"
+    memory: 1Gi
 
 environment:
   contents:
