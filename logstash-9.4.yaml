@@ -11,7 +11,7 @@
 package:
   name: logstash-9.4
   version: "9.4.1"
-  epoch: 0
+  epoch: 1
   description: Logstash - transport and process your logs, events, or other data
   copyright:
     - license: Apache-2.0
@@ -30,9 +30,11 @@ package:
       - openssl
 
 vars:
-  kafka-integration-version: "12.1.1"
   java-version: "21"
   jruby-version: "10.1"
+  logstash-filter-elastic_integration-version: "9.4.2"
+  logstash-input-azure_event_hubs-version: "1.5.5"
+  logstash-integration-kafka-version: "12.1.2"
   opensearch-output-version: "2.1.1"
   ruby-version: "4.0"
 
@@ -99,8 +101,6 @@ pipeline:
   #   - bcprov-jdk18on-1.79
   #   - bcprov-jdk18on-1.83 via jruby-openssl-0.15.6
   #   - jackson-core-2.15.4 via jrjackson 0.4.20
-  #   - nokogiri-1.18.10-java (fixed requires Ruby > 3.1, which would require
-  #     JRuby 10.x, which probably requires a big upstream update)
   #
   # Future work (OS-1796) will attempt to replace the vendored jruby with ours,
   # and a jruby-openssl that uses our BouncyCastle FIPS as its backend. These
@@ -123,9 +123,11 @@ pipeline:
     runs: |
       ./gradlew installDefaultGems
 
-  - name: Upgrade logstash-integration-kafka for GHSA-72hv-8253-57qq
+  - name: Upgrade plugins for several CVEs
     runs: |
-      bin/logstash-plugin install --no-verify --version ${{vars.kafka-integration-version}} logstash-integration-kafka
+      bin/logstash-plugin install --no-verify --version ${{vars.logstash-integration-kafka-version}} logstash-integration-kafka
+      bin/logstash-plugin install --no-verify --version ${{vars.logstash-filter-elastic_integration-version}} logstash-filter-elastic_integration
+      bin/logstash-plugin install --no-verify --version ${{vars.logstash-input-azure_event_hubs-version}} logstash-input-azure_event_hubs
 
   - name: Build and generate tarball distribution
     runs: |
