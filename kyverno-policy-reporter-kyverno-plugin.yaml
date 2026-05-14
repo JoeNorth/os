@@ -1,13 +1,16 @@
 package:
   name: kyverno-policy-reporter-kyverno-plugin
   version: 1.6.4
-  epoch: 26 # CVE-2026-33814
+  epoch: 27 # go/wolfi-rsc/kyverno-policy-reporter-kyverno-plugin
   description: Policy Reporter Kyverno Plugin
   copyright:
     - license: MIT
   resources:
-    cpu: "4"
-    memory: 10Gi
+    cpu: "2"
+    memory: 6Gi
+  test-resources:
+    cpu: "1"
+    memory: 1Gi
 
 environment:
   contents:
