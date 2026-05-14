@@ -1,7 +1,7 @@
 package:
   name: nri-nginx
-  version: "3.8.0"
-  epoch: 2 # go/wolfi-rsc/nri-nginx
+  version: "3.8.1"
+  epoch: 0 # go/wolfi-rsc/nri-nginx
   description: New Relic Infrastructure Nginx Integration
   copyright:
     - license: Apache-2.0
@@ -16,7 +16,7 @@ pipeline:
   - uses: git-checkout
     with:
       repository: https://github.com/newrelic/nri-nginx
-      expected-commit: 16c1b76fff6f6d48aeadb2ea259768543eae2c95
+      expected-commit: b3e1fd4599d110abd60051f0c227c0941b791462
       tag: v${{package.version}}
 
   - uses: go/build
