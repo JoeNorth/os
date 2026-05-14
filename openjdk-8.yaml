@@ -1,6 +1,6 @@
 package:
   name: openjdk-8
-  version: "8.492" # this corresponds to same release as jdk8u472-ga - build number can be dropped with next GA release.
+  version: "8.492"
   epoch: 0 # go/wolfi-rsc/openjdk-8
   description: "OpenJDK 8"
   copyright:
@@ -80,8 +80,8 @@ environment:
       - zip
       - zlib-dev
   environment:
-    EXTRA_CFLAGS: "-Wno-incompatible-pointer-types -Wno-int-conversion -Wno-complain-wrong-lang -Wformat -Wno-cpp -Wno-error -fno-delete-null-pointer-checks -fno-lifetime-dse -fno-strict-overflow"
-    EXTRA_CPP_FLAGS: "-Wno-incompatible-pointer-types -Wno-int-conversion -Wno-complain-wrong-lang -Wno-cpp -fno-delete-null-pointer-checks -fno-lifetime-dse -fno-strict-overflow"
+    EXTRA_CFLAGS: "-Wno-incompatible-pointer-types -Wno-int-conversion -Wno-complain-wrong-lang -Wformat -Wno-cpp -Wno-error -fno-delete-null-pointer-checks -fno-lifetime-dse -fno-strict-overflow -Wno-format-overflow"
+    EXTRA_CPP_FLAGS: "-Wno-incompatible-pointer-types -Wno-int-conversion -Wno-complain-wrong-lang -Wno-cpp -fno-delete-null-pointer-checks -fno-lifetime-dse -fno-strict-overflow -Wno-format-overflow"
 
 pipeline:
   - uses: git-checkout
