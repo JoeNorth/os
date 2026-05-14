@@ -2,8 +2,8 @@ package:
   name: nginx-mainline
   # MAINLINE VERSIONS MUST USE ODD MINOR VERSIONS (e.g., 1.27.x, 1.29.x)
   # Must also bump njs at the same time
-  version: "1.29.8"
-  epoch: 2
+  version: "1.31.0"
+  epoch: 0
   # HEY YOU! If you update/bump this package you NEED to go and update the equivilent nginx-otel package
   description: HTTP and reverse proxy server (mainline version)
   copyright:
@@ -85,7 +85,7 @@ pipeline:
     with:
       repository: https://github.com/nginx/nginx.git
       tag: release-${{package.version}}
-      expected-commit: 5eaf45f11e85459b52c18f876e69320df420ae29
+      expected-commit: e8053c867f9ab14f323e3019ccab585d857abb66
       destination: nginx-mainline
 
   - name: configure
@@ -568,5 +568,5 @@ update:
     identifier: nginx/nginx
     use-tag: true
     # MAINLINE VERSIONS MUST USE ODD MINOR VERSIONS (e.g., 1.27.x, 1.29.x)
-    tag-filter: release-1.29
+    tag-filter: release-1.31
     strip-prefix: release-
