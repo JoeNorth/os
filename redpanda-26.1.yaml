@@ -1,6 +1,6 @@
 package:
   name: redpanda-26.1
-  version: "26.1.7"
+  version: "26.1.8"
   epoch: 0 # CVE-2026-33814
   description: "Redpanda is a streaming platform based on Apache Kafka API"
   resources:
@@ -56,7 +56,7 @@ pipeline:
   - uses: git-checkout
     with:
       repository: "https://github.com/redpanda-data/redpanda.git"
-      expected-commit: "ebee215fdb2b8004735c6f800e532564cdcc05e1"
+      expected-commit: "c7962c091d86f51435f38ef443173344c4e94287"
       tag: "v${{package.version}}"
       destination: redpanda
 
