@@ -2,8 +2,8 @@ package:
   name: nginx-mainline
   # MAINLINE VERSIONS MUST USE ODD MINOR VERSIONS (e.g., 1.27.x, 1.29.x)
   # Must also bump njs at the same time
-  version: "1.31.0"
-  epoch: 0
+  version: "1.29.8"
+  epoch: 2
   # HEY YOU! If you update/bump this package you NEED to go and update the equivilent nginx-otel package
   description: HTTP and reverse proxy server (mainline version)
   copyright:
@@ -85,7 +85,7 @@ pipeline:
     with:
       repository: https://github.com/nginx/nginx.git
       tag: release-${{package.version}}
-      expected-commit: e8053c867f9ab14f323e3019ccab585d857abb66
+      expected-commit: 5eaf45f11e85459b52c18f876e69320df420ae29
       destination: nginx-mainline
 
   - name: configure
@@ -550,6 +550,17 @@ test:
       with:
         tag: nginx:local
         output: /tmp/nginx.tar
+    - name: Run nginx image in k3s
+      uses: test/k3s
+      with:
+        post: |
+          set -euo pipefail
+          CTR="ctr --address /run/k3s/containerd/containerd.sock -n k8s.io"
+          $CTR images import /tmp/nginx.tar
+          kubectl run nginx --image="$($CTR images ls -q | grep library/nginx:local | head -1)" --image-pull-policy=Never --port=80
+          kubectl wait --for=condition=Ready pod/nginx --timeout=90s
+          kubectl port-forward pod/nginx 8888:80 >/dev/null 2>&1 &
+          curl --retry 10 --retry-all-errors -sf http://localhost:8888 | grep -qi nginx
 
 update:
   enabled: true
@@ -557,5 +568,5 @@ update:
     identifier: nginx/nginx
     use-tag: true
     # MAINLINE VERSIONS MUST USE ODD MINOR VERSIONS (e.g., 1.27.x, 1.29.x)
-    tag-filter: release-1.31
+    tag-filter: release-1.29
     strip-prefix: release-
