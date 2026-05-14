@@ -1,7 +1,7 @@
 package:
   name: apache-pulsar-4.2
   version: "4.2.1"
-  epoch: 2 # GHSA-57rv-r2g8-2cj3
+  epoch: 1
   description: Pulsar is a distributed pub-sub messaging platform with a very flexible messaging model and an intuitive client API.
   copyright:
     - license: Apache-2.0

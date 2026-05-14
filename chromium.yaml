@@ -8,7 +8,7 @@
 package:
   name: chromium
   version: "148.0.7778.167"
-  epoch: 2
+  epoch: 1 # use vendored icu
   description: "Open source version of Google's chrome web browser"
   copyright:
     - license: BSD-3-Clause
