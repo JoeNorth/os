@@ -1,8 +1,8 @@
 # Generated from https://git.alpinelinux.org/aports/plain/main/lvm2/APKBUILD
 package:
   name: lvm2
-  version: "2.03.41"
-  epoch: 0 # go/wolfi-rsc/lvm2
+  version: "2.03.40"
+  epoch: 1 # go/wolfi-rsc/lvm2
   description: Logical Volume Manager 2 utilities
   copyright:
     - license: GPL-2.0-only AND LGPL-2.1-only
@@ -42,7 +42,7 @@ pipeline:
     with:
       repository: https://gitlab.com/lvmteam/lvm2.git
       tag: v${{vars.mangled-package-version}}
-      expected-commit: 539014d16099ee8d46318b49e9014332e2dc7ef3
+      expected-commit: c48a3842714858d2de16c341b249be4a073f3325
 
   - runs: |
       # during cross-compilation malloc test goes wrong

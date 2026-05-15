@@ -2,16 +2,13 @@
 package:
   name: smokescreen
   version: "0_git20260409"
-  epoch: 3 # go/wolfi-rsc/smokescreen
+  epoch: 2 # CVE-2026-32280
   description: A simple HTTP proxy that fogs over naughty URLs
   copyright:
     - license: Apache-2.0
   resources:
     cpu: "1"
     memory: 5Gi
-  test-resources:
-    cpu: "1"
-    memory: 3Gi
 
 environment:
   contents:

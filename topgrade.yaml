@@ -1,7 +1,7 @@
 package:
   name: topgrade
-  version: "17.5.0"
-  epoch: 0 # GHSA-r6v5-fh4h-64xc
+  version: "17.4.0"
+  epoch: 1 # GHSA-r6v5-fh4h-64xc
   description: Detects which tools you use and runs the appropriate commands to update them
   copyright:
     - license: GPL-3.0-or-later
@@ -25,7 +25,7 @@ pipeline:
     with:
       repository: https://github.com/topgrade-rs/topgrade
       tag: v${{package.version}}
-      expected-commit: 4de8767a6753bf66dd744907009cab9cfb95249d
+      expected-commit: ae6cc7ddf5c8a0ab3a4eabe84e55c87f93dfd538
 
   - uses: rust/cargobump
 

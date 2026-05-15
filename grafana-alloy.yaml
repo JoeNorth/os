@@ -1,7 +1,7 @@
 package:
   name: grafana-alloy
   version: "1.15.1"
-  epoch: 6 # CVE-2026-33814
+  epoch: 5 # GHSA-wf45-q9ch-q8gh
   description: OpenTelemetry Collector distribution with programmable pipelines
   copyright:
     - license: Apache-2.0
@@ -13,15 +13,14 @@ package:
       - libsystemd
   resources:
     cpu: "19"
-    memory: 16Gi
-    disk: 20Gi
+    memory: 14Gi
 
 environment:
   contents:
     packages:
       - busybox
       - ca-certificates-bundle
-      - go-1.26
+      - go-1.25
       - nodejs-18
       - npm
       - systemd-dev
@@ -44,7 +43,7 @@ pipeline:
       tag: v${{package.version}}
       expected-commit: 3e6d1d07d37a370b6e4139bc912b47b4106f7f20
 
-  - uses: bump
+  - uses: go/bump
     with:
       deps: |-
         github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs@v1.65.0
@@ -55,12 +54,8 @@ pipeline:
         go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp@v1.43.0
         go.opentelemetry.io/otel/sdk@v1.43.0
         github.com/grafana/loki/v3@v3.6.4
-        github.com/go-git/go-git/v5@v5.19.0
+        github.com/go-git/go-git/v5@v5.18.0
         github.com/apache/thrift@v0.23.0
-        golang.org/x/net@v0.53.0
-        golang.org/x/crypto@v0.50.0
-        golang.org/x/sys@v0.43.0
-        golang.org/x/text@v0.36.0
       modroot: |-
         collector
         extension/alloyengine
@@ -86,7 +81,6 @@ pipeline:
       modroot: ./collector
       output: alloy
       tags: netgo,embedalloyui,promtail_journal_enabled
-      go-package: go-1.26
 
   - name: Setup default config files
     runs: |

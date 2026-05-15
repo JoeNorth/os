@@ -1,7 +1,7 @@
 package:
   name: skaffold
-  version: "2.20.0"
-  epoch: 0 # GHSA-389r-gv7p-r3rp
+  version: "2.19.0"
+  epoch: 3 # GHSA-389r-gv7p-r3rp
   description: Easy and Repeatable Kubernetes Development
   copyright:
     - license: Apache-2.0
@@ -12,9 +12,15 @@ package:
 pipeline:
   - uses: git-checkout
     with:
-      expected-commit: 78c964692057dd0d2a9a0608d504af868be521cc
+      expected-commit: 95531aa9b308e8f4f9618cd7f541361cef7865ab
       repository: https://github.com/GoogleContainerTools/skaffold
       tag: v${{package.version}}
+
+  - uses: bump
+    with:
+      deps: |-
+        github.com/in-toto/in-toto-golang@v0.11.0
+        github.com/go-git/go-git/v5@v5.19.0
 
   - uses: go/build
     with:

@@ -9,9 +9,9 @@
 # CVE patches for default plugin dependencies are applied via Gemfile.template
 # edits before installDefaultGems runs.
 package:
-  name: logstash-9.4
-  version: "9.4.1"
-  epoch: 1
+  name: logstash-9.3
+  version: "9.3.4"
+  epoch: 2 # Cleanup to match logstash-fips-9.3
   description: Logstash - transport and process your logs, events, or other data
   copyright:
     - license: Apache-2.0
@@ -30,13 +30,10 @@ package:
       - openssl
 
 vars:
+  kafka-integration-version: "12.1.1"
   java-version: "21"
-  jruby-version: "10.1"
-  logstash-filter-elastic_integration-version: "9.4.2"
-  logstash-input-azure_event_hubs-version: "1.5.5"
-  logstash-integration-kafka-version: "12.1.2"
+  jruby-version: "9.4"
   opensearch-output-version: "2.1.1"
-  ruby-version: "4.0"
 
 var-transforms:
   - from: ${{package.version}}
@@ -62,7 +59,6 @@ environment:
       - net-tools
       - openjdk-${{vars.java-version}}-default-jdk
       - posix-libc-utils
-      - ruby-${{vars.ruby-version}}
       - sed
       - yq
   environment:
@@ -85,7 +81,7 @@ pipeline:
     with:
       repository: https://github.com/elastic/logstash
       tag: v${{package.version}}
-      expected-commit: b248f6c74ddbb2e955714521065575070d905af5
+      expected-commit: d084cc4937d87d6a41b05ceca1d8643dda10bc1b
 
   # Patches:
   #
@@ -101,6 +97,8 @@ pipeline:
   #   - bcprov-jdk18on-1.79
   #   - bcprov-jdk18on-1.83 via jruby-openssl-0.15.6
   #   - jackson-core-2.15.4 via jrjackson 0.4.20
+  #   - nokogiri-1.18.10-java (fixed requires Ruby > 3.1, which would require
+  #     JRuby 10.x, which probably requires a big upstream update)
   #
   # Future work (OS-1796) will attempt to replace the vendored jruby with ours,
   # and a jruby-openssl that uses our BouncyCastle FIPS as its backend. These
@@ -109,25 +107,16 @@ pipeline:
     with:
       patches: |
         create_archive_pack.patch
-        gradle-skip-macwin.patch
         fix-cves.patch
-
-  - uses: maven/configure-mirror
-
-  - name: Install rake and bundler.
-    runs: |
-      gem install rake
-      gem install bundler
+        gradle-skip-macwin.patch
 
   - name: Install all the default plugins
     runs: |
       ./gradlew installDefaultGems
 
-  - name: Upgrade plugins for several CVEs
+  - name: Upgrade logstash-integration-kafka for GHSA-72hv-8253-57qq
     runs: |
-      bin/logstash-plugin install --no-verify --version ${{vars.logstash-integration-kafka-version}} logstash-integration-kafka
-      bin/logstash-plugin install --no-verify --version ${{vars.logstash-filter-elastic_integration-version}} logstash-filter-elastic_integration
-      bin/logstash-plugin install --no-verify --version ${{vars.logstash-input-azure_event_hubs-version}} logstash-input-azure_event_hubs
+      bin/logstash-plugin install --no-verify --version ${{vars.kafka-integration-version}} logstash-integration-kafka
 
   - name: Build and generate tarball distribution
     runs: |
@@ -394,10 +383,7 @@ test:
     - uses: test/tw/ver-check
       with:
         bins: ruby
-        match-type: regex
-        # TODO: Should be ^jruby ${{vars.jruby-version}} once we get it to
-        # use our JRuby instead of vendoring.
-        version: "^jruby 10.0"
+        version: ${{vars.jruby-version}}
     - uses: test/tw/help-check
       with:
         bins: pqcheck ruby system-install
@@ -422,4 +408,4 @@ update:
     identifier: elastic/logstash
     strip-prefix: v
     use-tag: true
-    tag-filter: v9.4.
+    tag-filter: v9.3.

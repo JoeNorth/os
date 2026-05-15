@@ -13,7 +13,7 @@ patches:
     version: 4.0.7
   - groupId: io.netty
     artifactId: netty-codec-http2
-    version: 4.1.133.Final
+    version: 4.1.132.Final
   - groupId: io.netty
     artifactId: netty-codec
     version: 4.1.125.Final
@@ -38,6 +38,3 @@ patches:
   - groupId: org.apache.neethi
     artifactId: neethi
     version: 3.2.2
-  - groupId: io.netty
-    artifactId: netty-codec-dns
-    version: 4.1.133.Final

@@ -1,7 +1,7 @@
 package:
   name: zizmor
-  version: "1.25.0"
-  epoch: 0 # GHSA-82j2-j2ch-gfr8
+  version: "1.24.1"
+  epoch: 3 # GHSA-82j2-j2ch-gfr8
   description: "A static analysis tool for GitHub Actions"
   copyright:
     - license: MIT
@@ -13,7 +13,7 @@ pipeline:
   - uses: git-checkout
     with:
       repository: https://github.com/woodruffw/zizmor
-      expected-commit: ee075979c40cc6b8278bc0215477d03d65c80980
+      expected-commit: 2eaf42bcccfed62978cee0905902acbc294d5123
       tag: v${{package.version}}
 
   - uses: rust/cargobump

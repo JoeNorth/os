@@ -1,16 +1,13 @@
 package:
   name: pulumi-language-dotnet
-  version: "3.106.2"
-  epoch: 1 # go/wolfi-rsc/pulumi-language-dotnet
+  version: "3.106.1"
+  epoch: 2 # GHSA-389r-gv7p-r3rp
   description: Pulumi Language SDK for Dotnet
   copyright:
     - license: Apache-2.0
   resources:
-    cpu: "2"
-    memory: 4Gi
-  test-resources:
     cpu: "1"
-    memory: 1Gi
+    memory: 4Gi
 
 environment:
   contents:
@@ -23,7 +20,7 @@ environment:
 pipeline:
   - uses: git-checkout
     with:
-      expected-commit: 457e2e219be21e7ca0a79ad2bfb586f78d9a6bd0
+      expected-commit: 9ebdbd7b4762bd295ace05bc31b075f8fb7834a3
       repository: https://github.com/pulumi/pulumi-dotnet.git
       tag: v${{package.version}}
 

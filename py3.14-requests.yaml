@@ -1,6 +1,6 @@
 package:
   name: py3.14-requests
-  version: "2.34.2"
+  version: "2.34.0"
   epoch: 0
   description: Python HTTP for Humans.
   copyright:
@@ -31,7 +31,7 @@ pipeline:
     with:
       repository: https://github.com/psf/requests.git
       tag: v${{package.version}}
-      expected-commit: 6e83187b8feb273ed4c6cdab5efd8d54901dfab3
+      expected-commit: 0b401c76b6e80a4eecf3c690085b2553f6e261ca
 
   - uses: py/pip-build-install
     with:

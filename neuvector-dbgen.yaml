@@ -1,8 +1,8 @@
 #nolint:valid-pipeline-git-checkout-commit,valid-pipeline-git-checkout-tag
 package:
   name: neuvector-dbgen
-  version: 0_git20260507
-  epoch: 0
+  version: 0_git20240423
+  epoch: 20 # CVE-2026-32280
   description: NeuVector vulnerability database generator for the SUSE NeuVector Container Security Platform
   copyright:
     - license: Apache-2.0
@@ -17,19 +17,20 @@ environment:
   contents:
     packages:
       - busybox
-      - go-1.26
+      - go-1.25
 
 pipeline:
   - uses: git-checkout
     with:
       repository: https://github.com/neuvector/vul-dbgen
       branch: main
-      expected-commit: fe7603d05feeb9224d121096735678f51783214e
+      expected-commit: 23c9cea6be0762c825673803624300cc4a720d19
 
-  # CVE-2022-29526 (x/sys already at v0.20.0 upstream; logrus bump still needed)
+  # CVE-2022-29526
   - uses: go/bump
     with:
       deps: |-
+        golang.org/x/sys@v0.13.0
         github.com/sirupsen/logrus@v1.8.3
 
   - uses: go/build
@@ -38,7 +39,8 @@ pipeline:
       packages: .
       output: dbgen
       prefix: usr/local
-      go-package: go-1.26
+      vendor: true
+      go-package: go-1.25
 
 subpackages:
   - name: neuvector-db-updater
@@ -54,8 +56,8 @@ subpackages:
           packages: ./updater
           output: updater
           prefix: usr/local
-          go-package: go-1.26
-      - uses: strip
+          vendor: true
+          go-package: go-1.25
     test:
       pipeline:
         - uses: test/tw/ldd-check
@@ -72,8 +74,5 @@ test:
         echo "$output" | grep -qE "."
 
 update:
-  enabled: true
-  git: {}
-  schedule:
-    period: daily
-    reason: Upstream does not maintain tags or releases
+  manual: true
+  exclude-reason: No releases or tags

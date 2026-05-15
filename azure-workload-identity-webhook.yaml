@@ -1,7 +1,7 @@
 package:
   name: azure-workload-identity-webhook
   version: "1.5.1"
-  epoch: 19 # CVE-2026-33814
+  epoch: 18 # CVE-2026-32280
   description: Mutating webhook for Azure Workload Identity
   copyright:
     - license: MIT
@@ -25,13 +25,11 @@ pipeline:
         golang.org/x/oauth2@v0.27.0
         golang.org/x/crypto@v0.45.0
         go.opentelemetry.io/otel/sdk@v1.43.0
-        golang.org/x/net@v0.53.0
       modroot: test/e2e
 
   - uses: bump
     with:
       deps: |-
-        golang.org/x/net@v0.53.0
         golang.org/x/oauth2@v0.27.0
         golang.org/x/crypto@v0.45.0
         go.opentelemetry.io/otel/sdk@v1.43.0
@@ -46,7 +44,6 @@ pipeline:
         -X github.com/Azure/azure-workload-identity/pkg/version.VCSVersion=$(git rev-parse --short HEAD)
         -X github.com/Azure/azure-workload-identity/pkg/webhook.ProxyImageVersion=v${{package.version}}
         -X github.com/Azure/azure-workload-identity/pkg/webhook.ProxyImageRegistry=mcr.microsoft.com/oss/azure/workload-identity
-      go-package: go-1.26
 
 subpackages:
   - name: ${{package.name}}-compat
@@ -131,4 +128,4 @@ test:
 environment:
   contents:
     packages:
-      - go-1.26
+      - go-1.25

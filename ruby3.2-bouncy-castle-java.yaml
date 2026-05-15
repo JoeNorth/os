@@ -2,7 +2,7 @@
 package:
   name: ruby3.2-bouncy-castle-java
   version: 1.5.0146.1
-  epoch: 8 # GHSA-p93r-85wp-75v3
+  epoch: 7 # go/wolfi-rsc/ruby3.2-bouncy-castle-java
   description: Gem redistribution of "Legion of the Bouncy Castle Java cryptography APIs" jars at http://www.bouncycastle.org/java.html
   copyright:
     - license: MIT
@@ -39,8 +39,8 @@ pipeline:
   - uses: fetch
     working-directory: lib
     with:
-      uri: https://repo1.maven.org/maven2/org/bouncycastle/bcprov-jdk18on/1.84/bcprov-jdk18on-1.84.jar
-      expected-sha256: 64d6c5a6121fcd927152dd182cbed39afe0fda641a970d9bcc0c9cb1858b2731
+      uri: https://repo1.maven.org/maven2/org/bouncycastle/bcprov-jdk18on/1.80/bcprov-jdk18on-1.80.jar
+      expected-sha256: e8ad209f8c58d291a37ca9750e9e9fac60596956c983e49dd8282381dd8b3249
       extract: false
 
   - uses: ruby/build

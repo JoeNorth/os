@@ -1,6 +1,6 @@
 package:
   name: docker-nginx
-  version: "1.31.0"
+  version: "1.29.8"
   epoch: 0 # go/wolfi-rsc/docker-nginx
   description: NGINX Dockerfiles
   copyright:
@@ -21,7 +21,7 @@ environment:
 pipeline:
   - uses: git-checkout
     with:
-      expected-commit: c90491de22401b512a64fff6d23d3dcb3a861573
+      expected-commit: 71081b25390771f6b1275ddf7c73c965f304493f
       repository: https://github.com/nginxinc/docker-nginx
       tag: ${{package.version}}
 

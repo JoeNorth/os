@@ -1,7 +1,7 @@
 package:
   name: emissary
   version: "4.0.1"
-  epoch: 4 # go/wolfi-rsc/emissary
+  epoch: 3 # CVE-2026-33814
   description: "open source Kubernetes-native API gateway for microservices built on the Envoy Proxy"
   copyright:
     - license: Apache-2.0
@@ -11,10 +11,10 @@ package:
       - git
       - py${{vars.py-version}}-ambassador
   resources:
-    cpu: "3"
+    cpu: "5"
     memory: 12Gi
   test-resources:
-    cpu: "1"
+    cpu: "2"
     memory: 4Gi
 
 vars:

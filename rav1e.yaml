@@ -1,16 +1,13 @@
 package:
   name: rav1e
   version: 0.8.1
-  epoch: 7 # go/wolfi-rsc/rav1e
+  epoch: 6 # GHSA-cq8v-f236-94qc
   description: The fastest and safest AV1 encoder.
   copyright:
     - license: BSD-2-Clause
   resources:
-    cpu: "5"
-    memory: 7Gi
-  test-resources:
-    cpu: "1"
-    memory: 1Gi
+    cpu: "11"
+    memory: 11Gi
 
 environment:
   contents:

@@ -1,13 +1,13 @@
 package:
   name: docker-cli
-  version: "29.5.0"
-  epoch: 1 # go/wolfi-rsc/docker-cli
+  version: "29.4.3"
+  epoch: 1 # CVE-2026-27140
   description: The Docker CLI
   copyright:
     - license: Apache-2.0
   resources:
-    cpu: "1"
-    memory: 5Gi
+    cpu: "6"
+    memory: 13Gi
   test-resources:
     cpu: "1"
     memory: 3Gi
@@ -33,7 +33,7 @@ pipeline:
     with:
       repository: https://github.com/docker/cli
       tag: v${{package.version}}
-      expected-commit: 98f14649600f05480629d5c481878b1e1bcb7c17
+      expected-commit: 055a478ea9010a19d0d4674c0d0e87ade37a4223
 
   - runs: |
       export DISABLE_WARN_OUTSIDE_CONTAINER=1

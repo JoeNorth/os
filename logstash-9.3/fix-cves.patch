@@ -1,0 +1,40 @@
+Author: Chris Herborth <chris.herborth@chainguard.dev>
+Forwarded: not-needed
+Description: Fix various CVEs caused by ancient deps.
+---
+diff --git a/Gemfile.template b/Gemfile.template
+index bcac1bc..00516dc 100644
+--- a/Gemfile.template
++++ b/Gemfile.template
+@@ -39,8 +39,19 @@ gem "webmock", "~> 3", :group => :development
+ gem "simplecov", "~> 0.22.0", :group => :development
+ gem "simplecov-json", require: false, :group => :development
+ gem "murmurhash3", "= 0.1.6" # Pins until version 0.1.7-java is released
+-gem "date", "= 3.3.3"
++gem "date", "~> 3.4.1"
+ gem "thwait"
+ gem "bigdecimal", "~> 3.1"
+ gem "cgi", "~> 0.3.7" # Pins until a new jruby version with updated cgi is released (https://github.com/jruby/jruby/issues/8919)
+ gem "jar-dependencies", "= 0.5.4" # Pin to avoid conflict with default
++
++# Attempt to address CVEs
++gem "addressable", "~> 2.9.0"
++gem "aws-sdk-s3", "~> 1.208.0"
++gem "erb", "~> 4.0.3.1"
++gem "json", "~> 2.19.2"
++gem "logstash-filter-elastic_integration", "~> 9.4.0"
++gem "rack", "~> 3.2.6"
++gem "rack-session", "~> 2.1.2"
++gem "sinatra", "~> 4.2.0"
++gem "uri", "~> 0.12.5"
+diff --git a/versions.yml b/versions.yml
+index 802e806..9bcb3a7 100644
+--- a/versions.yml
++++ b/versions.yml
+@@ -28,5 +28,5 @@ jruby:
+ #       bundler evaluates the gemspec via bin/logstash
+ # Ensure Jackson version here is kept in sync with version used by jrjackson gem
+ jrjackson: 0.4.20
+-jackson: 2.16.2
++jackson: 2.18.6
+ jackson-databind: 2.16.2

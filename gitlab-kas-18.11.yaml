@@ -1,7 +1,7 @@
 package:
   name: gitlab-kas-18.11
-  version: "18.11.3"
-  epoch: 1 # GHSA-j88v-2chj-qfwx
+  version: "18.11.2"
+  epoch: 1 # GHSA-78h2-9frx-2jm8
   description: GitLab KAS is a component installed together with GitLab. It is required to manage the GitLab agent for Kubernetes.
   copyright:
     - license: MIT
@@ -30,13 +30,11 @@ pipeline:
     with:
       repository: https://gitlab.com/gitlab-org/cluster-integration/gitlab-agent
       tag: v${{package.version}}
-      expected-commit: 93fc48c6b553f4c2fd5f841eb6cb44306548603d
+      expected-commit: e9df310143219422d2ff1b498386095733bf5820
 
   - uses: bump
     with:
-      deps: |-
-        github.com/go-jose/go-jose/v4@v4.1.4
-        github.com/jackc/pgx/v5@v5.9.2
+      deps: github.com/go-jose/go-jose/v4@v4.1.4
 
   - uses: go/build
     with:

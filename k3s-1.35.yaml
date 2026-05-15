@@ -1,7 +1,7 @@
 package:
   name: k3s-1.35
   version: "1.35.3.1"
-  epoch: 5 # GHSA-p77j-4mvh-x3m3
+  epoch: 4 # GHSA-378j-3jfj-8r9f
   description:
   copyright:
     - license: Apache-2.0
@@ -37,7 +37,7 @@ environment:
       - ca-certificates-bundle
       - crane
       - curl
-      - go-1.26
+      - go
       - libseccomp-dev
       - libseccomp-static
       - sqlite-dev
@@ -71,7 +71,7 @@ pipeline:
   - runs: |
       go mod edit -replace go.etcd.io/etcd/client/v2=github.com/k3s-io/etcd/client/v2@v2.305.26-k3s1
 
-  - uses: bump
+  - uses: go/bump
     with:
       deps: |-
         github.com/quic-go/webtransport-go@v0.10.0
@@ -84,8 +84,6 @@ pipeline:
         github.com/jackc/pgx/v5@v5.9.0
         github.com/moby/spdystream@v0.5.1
         github.com/ipld/go-ipld-prime@v0.22.0
-        google.golang.org/grpc@v1.79.3
-      replaces: google.golang.org/grpc=google.golang.org/grpc@v1.79.3
 
   # Build things (almost) identical to upstream, with the k3s components
   # embedded in the "outer" multicall binary.
@@ -94,14 +92,6 @@ pipeline:
       sed -e '/curl --compressed/d' -i scripts/download
       mkdir -p build/static bin/aux etc
       ./scripts/download
-
-  # bump google.golang.org/grpc to v1.79.3 to pull in the fix; this is needed to ensure the embedded containerd is also patched
-  # as this clones from the step above and will build later
-  # to fix: GHSA-p77j-4mvh-x3m3
-  - uses: go/bump
-    with:
-      deps: google.golang.org/grpc@v1.79.3
-      modroot: ./build/src/github.com/containerd/containerd
 
   - runs: |
       # Override the go version check at runtime to always match the go version at build time

@@ -1,6 +1,6 @@
 package:
   name: terraform-provider-azurerm
-  version: "4.73.0"
+  version: "4.72.0"
   epoch: 0 # go/wolfi-rsc/terraform-provider-azurerm
   description: Terraform provider for Azure Resource Manager
   copyright:
@@ -15,7 +15,7 @@ package:
 pipeline:
   - uses: git-checkout
     with:
-      expected-commit: 648b43f174d5349ce7ce3d7a685f63bfcaf1d310
+      expected-commit: c108b78027e7332f2a8f362dd5ba799eb05336e0
       repository: https://github.com/hashicorp/terraform-provider-azurerm
       tag: v${{package.version}}
 

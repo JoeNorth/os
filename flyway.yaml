@@ -1,6 +1,6 @@
 package:
   name: flyway
-  version: "12.6.1"
+  version: "12.6.0"
   epoch: 0 # GHSA-pwqr-wmgm-9rr8
   description: "Flyway is a database migration tool to evolve your database schema easily and reliably across all your instances."
   copyright:
@@ -41,7 +41,7 @@ pipeline:
     with:
       repository: https://github.com/flyway/flyway
       tag: flyway-${{package.version}}
-      expected-commit: 502c532b124630f42ffef17fb33755bf5726afe0
+      expected-commit: ce65ee118f01f1792aa46129a3f07cc746c6c6b9
 
   - uses: maven/pombump
     with:

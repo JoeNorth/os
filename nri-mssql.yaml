@@ -1,6 +1,6 @@
 package:
   name: nri-mssql
-  version: "2.30.0"
+  version: "2.29.1"
   epoch: 0 # CVE-2026-33814
   description: New Relic Infrastructure Mssql Integration
   copyright:
@@ -21,7 +21,7 @@ pipeline:
   - uses: git-checkout
     with:
       repository: https://github.com/newrelic/nri-mssql
-      expected-commit: 68dd174cb8682ecabee99d5fdbc17cbf4342db14
+      expected-commit: 4af710a01720777db89ce476f6357e317ec4cefe
       tag: v${{package.version}}
 
   - uses: go/build

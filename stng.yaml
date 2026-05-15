@@ -1,6 +1,6 @@
 package:
   name: stng
-  version: "1.3.1"
+  version: "1.3.0"
   epoch: 0
   description: "strings(1) for malware analysts - stronger, better, faster"
   copyright:
@@ -26,7 +26,7 @@ pipeline:
     with:
       repository: https://codeberg.org/atomdrift/stng
       tag: v${{package.version}}
-      expected-commit: 0e13d4ca9f41d37310ed29e01b97acf898c9fc18
+      expected-commit: 94c1d27fa5049eb98adc763fcc076b4b6246b8af
 
   - uses: cargo/build
     with:

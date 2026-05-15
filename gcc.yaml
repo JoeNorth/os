@@ -1,7 +1,7 @@
 package:
   name: gcc
-  version: "16.1.0"
-  epoch: 0
+  version: "15.2.0"
+  epoch: 11
   description: "the GNU compiler collection"
   copyright:
     - license: GPL-3.0-or-later WITH GCC-exception-3.1
@@ -55,7 +55,7 @@ vars:
 pipeline:
   - uses: git-checkout
     with:
-      expected-commit: 6afcc4f6da931eb93f3ab001a0dd9650ea71d1ea
+      expected-commit: 5115c7e447fc07457443df874bf57840e8316d5f
       repository: https://gitlab.com/gnutools/gcc.git
       tag: releases/gcc-${{package.version}}
 
@@ -254,8 +254,8 @@ subpackages:
       provides:
         - gfortran-${{vars.major-version}}=${{package.full-version}}
       runtime:
-        - gcc=${{package.full-version}}
-        - libgfortran=${{package.full-version}}
+        - gcc
+        - libgfortran
     pipeline:
       - runs: |
           _libexecdir=/usr/libexec/gcc/${{host.triplet.gnu}}/${{vars.major-version}}

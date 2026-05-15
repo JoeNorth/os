@@ -1,46 +1,48 @@
 package:
   name: docker-cli-buildx
-  version: "0.34.0"
-  epoch: 0
+  version: "0.33.0"
+  epoch: 7 # GHSA-pmwq-pjrm-6p5r
   description: buildx is a Docker CLI plugin for extended build capabilities with BuildKit.
   copyright:
     - license: Apache-2.0
-  resources:
-    cpu: "3"
-    memory: 7Gi
 
 environment:
   contents:
     packages:
       - bash
-      - build-base
       - busybox
       - ca-certificates-bundle
       - go-1.26
-  # this explicit environment is required else we run into build failures.
-  environment:
-    CGO_ENABLED: 1
 
 pipeline:
   - uses: git-checkout
     with:
       repository: https://github.com/docker/buildx
       tag: v${{package.version}}
-      expected-commit: 3e73561e39785683b31b05eeab1ef645be44ca42
+      expected-commit: f7897eba028583e0071642db3c011e860444f8cf
+
+  - uses: bump
+    with:
+      deps: |-
+        github.com/moby/spdystream@v0.5.1
+        go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetrichttp@v1.43.0
+        go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp@v1.43.0
+        go.opentelemetry.io/otel/sdk@v1.43.0
+        github.com/sigstore/timestamp-authority/v2@v2.0.6
+        github.com/in-toto/in-toto-golang@v0.11.0
 
   - uses: go/build
     with:
-      go-package: go-1.26
       packages: ./cmd/buildx
       install-dir: libexec/docker/cli-plugins/
       output: docker-buildx
       ldflags: -X github.com/docker/buildx/version.Version=${{package.version}}
+      go-package: go-1.26
 
 test:
   pipeline:
     - runs: |
-        set -euo pipefail
-        /usr/libexec/docker/cli-plugins/docker-buildx version | grep -F "${{package.version}}"
+        /usr/libexec/docker/cli-plugins/docker-buildx version | grep ${{package.version}}
 
 update:
   enabled: true

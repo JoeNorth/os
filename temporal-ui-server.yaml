@@ -1,16 +1,16 @@
 package:
   name: temporal-ui-server
   version: "2.49.1"
-  epoch: 2 # go/wolfi-rsc/temporal-ui-server
+  epoch: 1 # GHSA-77fj-vx54-gvh7
   description: Golang Server for https://github.com/temporalio/ui
   copyright:
     - license: MIT
   resources:
-    memory: 6Gi
-    cpu: "2"
+    memory: 4Gi
+    cpu: "5"
   test-resources:
     cpu: "1"
-    memory: 3Gi
+    memory: 1Gi
 
 environment:
   contents:

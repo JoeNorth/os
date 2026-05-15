@@ -1,7 +1,7 @@
 #nolint:valid-pipeline-git-checkout-tag
 package:
   name: cleave
-  version: "1.3.1"
+  version: "1.4.0"
   epoch: 0
   description: "Atomic-level static analysis across binaries and source."
   copyright:
@@ -28,13 +28,13 @@ pipeline:
     with:
       repository: https://codeberg.org/atomdrift/cleave
       tag: v${{package.version}}
-      expected-commit: 6d72b46581684cc65ed6583a62f1adfcecb16464
+      expected-commit: c36812c913c0879b712a6c525ecf4b18663469e8
 
   - uses: git-checkout
     with:
       repository: https://codeberg.org/atomdrift/cleave-traits
       branch: main
-      expected-commit: 0a4d2dcbb5e4d49cc5c77e6568108a068d89fdb7
+      expected-commit: 081286cbbfbeb51ae756579d6780d4a564bac22d
       destination: cleave-traits
 
   - name: Bump lru to 0.16.3 to remediate GHSA-rhfx-m35p-ff5j
