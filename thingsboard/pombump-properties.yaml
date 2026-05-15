@@ -3,20 +3,9 @@ properties:
     value: "7.2.1.202505142326-r"
   - property: mail.version
     value: "2.0.2"
-  # Bumping the netty.version property retags the whole netty-bom and
-  # subsumes individual netty-codec-* pins (GHSA-57rv-r2g8-2cj3 for
-  # netty-codec-http, GHSA-cm33-6792-r9fm for netty-codec-dns). A single
-  # netty-codec-* dep pin conflicts with the BOM and drops that artifact
-  # from the assembled fat jar (Spring Boot startup fails with
-  # NoClassDefFoundError io.netty.handler.codec.http.cookie.Cookie).
   - property: netty.version
     value: "4.1.133.Final"
-  # spring-boot-dependencies (imported by ThingsBoard's pom) manages
-  # org.postgresql:postgresql via the ${postgresql.version} property. A single
-  # dep pin at a different version conflicts with the BOM and drops the
-  # postgresql JDBC driver from the assembled fat jar (Spring Boot startup
-  # fails with "Cannot load driver class: org.postgresql.Driver"). Bumping
-  # the property retags the BOM-managed artifact and keeps the driver in
-  # the build. Remediates GHSA-98qh-xjc8-98pq.
   - property: postgresql.version
     value: "42.7.11"
+  - property: spring-boot.version
+    value: "3.5.14"
