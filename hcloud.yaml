@@ -1,10 +1,16 @@
 package:
   name: hcloud
   version: "1.64.1"
-  epoch: 1 # CVE-2026-32280
+  epoch: 2 # go/wolfi-rsc/hcloud
   description: A command-line interface for Hetzner Cloud
   copyright:
     - license: MIT
+  resources:
+    cpu: "1"
+    memory: 1Gi
+  test-resources:
+    cpu: "1"
+    memory: 1Gi
 
 environment:
   contents:
