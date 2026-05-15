@@ -1,6 +1,6 @@
 package:
   name: nri-mysql
-  version: "1.21.1"
+  version: "1.22.0"
   epoch: 0 # go/wolfi-rsc/nri-mysql
   description: New Relic Infrastructure MySQL Integration
   copyright:
@@ -16,7 +16,7 @@ pipeline:
   - uses: git-checkout
     with:
       repository: https://github.com/newrelic/nri-mysql
-      expected-commit: 964dcabffc16068864f103da83587db1607ba1fe
+      expected-commit: 50b82cd51ddbe9d74beddc18779046921adc57b3
       tag: v${{package.version}}
 
   - uses: go/build

@@ -1,6 +1,6 @@
 package:
-  name: opentofu-1.11
-  version: "1.11.7"
+  name: opentofu-1.12
+  version: "1.12.0"
   epoch: 0 # CVE-2026-33814
   copyright:
     - license: MPL-2.0
@@ -24,7 +24,7 @@ environment:
 pipeline:
   - uses: git-checkout
     with:
-      expected-commit: 398c818dcf617837724e3137e4682062574d1019
+      expected-commit: bdcbf091aab886499ed7718d7f558b428fffce39
       repository: https://github.com/opentofu/opentofu
       tag: v${{package.version}}
 
@@ -115,7 +115,7 @@ update:
     identifier: opentofu/opentofu
     strip-prefix: v
     use-tag: true
-    tag-filter-prefix: v1.11
+    tag-filter-prefix: v1.12
 
 test:
   pipeline:

@@ -1,6 +1,6 @@
 package:
   name: omnibump
-  version: "0.11.3"
+  version: "0.12.0"
   epoch: 0 # CVE-2026-32280
   description: Dependency version bumping tool
   copyright:
@@ -16,7 +16,7 @@ pipeline:
     with:
       repository: https://github.com/chainguard-dev/omnibump
       tag: v${{package.version}}
-      expected-commit: 6ba57225cb9f650ec31922a22cee980fbc287597
+      expected-commit: 1251778a4cfe240f21512e0efea7bdff97eb7fb8
 
   - uses: go/build
     with:

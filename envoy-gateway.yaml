@@ -1,58 +1,54 @@
 package:
   name: envoy-gateway
-  version: "1.7.3"
-  epoch: 0 # GHSA-j88v-2chj-qfwx
+  version: "1.8.0"
+  epoch: 0
   description: Manages Envoy Proxy as a Standalone or Kubernetes-based Application Gateway
   copyright:
     - license: Apache-2.0
+  resources:
+    cpu: "19"
+    memory: 11Gi
+  test-resources:
+    cpu: "30"
+    memory: 9Gi
 
 environment:
   contents:
     packages:
       - btrfs-progs-dev
-      - go-1.25
+      - go-1.26
 
 pipeline:
   - uses: git-checkout
     with:
-      expected-commit: 669e4568e99bc3299164c27422edd5ffb0d82aba
+      expected-commit: f7306b38f1ec3551cdbcb33ea01ad0903f9157fa
       repository: https://github.com/envoyproxy/gateway
       tag: v${{package.version}}
 
   - uses: bump
     with:
       deps: |-
-        filippo.io/edwards25519@v1.1.1
-        github.com/distribution/distribution/v3@v3.1.1
-        github.com/go-jose/go-jose/v4@v4.1.4
-        github.com/jackc/pgx/v5@v5.9.2
-        github.com/klauspost/compress@v1.18.4
-        github.com/moby/spdystream@v0.5.1
-        go.opentelemetry.io/otel@v1.43.0
-        go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetrichttp@v1.43.0
-        go.opentelemetry.io/otel/sdk@v1.43.0
-        go.opentelemetry.io/otel/trace@v1.43.0
-        golang.org/x/net@v0.52.0
-        golang.org/x/sync@v0.20.0
         google.golang.org/grpc@v1.79.3
         helm.sh/helm/v3@v3.20.2
-        k8s.io/api@v0.35.1
-        k8s.io/apiextensions-apiserver@v0.35.1
-        k8s.io/apimachinery@v0.35.1
-        k8s.io/apiserver@v0.35.1
-        k8s.io/cli-runtime@v0.35.1
-        k8s.io/client-go@v0.35.1
-        k8s.io/kubectl@v0.35.1
+        filippo.io/edwards25519@v1.1.1
+        github.com/go-jose/go-jose/v4@v4.1.4
+        go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetrichttp@v1.43.0
+        github.com/distribution/distribution/v3@v3.1.1
+        golang.org/x/sync@v0.20.0
+        github.com/klauspost/compress@v1.18.4
+        go.opentelemetry.io/otel@v1.43.0
+        go.opentelemetry.io/otel/sdk@v1.43.0
+        go.opentelemetry.io/otel/trace@v1.43.0
+        golang.org/x/net@v0.53.0
+        github.com/jackc/pgx/v5@v5.9.2
+      replaces: github.com/moby/spdystream=github.com/moby/spdystream@v0.5.1
       modroot: |-
-        .
-        examples/envoy-ext-auth
-        examples/extension-server
-        examples/grpc-ext-proc
-        examples/simple-extension-server
         tools
+        .
 
   - uses: go/build
     with:
+      go-package: go-1.26
       packages: ./cmd/envoy-gateway
       ldflags: |
         -X github.com/envoyproxy/gateway/internal/cmd/version.envoyGatewayVersion=${{package.version}}
@@ -76,6 +72,7 @@ subpackages:
     pipeline:
       - uses: go/build
         with:
+          go-package: go-1.26
           packages: ./cmd/egctl
           output: egctl
           ldflags: |
@@ -97,15 +94,15 @@ test:
     - uses: test/kwok/cluster
     - runs: |
         git clone --depth=1 -b v${{package.version}} https://github.com/envoyproxy/gateway
-        kubectl apply --server-side -f gateway/charts/gateway-helm/crds/gatewayapi-crds.yaml
-        kubectl apply --server-side=true -f gateway/charts/gateway-helm/crds/generated
+        kubectl apply --server-side -f gateway/charts/gateway-helm/charts/crds/crds/gatewayapi-crds.yaml
+        kubectl apply --server-side=true -f gateway/charts/gateway-helm/charts/crds/crds/generated
     - runs: |
         mkdir -p /certs
         mkcert -key-file /certs/tls.key -cert-file /certs/tls.crt localhost
         # Copy the CA cert and key to /certs
         cp $(mkcert -CAROOT)/rootCA.pem /certs/ca.crt
         cp $(mkcert -CAROOT)/rootCA-key.pem /certs/ca.key
-        envoy-gateway serve > /dev/null 2>&1 &
+        envoy-gateway serve > out.log 2>&1 &
         sleep 3
         curl -s localhost:8081/healthz | grep "ok"
         curl -s localhost:19001/metrics | grep certwatcher_read_certificate_total

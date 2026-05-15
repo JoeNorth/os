@@ -1,7 +1,7 @@
 package:
   name: apache-pulsar-4.2
   version: "4.2.1"
-  epoch: 1
+  epoch: 3 # go/wolfi-rsc/apache-pulsar-4.2
   description: Pulsar is a distributed pub-sub messaging platform with a very flexible messaging model and an intuitive client API.
   copyright:
     - license: Apache-2.0
@@ -33,11 +33,11 @@ package:
       - python-${{vars.python-version}}
       - tzdata
   resources:
-    cpu: "10"
+    cpu: "7"
     memory: 19Gi
   test-resources:
-    cpu: "3"
-    memory: 7Gi
+    cpu: "1"
+    memory: 5Gi
 
 vars:
   # https://github.com/apache/pulsar/blob/master/pip/pip-421.md
