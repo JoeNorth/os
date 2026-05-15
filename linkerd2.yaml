@@ -1,7 +1,7 @@
 package:
   name: linkerd2
-  version: "26.5.1"
-  epoch: 1 # GHSA-82j2-j2ch-gfr8
+  version: "26.5.2"
+  epoch: 0 # GHSA-82j2-j2ch-gfr8
   description: "meta linkerd package"
   copyright:
     - license: Apache-2.0
@@ -29,7 +29,7 @@ environment:
 pipeline:
   - uses: git-checkout
     with:
-      expected-commit: f37b69d2f655cab2403ed387e7e9fd766b21f516
+      expected-commit: 3e3e78729233969c91c693218b672d6c054cb6e0
       repository: https://github.com/linkerd/linkerd2/
       tag: edge-${{package.version}}
 
