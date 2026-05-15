@@ -1,7 +1,7 @@
 package:
   name: metrics-server
   version: "0.8.1"
-  epoch: 5 # GHSA-hfvc-g4fc-pqhx
+  epoch: 6 # GHSA-8rm2-7qqf-34qm
   description: Scalable and efficient source of container resource metrics for Kubernetes built-in autoscaling pipelines.
   copyright:
     - license: Apache-2.0
@@ -33,6 +33,21 @@ pipeline:
         golang.org/x/crypto@v0.45.0
         google.golang.org/grpc@v1.79.3
         go.opentelemetry.io/otel/sdk@v1.43.0
+        github.com/prometheus/prometheus@v0.311.3
+        github.com/prometheus/common@v0.67.5
+        k8s.io/api@v0.35.3
+        k8s.io/apimachinery@v0.35.3
+        k8s.io/apiserver@v0.35.3
+        k8s.io/client-go@v0.35.3
+        k8s.io/klog/v2@v2.140.0
+      tidy: false
+
+  - runs: |
+      # go mod tidy -e proceeds despite the broken go-openapi/testify/v2 test
+      # dependency chain (github.com/go-openapi/testify/v2/assert/yaml does not
+      # exist in any published version). This ensures go.mod is consistent for
+      # the -mod=readonly Makefile build.
+      go mod tidy -e
 
   - runs: |
       # The Makefile sets GOARCH from the ARCH env var which defaults to amd64
