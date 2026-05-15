@@ -1,10 +1,16 @@
 package:
   name: lcms2
   version: "2.19.1"
-  epoch: 0
+  epoch: 1 # go/wolfi-rsc/lcms2
   description: "Color Management Engine"
   copyright:
     - license: MIT AND GPL-3.0-only
+  resources:
+    cpu: "1"
+    memory: 1Gi
+  test-resources:
+    cpu: "1"
+    memory: 1Gi
 
 environment:
   contents:
