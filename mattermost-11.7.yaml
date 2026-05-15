@@ -3,7 +3,7 @@ package:
   # Note the npm version has been pinned to 10.8.3 to avoid the error:
   # "npm error notsup Required: {"node":">=18.10.0","npm":"^9.0.0 || ^10.0.0"}"
   version: "11.7.0"
-  epoch: 1 # CVE-2026-33811
+  epoch: 2 # CVE-2026-33813
   description: "Mattermost is an open source platform for secure collaboration across the entire software development lifecycle."
   copyright:
     - license: MIT
@@ -46,28 +46,17 @@ pipeline:
       tag: v${{package.version}}
       expected-commit: a9e574a82633915f22071f0d7ca2b006f249ec2a
 
-  - uses: go/bump
+  - uses: bump
     with:
       deps: |-
         golang.org/x/net@v0.51.0
-      modroot: api/server
-
-  - uses: go/bump
-    with:
-      deps: |-
         google.golang.org/grpc@v1.79.3
         github.com/russellhaering/goxmldsig@v1.6.0
-        golang.org/x/net@v0.51.0
-      modroot: server/public
-      tidy: false
-
-  - uses: go/bump
-    with:
-      deps: |-
-        google.golang.org/grpc@v1.79.3
-        github.com/russellhaering/goxmldsig@v1.6.0
-        golang.org/x/net@v0.51.0
-      modroot: server
+        golang.org/x/image@v0.39.0
+      modroot: |-
+        api/server
+        server/public
+        server
       tidy: false
 
   - runs: |
