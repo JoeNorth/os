@@ -1,13 +1,13 @@
 package:
   name: uv
   version: "0.11.5"
-  epoch: 2 # GHSA-fp55-jw48-c537
+  epoch: 3 # go/wolfi-rsc/uv
   description: An extremely fast Python package installer and resolver, written in Rust.
   copyright:
     - license: MIT
   resources:
     cpu: "12"
-    memory: 19Gi
+    memory: 24Gi
   test-resources:
     cpu: "1"
     memory: 3Gi
