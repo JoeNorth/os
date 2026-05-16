@@ -1,10 +1,15 @@
 package:
   name: nri-mongodb
   version: "2.14.0"
-  epoch: 0 # CVE-2026-32280
+  epoch: 1 # go/wolfi-rsc/nri-mongodb
   description: New Relic Infrastructure MongoDB Integration
   copyright:
     - license: MIT
+  resources:
+    cpu: "1"
+  test-resources:
+    cpu: "1"
+    memory: 1Gi
 
 pipeline:
   - uses: git-checkout
