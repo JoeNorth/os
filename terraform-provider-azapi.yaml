@@ -1,16 +1,19 @@
 package:
   name: terraform-provider-azapi
   version: "2.9.0"
-  epoch: 3 # CVE-2026-33814
+  epoch: 4 # go/wolfi-rsc/terraform-provider-azapi
   description: Terraform Azure API provider
   copyright:
     - license: MPL-2.0
   resources:
     cpu: "1"
-    memory: 3Gi
+    memory: 5Gi
   dependencies:
     runtime:
       - terraform-local-provider-config
+  test-resources:
+    cpu: "1"
+    memory: 1Gi
 
 pipeline:
   - uses: git-checkout
