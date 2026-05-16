@@ -1,16 +1,16 @@
 package:
   name: py3.14-installer
   version: "1.0.1"
-  epoch: 0
+  epoch: 1 # go/wolfi-rsc/py3.14-installer
   description: A library for installing Python wheels.
   copyright:
     - license: "MIT"
   resources:
     cpu: "1"
-    memory: 5Gi
+    memory: 1Gi
   test-resources:
     cpu: "1"
-    memory: 2Gi
+    memory: 1Gi
 
 vars:
   py-version: "3.14"
