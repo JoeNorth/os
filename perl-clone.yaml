@@ -1,13 +1,16 @@
 package:
   name: perl-clone
   version: "0.50"
-  epoch: 0 # go/wolfi-rsc/perl-clone
+  epoch: 1 # go/wolfi-rsc/perl-clone
   description: Clone perl module
   copyright:
     - license: GPL-1.0-or-later OR Artistic-1.0-Perl
   resources:
-    cpu: "2"
-    memory: 2Gi
+    cpu: "1"
+    memory: 4Gi
+  test-resources:
+    cpu: "1"
+    memory: 1Gi
 
 var-transforms:
   - from: ${{package.version}}
