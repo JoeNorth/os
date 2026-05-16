@@ -1,7 +1,7 @@
 package:
   name: rclone
   version: "1.74.1"
-  epoch: 0 # GHSA-mh2q-q3fh-2475
+  epoch: 1 # GHSA-qw64-3x98-g7q2
   description: rsync for cloud storage - Google Drive, S3, Dropbox, Backblaze B2, One Drive, Swift, Hubic, Wasabi, Google Cloud Storage, Yandex Files
   copyright:
     - license: MIT
@@ -24,9 +24,13 @@ pipeline:
       repository: https://github.com/rclone/rclone
       tag: v${{package.version}}
 
+  - uses: bump
+    with:
+      deps: github.com/go-git/go-billy/v5@v5.9.0
+
   - uses: go/build
     with:
-      go-package: go-1.25
+      go-package: go-1.26
       ldflags: -X github.com/rclone/rclone/fs.Version=${{package.version}}
       packages: .
       output: rclone
@@ -107,4 +111,4 @@ test:
 environment:
   contents:
     packages:
-      - go-1.25
+      - go-1.26
