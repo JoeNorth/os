@@ -1,7 +1,7 @@
 package:
   name: ollama
-  version: "0.23.4"
-  epoch: 1 # CVE-2026-33813
+  version: "0.24.0"
+  epoch: 0 # CVE-2026-33813
   description: Get up and running with Llama 2 and other large language models locally
   copyright:
     - license: MIT
@@ -19,7 +19,7 @@ pipeline:
     with:
       repository: https://github.com/ollama/ollama
       tag: v${{package.version}}
-      expected-commit: 3af1a008e2dd4740874f07968b373db3bc723344
+      expected-commit: c28ddc0a7b273cd286b680a6db0bef0c17bc0ec0
 
   - uses: bump
     with:
