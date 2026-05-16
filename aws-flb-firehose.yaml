@@ -2,13 +2,16 @@
 package:
   name: aws-flb-firehose
   version: "1.7.3"
-  epoch: 1 # CVE-2026-33811
+  epoch: 2 # go/wolfi-rsc/aws-flb-firehose
   description: A Fluent Bit output plugin for Amazon Kinesis Data Firehose
   copyright:
     - license: Apache-2.0
   resources:
     cpu: "1"
     memory: 4Gi
+  test-resources:
+    cpu: "1"
+    memory: 1Gi
 
 environment:
   contents:
