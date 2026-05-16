@@ -1,13 +1,16 @@
 package:
   name: py3-uvicorn
   version: "0.47.0"
-  epoch: 0 # go/wolfi-rsc/py3-uvicorn
+  epoch: 1 # go/wolfi-rsc/py3-uvicorn
   description: Uvicorn is an ASGI web server implementation for Python
   copyright:
     - license: BSD-3-Clause
   resources:
-    cpu: "2"
-    memory: 4Gi
+    cpu: "1"
+    memory: 2Gi
+  test-resources:
+    cpu: "1"
+    memory: 1Gi
 
 vars:
   pypi-package: uvicorn
